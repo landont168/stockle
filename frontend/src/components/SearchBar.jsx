@@ -1,22 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { FaSearch } from 'react-icons/fa'
-import SearchResults from './SearchResults'
+
+// material ui
+import TextField from '@mui/material/TextField'
+import Autocomplete from '@mui/material/Autocomplete'
+import Button from '@mui/material/Button'
+import SendIcon from '@mui/icons-material/Send'
 
 const SearchBar = () => {
   const stocks = useSelector((state) => state.stocks)
-  const [results, setResults] = useState([])
   const [search, setSearch] = useState('')
-
-  // filter results based on search query
-  useEffect(() => {
-    const filteredResults = stocks.filter(
-      (stock) =>
-        search && stock.name.toLowerCase().includes(search.toLowerCase())
-    )
-    console.log(filteredResults)
-    setResults(filteredResults)
-  }, [search, stocks])
 
   const handleSearchSubmit = (e) => {
     e.preventDefault()
@@ -26,21 +19,21 @@ const SearchBar = () => {
   return (
     <div className='search-container'>
       <form className='search-form' onSubmit={handleSearchSubmit}>
-        <div className='search-input'>
-          <FaSearch className='search-icon' />
-          <input
-            type='text'
-            value={search}
-            name='Search'
-            placeholder='Search for a stock'
-            onChange={(e) => setSearch(e.target.value)}
+        <div>
+          <Autocomplete
+            disablePortal
+            id='combo-box-demo'
+            options={stocks}
+            getOptionLabel={(option) => `${option.name} (${option.ticker})`}
+            sx={{ width: 350, marginRight: '5px' }}
+            onChange={(event, newValue) => setSearch(newValue)}
+            renderInput={(params) => <TextField {...params} label='Stock' />}
           />
         </div>
-        <button className='search-button' type='submit'>
+        <Button type='submit' variant='contained' endIcon={<SendIcon />}>
           Guess
-        </button>
+        </Button>
       </form>
-      <SearchResults results={results} setSearch={setSearch} />
     </div>
   )
 }
