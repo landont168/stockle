@@ -10,8 +10,9 @@ const SearchBar = () => {
 
   // filter results based on search query
   useEffect(() => {
-    const filteredResults = stocks.filter((stock) =>
-      stock.name.toLowerCase().includes(search.toLowerCase())
+    const filteredResults = stocks.filter(
+      (stock) =>
+        search && stock.name.toLowerCase().includes(search.toLowerCase())
     )
     console.log(filteredResults)
     setResults(filteredResults)
@@ -39,7 +40,7 @@ const SearchBar = () => {
           Guess
         </button>
       </form>
-      <SearchResults results={results} />
+      <SearchResults results={results} setSearch={setSearch} />
     </div>
   )
 }

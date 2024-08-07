@@ -1,6 +1,6 @@
 import SearchResult from './SearchResult'
 
-const SearchResults = ({ results }) => {
+const SearchResults = ({ results, setSearch }) => {
   return (
     <div className='search-results'>
       {results.map((result, id) => {
@@ -8,7 +8,7 @@ const SearchResults = ({ results }) => {
           <SearchResult
             key={id}
             result={result}
-            handleClick={() => console.log(result)}
+            handleClick={() => setSearch(`${result.name} (${result.ticker})`)}
           />
         )
       })}

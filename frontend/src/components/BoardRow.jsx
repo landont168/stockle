@@ -1,4 +1,4 @@
-const Row = ({ guess }) => {
+const BoardRow = ({ guess }) => {
   return (
     <div className='row'>
       <div>{guess && guess.ticker}</div>
@@ -11,4 +11,4 @@ const Row = ({ guess }) => {
   )
 }
 
-export default Row
+export default BoardRow

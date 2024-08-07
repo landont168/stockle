@@ -64,7 +64,7 @@ body {
 .search-input {
   width: 100%;
   background-color: white;
-  padding: 10px;
+  padding: 9px;
   border: 1px solid #ddd;
   border-radius: 8px;
   display: flex;
@@ -102,8 +102,13 @@ input:focus {
   flex-direction: column;
   border: 1px solid #ddd;
   border-radius: 8px;
+  margin-top: 2px;
   max-height: 250px;
   overflow-y: auto;
+}
+
+.search-results:empty {
+  border: none;
 }
 
 .search-result {

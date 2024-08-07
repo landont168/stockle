@@ -1,4 +1,4 @@
-import Row from './Row'
+import BoardRow from './BoardRow'
 
 const Board = ({ guesses }) => {
   return (
@@ -13,7 +13,7 @@ const Board = ({ guesses }) => {
       </div>
 
       {guesses.map((guess, i) => {
-        return <Row key={i} guess={guess} />
+        return <BoardRow key={i} guess={guess} />
       })}
     </div>
   )
