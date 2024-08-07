@@ -10,3 +10,10 @@ aug 6, 2024
 - finished the python script to scrape tickers from wikipedia, fetch data from yfinance, and store in mongodb using pymongo.
 - gonna first work on the backend api to handle fetching stocks (easy) + user admin/auth
 - will eventually pivot to work on react frontend!
+
+aug 7, 2024
+
+- finished backend aspects (ex. stock, signup, login)
+- db setup looks good - gonna need to eventually look into the formatting (ex. formatting big numbers on frontend side?)
+- not sure if jwt tokens are needed (ex. not storing user info on a resource created) - but maybe for displaying user stats?
+- gonna move onto building the frontend and connecting to backend
