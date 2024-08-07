@@ -3,6 +3,7 @@ const express = require('express')
 const app = express()
 
 // imports
+require('express-async-errors')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const config = require('./utils/config')
@@ -11,7 +12,7 @@ const stocksRouter = require('./controllers/stocks')
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
 
-// connect to db
+// db connection
 mongoose
   .connect(config.MONGODB_URI)
   .then(() => {

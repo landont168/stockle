@@ -6,14 +6,4 @@ stocksRouter.get('/', async (request, response) => {
   response.json(stocks)
 })
 
-stocksRouter.get('/:id', async (request, response) => {
-  const stock = await Stock.findById(request.params.id)
-
-  if (stock) {
-    response.json(stock)
-  } else {
-    response.status(404).end()
-  }
-})
-
 module.exports = stocksRouter
