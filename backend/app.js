@@ -7,8 +7,7 @@ const config = require('./utils/config')
 const middleware = require('./utils/middleware')
 const mongoose = require('mongoose')
 const cors = require('cors')
-
-// controllers
+const stocksRouter = require('./controllers/stocks')
 
 // connect to db
 mongoose
@@ -29,6 +28,7 @@ app.use(middleware.requestLogger)
 app.get('/', (request, response) => {
   response.json({ msg: 'hello world!' })
 })
+app.use('/api/stocks', stocksRouter)
 
 // unknown endpoint
 app.use(middleware.unknownEndpoint)
