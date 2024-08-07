@@ -1,22 +1,36 @@
 import { useState, useEffect } from 'react'
-import stockService from './services/stocks'
 
-import Stocks from './components/Stocks'
+import { useDispatch, useSelector } from 'react-redux'
+import { initializeStocks } from './reducers/stockReducer'
+
+// components
+import Header from './components/Header'
+import Board from './components/Board'
+import SearchBar from './components/SearchBar'
 
 const App = () => {
-  const [stocks, setStocks] = useState([])
+  const dispatch = useDispatch()
+  const stocks = useSelector((state) => state.stocks)
+  const [solution, setSolution] = useState(null)
+  const [guesses, setGuesses] = useState([...Array(6)])
 
+  // fetch stocks from server
   useEffect(() => {
-    stockService.getAll().then((data) => {
-      console.log(data)
-      setStocks(data)
-    })
-  }, [])
+    dispatch(initializeStocks())
+  }, [dispatch])
+
+  // set solution
+  useEffect(() => {
+    const randomSolution = stocks[Math.floor(Math.random() * stocks.length)]
+    setSolution(randomSolution)
+  }, [stocks])
 
   return (
     <div>
-      <h1>App</h1>
-      <Stocks stocks={stocks} />
+      <Header />
+      {solution && <div>solution: {solution.name}</div>}
+      <Board guesses={guesses} />
+      <SearchBar />
     </div>
   )
 }
