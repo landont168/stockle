@@ -1,3 +1,4 @@
+// material ui
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -11,7 +12,13 @@ import LoginIcon from '@mui/icons-material/Login'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 
+// react
+import { useState } from 'react'
+import SignUpForm from './SignUpForm'
+
 const LoginForm = ({ loginUser }) => {
+  const [showSignUpForm, setShowSignUpForm] = useState(false)
+
   const handleSubmit = (e) => {
     e.preventDefault()
     const data = new FormData(e.currentTarget)
@@ -19,6 +26,10 @@ const LoginForm = ({ loginUser }) => {
       username: data.get('username'),
       password: data.get('password'),
     })
+  }
+
+  if (showSignUpForm) {
+    return <SignUpForm setShowSignUpForm={setShowSignUpForm} />
   }
 
   return (
@@ -36,7 +47,7 @@ const LoginForm = ({ loginUser }) => {
           <LoginIcon />
         </Avatar>
         <Typography component='h1' variant='h5'>
-          Login
+          Log in
         </Typography>
         <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
@@ -69,18 +80,42 @@ const LoginForm = ({ loginUser }) => {
             variant='contained'
             sx={{ mt: 3, mb: 2 }}
           >
-            Login
+            Log in
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href='#' variant='body2'>
+              <Button
+                variant='text'
+                onClick={() => console.log('password reset')}
+                sx={{
+                  textTransform: 'none',
+                  padding: 0,
+                  color: 'primary',
+                  '&:hover': {
+                    textDecoration: 'underline',
+                    backgroundColor: 'transparent',
+                  },
+                }}
+              >
                 Forgot password?
-              </Link>
+              </Button>
             </Grid>
             <Grid item>
-              <Link href='#' variant='body2'>
-                {"Don't have an account? Sign Up"}
-              </Link>
+              <Button
+                variant='text'
+                onClick={() => setShowSignUpForm(true)}
+                sx={{
+                  textTransform: 'none',
+                  padding: 0,
+                  color: 'primary',
+                  '&:hover': {
+                    textDecoration: 'underline',
+                    backgroundColor: 'transparent',
+                  },
+                }}
+              >
+                {"Don't have an account? Sign up"}
+              </Button>
             </Grid>
           </Grid>
         </Box>
