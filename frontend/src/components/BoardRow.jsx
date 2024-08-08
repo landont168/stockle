@@ -1,6 +1,7 @@
 import numeral from 'numeral'
 
 const BoardRow = ({ guess, solution }) => {
+  // note: refactor into custom hook??
   const formatNumber = (number) => {
     const formattedNumber = numeral(number).format('0.0a')
     return formattedNumber
@@ -45,11 +46,13 @@ const BoardRow = ({ guess, solution }) => {
 
   return (
     <div className='row'>
-      <div>
+      <div className='row-name'>
         {guess &&
           `${checkGuessString(guess.name, solution.name)} (${guess.ticker})`}
       </div>
-      <div>{guess && `${checkGuessString(guess.sector, solution.sector)}`}</div>
+      <div className='row-sector'>
+        {guess && `${checkGuessString(guess.sector, solution.sector)}`}
+      </div>
       <div>
         {guess && `${checkGuessNumber(guess.marketCap, solution.marketCap)}`}
       </div>

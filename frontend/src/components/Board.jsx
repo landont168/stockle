@@ -4,8 +4,8 @@ const Board = ({ guesses, solution }) => {
   return (
     <div>
       <div className='row'>
-        <h3>Name</h3>
-        <h3>Sector</h3>
+        <h3 className='row-name'>Name</h3>
+        <h3 className='row-sector'>Sector</h3>
         <h3>Market Cap</h3>
         <h3>Share Price</h3>
         <h3>Revenue</h3>

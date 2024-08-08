@@ -1,6 +1,6 @@
 # stockle
 
-aug 6, 2024
+aug 6, 2024 (9 hours)
 
 - after grinding the full stack open course offered by the university of helsinki, i want to test my skills by building some full stack side project
 - for the past few days, i've been working on building "spotfile" (a wordle-parody game based on guessing the artsits). however, i've realized that there's no free api that allows you to fetch artist profiles. there's the spotify web api, but it doesn't provide any interesting info about artists
@@ -11,9 +11,12 @@ aug 6, 2024
 - gonna first work on the backend api to handle fetching stocks (easy) + user admin/auth
 - will eventually pivot to work on react frontend!
 
-aug 7, 2024
+aug 7, 2024 (5 hours)
 
 - finished backend aspects (ex. stock, signup, login)
 - db setup looks good - gonna need to eventually look into the formatting (ex. formatting big numbers on frontend side?)
 - not sure if jwt tokens are needed (ex. not storing user info on a resource created) - but maybe for displaying user stats?
 - gonna move onto building the frontend and connecting to backend
+- update: implemented most of react ui - realized that material ui could be used for the search bar/results :0
+- implemented game logic with the feedback board (formatted numbers) + modal game over ui + setup reducers for guess/history
+- the actual game is pretty much done (ex. game logic functionality and displays)

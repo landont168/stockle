@@ -27,7 +27,7 @@ body {
 
 .row > h3 {
   display: block;
-  width: 250px;
+  width: 225px;
   height: 30px;
   /* fix eventually to remove top margin (8px) */
   margin: 40px 8px 8px 8px;
@@ -35,9 +35,17 @@ body {
   font-size: 1.4em;
 }
 
+.row > h3 > .row-name {
+  width: 425px;
+}
+
+.row > h3 > .row-sector {
+  width: 275px;
+}
+
 .row > div {
   display: block;
-  width: 250px;
+  width: 225px;
   height: 60px;
   border: 2px solid black;
   border-radius: 8px;
@@ -45,6 +53,14 @@ body {
   line-height: 60px;
   font-weight: bold;
   font-size: 1.2em;
+}
+
+.row > .row-name {
+  width: 425px;
+}
+
+.row > .row-sector {
+  width: 275px;
 }
 
 /* search form */
@@ -59,4 +75,40 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.modal-background {
+  background: rgba(255, 255, 255, 0.7);
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.modal-container {
+  max-width: 600px;
+  background: #fff;
+  padding: 15px 30px 40px 30px;
+  border-radius: 8px;
+  margin: 300px auto;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.modal-content {
+  padding: 20px;
+}
+
+.modal-close-button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  margin-right: -15px;
 }
