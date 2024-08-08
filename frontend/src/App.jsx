@@ -2,17 +2,22 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { initializeStocks } from './reducers/stockReducer'
 
+// mu
+
+// services
+import loginService from './services/login'
+
 // components
 import Header from './components/Header'
 import Board from './components/Board'
 import SearchBar from './components/SearchBar'
 import Modal from './components/Modal'
+import LoginForm from './components/LoginForm'
 
 const App = () => {
   const dispatch = useDispatch()
   const stocks = useSelector((state) => state.stocks)
   const guesses = useSelector((state) => state.guesses)
-
   const [solution, setSolution] = useState(null)
 
   // redux?
@@ -20,6 +25,19 @@ const App = () => {
   const [won, setWon] = useState(true)
   const [attempts, setAttempts] = useState(0)
   const [showModal, setShowModal] = useState(false)
+
+  // user login
+  const [user, setUser] = useState(null)
+
+  // restore user on refresh
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedUser')
+    // window.localStorage.removeItem('loggedUser')
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      setUser(user)
+    }
+  }, [])
 
   // fetch stocks from server
   useEffect(() => {
@@ -36,8 +54,6 @@ const App = () => {
   useEffect(() => {
     if (gameOver) {
       console.log('game over')
-      // setTimeout(() => setShowModal(true), 3000)
-
       if (won) {
         console.log('you won')
       } else {
@@ -48,13 +64,37 @@ const App = () => {
     if (attempts === 6) {
       setGameOver(true)
       setWon(false)
-      // setTimeout(() => setShowModal(true), 3000)
     }
   }, [gameOver, attempts, won])
 
+  // login user
+  const loginUser = async (userCredentials) => {
+    try {
+      const user = await loginService.login(userCredentials)
+      window.localStorage.setItem('loggedUser', JSON.stringify(user))
+      console.log('successful!')
+      setUser(user)
+    } catch {
+      console.log('wrong credentials')
+    }
+  }
+
+  const logoutUser = () => {
+    window.localStorage.removeItem('loggedUser')
+    setUser(null)
+  }
+
+  if (user === null) {
+    return (
+      <div>
+        <LoginForm loginUser={loginUser} />
+      </div>
+    )
+  }
+
   return (
-    <div>
-      <Header />
+    <div className='game'>
+      <Header logoutUser={logoutUser} />
       {solution && <div>solution: {solution.name}</div>}
       <Board guesses={guesses} solution={solution} />
       <SearchBar

@@ -19,22 +19,23 @@ const SearchBar = ({
   const stocks = useSelector((state) => state.stocks)
   const guesses = useSelector((state) => state.guesses)
   const [guess, setGuess] = useState('')
-  // const [attempts, setAttempts] = useState(0)
 
   const handleGuess = (e) => {
     e.preventDefault()
 
-    // validate guess
+    // validate guess input
     if (!guess) {
       console.log('please select stock')
       return
     }
+
+    // correct guess
     if (solution.id === guess.id) {
       setGameOver(true)
     }
 
+    // duplicate guess
     if (guesses.some((g) => g && g.id === guess.id)) {
-      // validate guess/attempts
       console.log('already guessed')
       return false
     }

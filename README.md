@@ -20,3 +20,7 @@ aug 7, 2024 (5 hours)
 - update: implemented most of react ui - realized that material ui could be used for the search bar/results :0
 - implemented game logic with the feedback board (formatted numbers) + modal game over ui + setup reducers for guess/history
 - the actual game is pretty much done (ex. game logic functionality and displays)
+
+aug 8, 2024
+
+- goal: implement user auth ui (login/signup) + functionality to display user info in top right navbar (eventually display stats)

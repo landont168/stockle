@@ -1,13 +1,14 @@
-import { RiCloseLargeLine } from 'react-icons/ri'
+import { IconButton } from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close'
 
 const Modal = ({ won, attempts, solution, handleClose }) => {
   return (
     <div className='modal-background'>
-      <div className='modal-container'>
+      <div className='modal-container fade-in'>
         <div className='modal-header'>
-          <button onClick={handleClose} className='modal-close-button'>
-            <RiCloseLargeLine />
-          </button>
+          <IconButton onClick={handleClose} className='modal-close-button'>
+            <CloseIcon />
+          </IconButton>
         </div>
         {won && (
           <div className='modal-content'>
