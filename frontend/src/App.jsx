@@ -10,8 +10,10 @@ import SearchBar from './components/SearchBar'
 const App = () => {
   const dispatch = useDispatch()
   const stocks = useSelector((state) => state.stocks)
+  const guesses = useSelector((state) => state.guesses)
   const [solution, setSolution] = useState(null)
-  const [guesses, setGuesses] = useState([...Array(6)])
+
+  console.log(solution)
 
   // fetch stocks from server
   useEffect(() => {
@@ -28,7 +30,7 @@ const App = () => {
     <div>
       <Header />
       {solution && <div>solution: {solution.name}</div>}
-      <Board guesses={guesses} />
+      <Board guesses={guesses} solution={solution} />
       <SearchBar />
     </div>
   )

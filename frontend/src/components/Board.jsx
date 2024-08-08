@@ -1,6 +1,6 @@
 import BoardRow from './BoardRow'
 
-const Board = ({ guesses }) => {
+const Board = ({ guesses, solution }) => {
   return (
     <div>
       <div className='row'>
@@ -13,7 +13,7 @@ const Board = ({ guesses }) => {
       </div>
 
       {guesses.map((guess, i) => {
-        return <BoardRow key={i} guess={guess} />
+        return <BoardRow key={i} guess={guess} solution={solution} />
       })}
     </div>
   )

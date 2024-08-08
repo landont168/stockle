@@ -1,12 +1,66 @@
-const BoardRow = ({ guess }) => {
+import numeral from 'numeral'
+
+const BoardRow = ({ guess, solution }) => {
+  const formatNumber = (number) => {
+    const formattedNumber = numeral(number).format('0.0a')
+    return formattedNumber
+  }
+
+  const checkGuessNumber = (guessNumber, solNumber) => {
+    const formattedNumber = `$${formatNumber(guessNumber)}`
+    if (guessNumber < solNumber) {
+      return `⬆️ ${formattedNumber}`
+    } else if (guessNumber > solNumber) {
+      return `⬇️ ${formattedNumber}`
+    }
+    return `✅ ${formattedNumber}`
+  }
+
+  const checkGuessString = (guessString, solString) => {
+    if (guessString === solString) {
+      return `✅ ${guessString}`
+    }
+    return `❌ ${guessString}`
+  }
+
+  const checkGuessVolume = (guessVolume, solVolume) => {
+    const formattedNumber = `${formatNumber(guessVolume)}`
+    if (guessVolume < solVolume) {
+      return `⬆️ ${formattedNumber}`
+    } else if (guessVolume > solVolume) {
+      return `⬇️ ${formattedNumber}`
+    }
+    return `✅ ${formattedNumber}`
+  }
+
+  const checkGuessSharePrice = (guessSharePrice, solSharePrice) => {
+    const formattedNumber = `$${numeral(guessSharePrice).format('0.00')}`
+    if (guessSharePrice < solSharePrice) {
+      return `⬆️ ${formattedNumber}`
+    } else if (guessSharePrice > solSharePrice) {
+      return `⬇️ ${formattedNumber}`
+    }
+    return `✅ ${formattedNumber}`
+  }
+
   return (
     <div className='row'>
-      <div>{guess && guess.ticker}</div>
-      <div>{guess && guess.sector}</div>
-      <div>{guess && guess.marketCap}</div>
-      <div>{guess && guess.sharePrice}</div>
-      <div>{guess && guess.revenue}</div>
-      <div>{guess && guess.volume}</div>
+      <div>
+        {guess &&
+          `${checkGuessString(guess.name, solution.name)} (${guess.ticker})`}
+      </div>
+      <div>{guess && `${checkGuessString(guess.sector, solution.sector)}`}</div>
+      <div>
+        {guess && `${checkGuessNumber(guess.marketCap, solution.marketCap)}`}
+      </div>
+      <div>
+        {guess &&
+          `${checkGuessSharePrice(guess.sharePrice, solution.sharePrice)}`}
+      </div>
+      <div>
+        {guess && `${checkGuessNumber(guess.revenue, solution.revenue)}`}
+      </div>
+      <div>{guess && `${checkGuessVolume(guess.volume, solution.volume)}`}</div>
     </div>
   )
 }

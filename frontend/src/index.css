@@ -27,23 +27,24 @@ body {
 
 .row > h3 {
   display: block;
-  width: 200px;
+  width: 250px;
   height: 30px;
   /* fix eventually to remove top margin (8px) */
   margin: 40px 8px 8px 8px;
   padding: 2px;
+  font-size: 1.4em;
 }
 
 .row > div {
   display: block;
-  width: 200px;
+  width: 250px;
   height: 60px;
   border: 2px solid black;
   border-radius: 8px;
   margin: 8px;
   line-height: 60px;
-  /* font-weight: bold;
-  font-size: 1em; */
+  font-weight: bold;
+  font-size: 1.2em;
 }
 
 /* search form */

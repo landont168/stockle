@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { addGuess } from '../reducers/guessReducer'
 
 // material ui
 import TextField from '@mui/material/TextField'
@@ -8,17 +9,20 @@ import Button from '@mui/material/Button'
 import SendIcon from '@mui/icons-material/Send'
 
 const SearchBar = () => {
+  const dispatch = useDispatch()
   const stocks = useSelector((state) => state.stocks)
-  const [search, setSearch] = useState('')
+  const [guess, setGuess] = useState('')
+  const [attempts, setAttempts] = useState(0)
 
-  const handleSearchSubmit = (e) => {
+  const handleGuess = (e) => {
     e.preventDefault()
-    console.log(search)
+    dispatch(addGuess({ guess, attempts }))
+    setAttempts(attempts + 1)
   }
 
   return (
     <div className='search-container'>
-      <form className='search-form' onSubmit={handleSearchSubmit}>
+      <form className='search-form' onSubmit={handleGuess}>
         <div>
           <Autocomplete
             disablePortal
@@ -26,7 +30,7 @@ const SearchBar = () => {
             options={stocks}
             getOptionLabel={(option) => `${option.name} (${option.ticker})`}
             sx={{ width: 350, marginRight: '5px' }}
-            onChange={(event, newValue) => setSearch(newValue)}
+            onChange={(event, newValue) => setGuess(newValue)}
             renderInput={(params) => <TextField {...params} label='Stock' />}
           />
         </div>
