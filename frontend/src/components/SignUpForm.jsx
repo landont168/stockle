@@ -43,10 +43,10 @@ const SignUp = ({ setShowSignUpForm }) => {
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+        <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component='h1' variant='h5'>
+        <Typography component='h1' variant='h5' sx={{ fontWeight: 'bold' }}>
           Sign up to Stockle
         </Typography>
         <Box component='form' noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>

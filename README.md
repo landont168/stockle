@@ -30,3 +30,7 @@ aug 8, 2024 (6 hours)
 - couldnt find free company logo api ;(
 - one thing i've realized about building a full stack app is that it can get so messy - i feel like theres just so many things being passed as props (ex. to set states - and it can get crazy very quickly for a very basic ui component like toggling the display between the login/signup form)
 - update #3: fixed stock schema to refactor the history info into its separate endpoint - fetch history data for only the solution stock instead of storing all the history in the stocks store
+
+aug 9, 2024
+
+- goal: add statistics modal with stats (ex. games played, win %, current streak, max streak, guess distribution) + leaderboard modal (ex. top 5 most wins)

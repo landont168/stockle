@@ -20,12 +20,11 @@ body {
 .header-container {
   position: relative;
   width: 100%;
-  padding: 20px;
+  padding: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   border-bottom: 1px solid #eee;
-  margin-bottom: 30px;
 }
 
 .title {
@@ -59,9 +58,9 @@ body {
   width: 225px;
   height: 30px;
   /* fix eventually to remove top margin (8px) */
-  margin: 40px 8px 8px 8px;
+  margin: 20px 8px 0px 8px;
   padding: 2px;
-  font-size: 1.4em;
+  font-size: 1.2em;
 }
 
 .row > h3 > .row-name {
@@ -97,7 +96,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 25px;
+  padding: 25px 0 50px 0;
 }
 
 .search-form {

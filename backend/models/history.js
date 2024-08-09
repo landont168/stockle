@@ -3,14 +3,11 @@ const mongoose = require('mongoose')
 const historiesSchema = new mongoose.Schema({
   stockHistory: [
     {
+      _id: false,
       date: { type: String, required: true },
       price: { type: Number, required: true },
     },
   ],
-  // stockId: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: 'Stock',
-  // },
 })
 
 historiesSchema.set('toJSON', {

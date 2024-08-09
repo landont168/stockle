@@ -11,7 +11,6 @@ import {
   Filler,
 } from 'chart.js'
 
-// Register necessary Chart.js components
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -24,28 +23,37 @@ ChartJS.register(
 )
 
 const StockChart = ({ data }) => {
-  // Extract dates and prices from the data
+  // extract dates and prices
   const labels = data.map((item) => item.date)
   const prices = data.map((item) => item.price)
 
-  // Chart.js data structure
+  // determine chart color based on price change
+  const priceChange = prices[prices.length - 1] - prices[0]
+  const borderColor = priceChange > 0 ? '#4CAF50' : '#EF5350'
+  const backgroundColor =
+    priceChange > 0 ? 'rgba(76, 175, 80, 0.2)' : 'rgba(239, 83, 80, 0.2)'
+
+  // chart.js data structure
   const chartData = {
     labels: labels,
     datasets: [
       {
         label: 'Price',
         data: prices,
-        borderColor: '#42A5F5',
-        backgroundColor: 'rgba(66, 165, 245, 0.2)',
+        borderColor: borderColor,
+        backgroundColor: backgroundColor,
+        hoverBackgroundColor: borderColor,
         pointRadius: 1,
-        pointHoverRadius: 8,
+        pointHoverRadius: 4,
         fill: true,
+        tension: 0.1,
       },
     ],
   }
 
   // chart.js options
   const options = {
+    type: 'line',
     responsive: true,
     plugins: {
       legend: {
@@ -79,6 +87,33 @@ const StockChart = ({ data }) => {
         title: {
           display: true,
           text: 'Price (USD)',
+        },
+      },
+    },
+    animations: {
+      tension: {
+        duration: 300,
+        easing: 'easeInOutQuad',
+        from: 0.5,
+        to: 0,
+        loop: false,
+      },
+      x: {
+        type: 'number',
+        easing: 'linear',
+        duration: 500,
+        from: NaN,
+        delay(ctx) {
+          return ctx.index * 10
+        },
+      },
+      y: {
+        type: 'number',
+        easing: 'linear',
+        duration: 500,
+        from: (ctx) => ctx.chart.scales.y.getPixelForValue(100),
+        delay(ctx) {
+          return ctx.index * 10
         },
       },
     },

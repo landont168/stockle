@@ -15,14 +15,14 @@ import LoginForm from './components/LoginForm'
 import StockChart from './components/StockChart'
 
 const App = () => {
+  // redux store
   const dispatch = useDispatch()
   const stocks = useSelector((state) => state.stocks)
   const guesses = useSelector((state) => state.guesses)
+
+  // component states
   const [solution, setSolution] = useState(null)
   const [solutionHistory, setSolutionHistory] = useState(null)
-  // console.log(solution)
-
-  // redux?
   const [gameOver, setGameOver] = useState(false)
   const [won, setWon] = useState(true)
   const [attempts, setAttempts] = useState(0)
@@ -54,23 +54,17 @@ const App = () => {
 
   // fetch history for solution
   useEffect(() => {
-    if (solution) {
-      historyService.getHistory(solution.historyId).then((historyObject) => {
-        console.log(historyObject.stockHistory)
-        setSolutionHistory(historyObject.stockHistory)
-      })
-    }
+    if (!solution) return
+    historyService.getHistory(solution.historyId).then((historyObject) => {
+      console.log(historyObject.stockHistory)
+      setSolutionHistory(historyObject.stockHistory)
+    })
   }, [solution])
 
   // game over
   useEffect(() => {
     if (gameOver) {
       console.log('game over')
-      if (won) {
-        console.log('you won')
-      } else {
-        console.log('you lost')
-      }
       setTimeout(() => setShowModal(true), 3000)
     }
     if (attempts === 6) {
@@ -79,7 +73,7 @@ const App = () => {
     }
   }, [gameOver, attempts, won])
 
-  // login user
+  // login/logout user
   const loginUser = async (userCredentials) => {
     try {
       const user = await loginService.login(userCredentials)
@@ -97,11 +91,7 @@ const App = () => {
   }
 
   if (user === null) {
-    return (
-      <div>
-        <LoginForm loginUser={loginUser} />
-      </div>
-    )
+    return <LoginForm loginUser={loginUser} />
   }
 
   return (
