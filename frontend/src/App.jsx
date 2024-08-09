@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { initializeStocks } from './reducers/stockReducer'
 
-// mu
-
 // services
 import loginService from './services/login'
 
@@ -13,12 +11,14 @@ import Board from './components/Board'
 import SearchBar from './components/SearchBar'
 import Modal from './components/Modal'
 import LoginForm from './components/LoginForm'
+import StockChart from './components/StockChart'
 
 const App = () => {
   const dispatch = useDispatch()
   const stocks = useSelector((state) => state.stocks)
   const guesses = useSelector((state) => state.guesses)
   const [solution, setSolution] = useState(null)
+  console.log(solution)
 
   // redux?
   const [gameOver, setGameOver] = useState(false)
@@ -96,6 +96,7 @@ const App = () => {
     <div className='game'>
       <Header logoutUser={logoutUser} />
       {solution && <div>solution: {solution.name}</div>}
+      {solution && <StockChart data={solution.history} />}
       <Board guesses={guesses} solution={solution} />
       <SearchBar
         solution={solution}

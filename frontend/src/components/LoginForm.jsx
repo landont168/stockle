@@ -47,7 +47,7 @@ const LoginForm = ({ loginUser }) => {
           <LoginIcon />
         </Avatar>
         <Typography component='h1' variant='h5'>
-          Log in
+          Log in to Stockle
         </Typography>
         <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
@@ -83,23 +83,7 @@ const LoginForm = ({ loginUser }) => {
             Log in
           </Button>
           <Grid container>
-            <Grid item xs>
-              <Button
-                variant='text'
-                onClick={() => console.log('password reset')}
-                sx={{
-                  textTransform: 'none',
-                  padding: 0,
-                  color: 'primary',
-                  '&:hover': {
-                    textDecoration: 'underline',
-                    backgroundColor: 'transparent',
-                  },
-                }}
-              >
-                Forgot password?
-              </Button>
-            </Grid>
+            <Grid item xs></Grid>
             <Grid item>
               <Button
                 variant='text'

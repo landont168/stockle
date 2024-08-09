@@ -23,6 +23,9 @@ def get_stock_data(df):
     info = ticker_obj.info
 
     try:
+      hist = ticker_obj.history(start="2024-01-01")
+      stock_hist = [{'date': date.strftime('%Y-%m-%d'), 'price': round(float(data['Close']), 2)} for date, data in hist.iterrows()]
+    
       stock_info = {
         'name': row['Security'],
         'ticker': info['symbol'],
@@ -31,10 +34,11 @@ def get_stock_data(df):
         'sharePrice': info['currentPrice'],
         'revenue': info['totalRevenue'],
         'volume': info['averageVolume'],
+        'history': stock_hist
       }
       stock_data.append(stock_info)
-    except:
-      print(f"Error: {ticker}")
+    except Exception as e:
+      print(f"Error: {e}")
 
   return stock_data
 

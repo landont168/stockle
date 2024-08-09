@@ -4,15 +4,16 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: 'Roboto', verdana;
 }
 
 body {
   font-size: 1em;
-  font-family: 'Roboto', verdana;
 }
 
 .game {
   text-align: center;
+  width: 100%;
 }
 
 /* header */
@@ -37,6 +38,14 @@ body {
   margin-left: auto;
   display: flex;
   gap: 10px;
+}
+
+/* stock chart */
+.stock-chart {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  margin: auto;
 }
 
 /* board */
