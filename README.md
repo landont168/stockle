@@ -21,10 +21,11 @@ aug 7, 2024 (5 hours)
 - implemented game logic with the feedback board (formatted numbers) + modal game over ui + setup reducers for guess/history
 - the actual game is pretty much done (ex. game logic functionality and displays)
 
-aug 8, 2024 (4 hours)
+aug 8, 2024 (6 hours)
 
 - goal: implement user auth ui (login/signup) + functionality to display user info in top right navbar (eventually display stats)
-- update: finished implementing user auth ui with the help of material ui for the login/signup forms + navbar with icons
-- next steps: stock chart with chartjs (need to refetch data in python script + change schema model?) + clean up ui + setup user in redux?
+- update #1: finished implementing user auth ui with the help of material ui for the login/signup forms + navbar with icons
+- update #2: rewrote python script to fetch 2024 stock history (daily date/price) and implemented stock chart with chartjs
+- next steps: fix history schema design (redux store for stocks stores the history of non-solution stocks - need to redesign with history route with stock id?) + need to fix design (avoid prop drilling and frontend mess)
+- couldnt find free company logo api ;(
 - one thing i've realized about building a full stack app is that it can get so messy - i feel like theres just so many things being passed as props (ex. to set states - and it can get crazy very quickly for a very basic ui component like toggling the display between the login/signup form)
-todo: find free api to fetch company logos + use chartjs to plot stock data for 2024?
