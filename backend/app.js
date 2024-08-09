@@ -11,6 +11,7 @@ const middleware = require('./utils/middleware')
 const stocksRouter = require('./controllers/stocks')
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
+const historyRouter = require('./controllers/history')
 
 // db connection
 mongoose
@@ -31,6 +32,7 @@ app.use(middleware.requestLogger)
 app.use('/api/stocks', stocksRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
+app.use('/api/history', historyRouter)
 
 // error handling middleware
 app.use(middleware.unknownEndpoint)

@@ -4,9 +4,17 @@ import pymongo
 import os
 from dotenv import load_dotenv
 
+# source venv/bin/activate
+
+# setup databases
 load_dotenv()
 MONGODB_URI = os.getenv('MONGODB_URI')
-
+client = pymongo.MongoClient(MONGODB_URI)
+db = client['stockle']
+stocks_db = db['stocks']
+history_db = db['histories']
+stocks_db.drop()
+history_db.drop()
 
 def get_tickers():
   wiki_url = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
@@ -23,9 +31,6 @@ def get_stock_data(df):
     info = ticker_obj.info
 
     try:
-      hist = ticker_obj.history(start="2024-01-01")
-      stock_hist = [{'date': date.strftime('%Y-%m-%d'), 'price': round(float(data['Close']), 2)} for date, data in hist.iterrows()]
-    
       stock_info = {
         'name': row['Security'],
         'ticker': info['symbol'],
@@ -34,8 +39,13 @@ def get_stock_data(df):
         'sharePrice': info['currentPrice'],
         'revenue': info['totalRevenue'],
         'volume': info['averageVolume'],
-        'history': stock_hist
       }
+
+      # get history
+      hist = ticker_obj.history(start="2024-01-01")
+      stock_hist = [{'date': date.strftime('%Y-%m-%d'), 'price': round(float(data['Close']), 2)} for date, data in hist.iterrows()]
+      history_id = history_db.insert_one({'stockHistory': stock_hist}).inserted_id
+      stock_info['historyId'] = history_id
       stock_data.append(stock_info)
     except Exception as e:
       print(f"Error: {e}")
@@ -44,15 +54,10 @@ def get_stock_data(df):
 
 
 def main():
-  # connect to db
-  client = pymongo.MongoClient(MONGODB_URI)
-  db = client['stockle']['stocks']
-  db.drop()
-
   # insert stock data into db
   tickers = get_tickers()
   stock_data = get_stock_data(tickers)
-  db.insert_many(stock_data)
+  stocks_db.insert_many(stock_data)
 
 
 if __name__ == "__main__":

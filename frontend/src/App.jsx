@@ -4,6 +4,7 @@ import { initializeStocks } from './reducers/stockReducer'
 
 // services
 import loginService from './services/login'
+import historyService from './services/history'
 
 // components
 import Header from './components/Header'
@@ -18,7 +19,8 @@ const App = () => {
   const stocks = useSelector((state) => state.stocks)
   const guesses = useSelector((state) => state.guesses)
   const [solution, setSolution] = useState(null)
-  console.log(solution)
+  const [solutionHistory, setSolutionHistory] = useState(null)
+  // console.log(solution)
 
   // redux?
   const [gameOver, setGameOver] = useState(false)
@@ -49,6 +51,16 @@ const App = () => {
     const randomSolution = stocks[Math.floor(Math.random() * stocks.length)]
     setSolution(randomSolution)
   }, [stocks])
+
+  // fetch history for solution
+  useEffect(() => {
+    if (solution) {
+      historyService.getHistory(solution.historyId).then((historyObject) => {
+        console.log(historyObject.stockHistory)
+        setSolutionHistory(historyObject.stockHistory)
+      })
+    }
+  }, [solution])
 
   // game over
   useEffect(() => {
@@ -96,7 +108,7 @@ const App = () => {
     <div className='game'>
       <Header logoutUser={logoutUser} />
       {solution && <div>solution: {solution.name}</div>}
-      {solution && <StockChart data={solution.history} />}
+      {solution && solutionHistory && <StockChart data={solutionHistory} />}
       <Board guesses={guesses} solution={solution} />
       <SearchBar
         solution={solution}

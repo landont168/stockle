@@ -29,6 +29,10 @@ const stockSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  historyId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'History',
+  },
 })
 
 stockSchema.set('toJSON', {
