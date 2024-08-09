@@ -11,6 +11,8 @@ import {
   Filler,
 } from 'chart.js'
 
+import { useEffect, useRef } from 'react'
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -23,6 +25,8 @@ ChartJS.register(
 )
 
 const StockChart = ({ data }) => {
+  const animate = useRef(true)
+
   // extract dates and prices
   const labels = data.map((item) => item.date)
   const prices = data.map((item) => item.price)
@@ -93,7 +97,7 @@ const StockChart = ({ data }) => {
     animations: {
       tension: {
         duration: 300,
-        easing: 'easeInOutQuad',
+        easing: 'easeOutQuad',
         from: 0.5,
         to: 0,
         loop: false,
@@ -116,12 +120,24 @@ const StockChart = ({ data }) => {
           return ctx.index * 10
         },
       },
+      onComplete: () => {
+        console.log('animation complete')
+      },
     },
   }
 
+  const chartOptions = {
+    ...options,
+    animations: animate.current ? options.animations : false, // Disable animation on updates
+  }
+
+  useEffect(() => {
+    animate.current = false
+  }, [])
+
   return (
     <div className='stock-chart'>
-      <Line data={chartData} options={options} />
+      <Line data={chartData} options={chartOptions} />
     </div>
   )
 }
