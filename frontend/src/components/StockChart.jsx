@@ -26,6 +26,9 @@ ChartJS.register(
 
 const StockChart = ({ data }) => {
   const animate = useRef(true)
+  useEffect(() => {
+    animate.current = false
+  }, [])
 
   // extract dates and prices
   const labels = data.map((item) => item.date)
@@ -67,7 +70,7 @@ const StockChart = ({ data }) => {
         mode: 'index',
         intersect: false,
         callbacks: {
-          label: function (context) {
+          label: (context) => {
             return `${context.dataset.label}: $${context.raw}`
           },
         },
@@ -94,6 +97,7 @@ const StockChart = ({ data }) => {
         },
       },
     },
+    // chart animation
     animations: {
       tension: {
         duration: 300,
@@ -120,9 +124,6 @@ const StockChart = ({ data }) => {
           return ctx.index * 10
         },
       },
-      onComplete: () => {
-        console.log('animation complete')
-      },
     },
   }
 
@@ -130,10 +131,6 @@ const StockChart = ({ data }) => {
     ...options,
     animations: animate.current ? options.animations : false, // Disable animation on updates
   }
-
-  useEffect(() => {
-    animate.current = false
-  }, [])
 
   return (
     <div className='stock-chart'>

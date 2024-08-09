@@ -34,7 +34,6 @@ const App = () => {
   // restore user on refresh
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser')
-    // window.localStorage.removeItem('loggedUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
@@ -67,7 +66,7 @@ const App = () => {
       console.log('game over')
       setTimeout(() => setShowModal(true), 3000)
     }
-    if (attempts === 6) {
+    if (attempts > 6) {
       setGameOver(true)
       setWon(false)
     }
@@ -98,7 +97,7 @@ const App = () => {
     <div className='game'>
       <Header logoutUser={logoutUser} />
       {solution && <div>solution: {solution.name}</div>}
-      {solution && solutionHistory && <StockChart data={solutionHistory} />}
+      {solutionHistory && <StockChart data={solutionHistory} />}
       <Board guesses={guesses} solution={solution} />
       <SearchBar
         solution={solution}

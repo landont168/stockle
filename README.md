@@ -33,4 +33,19 @@ aug 8, 2024 (6 hours)
 
 aug 9, 2024
 
-- goal: add statistics modal with stats (ex. games played, win %, current streak, max streak, guess distribution) + leaderboard modal (ex. top 5 most wins)
+- plan: setup statistics modal with stats (ex. games played, win %, current streak, max streak, guess distribution) + leaderboard modal (ex. top 5 most wins)
+- update #1 (3 hours): spent a bit too long on the chart animation + preventing chart annomation on app re-render (shoutout to gpt + useref tho) - the chart is looking pretty cool ngl
+- ok not sure why but im getting some reduce typeerror randomly (sometimes) so gonna need to eventually look more into it (smth to do with tooltip in the stockchart component?)
+
+
+
+challenges:
+- trying to find free apis to use (pivoted from spotifle idea with artists to stocks since yfinance makes life easier)
+- frontend design (css) - using material ui + chartjs to help make app look cooler/cleaner/easier for me to focus on actual react design (hooks, props)
+- refactoring stock history into separete endpoint - use history id stored in stock resource to fetch at /api/history:id instead of storing huge amounts of data into stock redux store
+- making chartjs work (hover design, render animation, disable animation upon updating state and re-rendering app)
+
+todo:
+- implement statistics modal (ex. display games played, win %, win streak, highest win streak, guess distribution)
+- implement leaderboard (ex. display usernames with most game wins)
+- eventually make app responsive with css? (dont wanna do this tbh)
