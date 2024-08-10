@@ -1,3 +1,8 @@
+// material ui (dark mode!)
+import { ThemeProvider, createTheme } from '@mui/material/styles'
+import CssBaseline from '@mui/material/CssBaseline'
+
+// redux
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { initializeStocks } from './reducers/stockReducer'
@@ -27,6 +32,7 @@ const App = () => {
   const [won, setWon] = useState(true)
   const [attempts, setAttempts] = useState(0)
   const [showModal, setShowModal] = useState(false)
+  const [darkMode, setDarkMode] = useState(false)
 
   // user login
   const [user, setUser] = useState(null)
@@ -90,31 +96,53 @@ const App = () => {
     setUser(null)
   }
 
+  // toggle dark mode
+  const toggleTheme = () => {
+    setDarkMode(!darkMode)
+  }
+  const theme = createTheme({
+    palette: {
+      mode: darkMode ? 'dark' : 'light',
+    },
+  })
+
   if (user === null) {
-    return <LoginForm loginUser={loginUser} />
+    return (
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <LoginForm loginUser={loginUser} />
+      </ThemeProvider>
+    )
   }
 
   return (
-    <div className='game'>
-      <Header logoutUser={logoutUser} />
-      {solutionHistory && <StockChart data={solutionHistory} />}
-      <Board guesses={guesses} solution={solution} />
-      <SearchBar
-        solution={solution}
-        gameOver={gameOver}
-        setGameOver={setGameOver}
-        attempts={attempts}
-        setAttempts={setAttempts}
-      />
-      {showModal && (
-        <Modal
-          won={won}
-          attempts={attempts}
-          solution={solution}
-          handleClose={() => setShowModal(false)}
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <div className='game'>
+        <Header
+          logoutUser={logoutUser}
+          darkMode={darkMode}
+          toggleTheme={toggleTheme}
         />
-      )}
-    </div>
+        {solutionHistory && <StockChart data={solutionHistory} />}
+        <Board guesses={guesses} solution={solution} />
+        <SearchBar
+          solution={solution}
+          gameOver={gameOver}
+          setGameOver={setGameOver}
+          attempts={attempts}
+          setAttempts={setAttempts}
+        />
+        {showModal && (
+          <Modal
+            won={won}
+            attempts={attempts}
+            solution={solution}
+            handleClose={() => setShowModal(false)}
+          />
+        )}
+      </div>
+    </ThemeProvider>
   )
 }
 

@@ -31,21 +31,22 @@ aug 8, 2024 (6 hours)
 - one thing i've realized about building a full stack app is that it can get so messy - i feel like theres just so many things being passed as props (ex. to set states - and it can get crazy very quickly for a very basic ui component like toggling the display between the login/signup form)
 - update #3: fixed stock schema to refactor the history info into its separate endpoint - fetch history data for only the solution stock instead of storing all the history in the stocks store
 
-aug 9, 2024
+aug 9, 2024 (5 hours)
 
 - plan: setup statistics modal with stats (ex. games played, win %, current streak, max streak, guess distribution) + leaderboard modal (ex. top 5 most wins)
 - update #1 (3 hours): spent a bit too long on the chart animation + preventing chart annomation on app re-render (shoutout to gpt + useref tho) - the chart is looking pretty cool ngl
 - ok not sure why but im getting some reduce typeerror randomly (sometimes) so gonna need to eventually look more into it (smth to do with tooltip in the stockchart component?)
+- update #2 (2 hours): redesigned game board + header with cleaner mui icons + created togglable dark mode with mui. mui is acc super convenient
 
+### challenges:
 
-
-challenges:
 - trying to find free apis to use (pivoted from spotifle idea with artists to stocks since yfinance makes life easier)
 - frontend design (css) - using material ui + chartjs to help make app look cooler/cleaner/easier for me to focus on actual react design (hooks, props)
 - refactoring stock history into separete endpoint - use history id stored in stock resource to fetch at /api/history:id instead of storing huge amounts of data into stock redux store
 - making chartjs work (hover design, render animation, disable animation upon updating state and re-rendering app)
 
-todo:
+### todo:
+
 - implement statistics modal (ex. display games played, win %, win streak, highest win streak, guess distribution)
 - implement leaderboard (ex. display usernames with most game wins)
 - eventually make app responsive with css? (dont wanna do this tbh)
