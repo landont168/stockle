@@ -36,7 +36,7 @@ aug 9, 2024 (6 hours)
 - plan: setup statistics modal with stats (ex. games played, win %, current streak, max streak, guess distribution) + leaderboard modal (ex. top 5 most wins)
 - update #1 (3 hours): spent a bit too long on the chart animation + preventing chart annomation on app re-render (shoutout to gpt + useref tho) - the chart is looking pretty cool ngl
 - ok not sure why but im getting some reduce typeerror randomly (sometimes) so gonna need to eventually look more into it (smth to do with tooltip in the stockchart component?)
-- update #2 (3 hours): redesigned game board + header with cleaner mui icons + created togglable dark mode with mui. mui is acc super convenient + refactored modal
+- update #2 (3 hours): redesigned game board + header with cleaner mui icons + created togglable dark mode with mui. mui is acc super convenient + refactored modal + fixed modal theme color to match light/dark mode
 
 aug 10, 2024
 

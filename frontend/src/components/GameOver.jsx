@@ -1,8 +1,8 @@
-import Modal from './Modal'
+import ModalTemplate from './ModalTemplate'
 
 const GameOver = ({ won, attempts, solution, handleClose }) => {
   return (
-    <Modal handleClose={handleClose}>
+    <ModalTemplate handleClose={handleClose}>
       {won && (
         <div className='modal-content'>
           <h1>Congratulations, you won!</h1>
@@ -17,7 +17,7 @@ const GameOver = ({ won, attempts, solution, handleClose }) => {
           <p>Better luck next time!</p>
         </div>
       )}
-    </Modal>
+    </ModalTemplate>
   )
 }
 

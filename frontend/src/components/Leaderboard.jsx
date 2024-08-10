@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { initializeUsers } from '../reducers/usersReducer'
 import { useEffect } from 'react'
-import Modal from './Modal'
+import Modal from './ModalTemplate'
 
 const Leaderboard = ({ setShowLeaderboard }) => {
   const dispatch = useDispatch()

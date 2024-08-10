@@ -2,6 +2,24 @@
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 
+const lightTheme = createTheme({
+  palette: {
+    mode: 'light',
+    background: {
+      modal: '#ffffff', // Light mode background
+    },
+  },
+})
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+    background: {
+      modal: '#1e1e1e', // Dark mode background
+    },
+  },
+})
+
 // redux
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -100,11 +118,12 @@ const App = () => {
   const toggleTheme = () => {
     setDarkMode(!darkMode)
   }
-  const theme = createTheme({
-    palette: {
-      mode: darkMode ? 'dark' : 'light',
-    },
-  })
+  // const theme = createTheme({
+  //   palette: {
+  //     mode: darkMode ? 'dark' : 'light',
+  //   },
+  // })
+  const theme = darkMode ? darkTheme : lightTheme
 
   if (user === null) {
     return (

@@ -1,12 +1,12 @@
-import Modal from './Modal'
+import ModalTemplate from './ModalTemplate'
 
 const Statistics = ({ user, setShowStats }) => {
   return (
-    <Modal handleClose={() => setShowStats(false)}>
+    <ModalTemplate handleClose={() => setShowStats(false)}>
       <h1>Statistics</h1>
       <div>Username: {user.username}</div>
       <div>Name: {user.name}</div>
-    </Modal>
+    </ModalTemplate>
   )
 }
 
