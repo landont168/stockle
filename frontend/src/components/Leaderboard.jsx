@@ -1,10 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
-
 import { initializeUsers } from '../reducers/usersReducer'
-
-import { IconButton } from '@mui/material'
-import CloseIcon from '@mui/icons-material/Close'
+import { useEffect } from 'react'
+import Modal from './Modal'
 
 const Leaderboard = ({ setShowLeaderboard }) => {
   const dispatch = useDispatch()
@@ -17,24 +14,14 @@ const Leaderboard = ({ setShowLeaderboard }) => {
   console.log(users)
 
   return (
-    <div className='modal-background'>
-      <div className='modal-container'>
-        <div className='modal-header'>
-          <IconButton
-            onClick={() => setShowLeaderboard(false)}
-            className='modal-close-button'
-          >
-            <CloseIcon />
-          </IconButton>
-        </div>
-        <div className='modal-leaderboard'>
-          <h1>Leaderboard</h1>
-          {users.map((user) => (
-            <p key={user.username}>{user.username}</p>
-          ))}
-        </div>
+    <Modal handleClose={() => setShowLeaderboard(false)}>
+      <div className='modal-leaderboard'>
+        <h1>Leaderboard</h1>
+        {users.map((user) => (
+          <p key={user.username}>{user.username}</p>
+        ))}
       </div>
-    </div>
+    </Modal>
   )
 }
 

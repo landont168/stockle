@@ -15,7 +15,7 @@ import historyService from './services/history'
 import Header from './components/Header'
 import Board from './components/Board'
 import SearchBar from './components/SearchBar'
-import Modal from './components/Modal'
+import GameOver from './components/GameOver'
 import LoginForm from './components/LoginForm'
 import StockChart from './components/StockChart'
 
@@ -120,6 +120,7 @@ const App = () => {
       <CssBaseline />
       <div className='game'>
         <Header
+          user={user}
           logoutUser={logoutUser}
           darkMode={darkMode}
           toggleTheme={toggleTheme}
@@ -134,7 +135,7 @@ const App = () => {
           setAttempts={setAttempts}
         />
         {showModal && (
-          <Modal
+          <GameOver
             won={won}
             attempts={attempts}
             solution={solution}

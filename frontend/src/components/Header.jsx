@@ -6,12 +6,15 @@ import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded'
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded'
 import { IconButton } from '@mui/material'
-
-import Leaderboard from './Leaderboard'
 import { useState } from 'react'
 
-const Header = ({ logoutUser, darkMode, toggleTheme }) => {
+// components
+import Leaderboard from './Leaderboard'
+import Statistics from './Statistics'
+
+const Header = ({ user, logoutUser, darkMode, toggleTheme }) => {
   const [showLeaderboard, setShowLeaderboard] = useState(false)
+  const [showStats, setShowStats] = useState(false)
 
   return (
     <header className='header-container'>
@@ -20,7 +23,7 @@ const Header = ({ logoutUser, darkMode, toggleTheme }) => {
         <IconButton onClick={() => toggleTheme()}>
           {darkMode ? <LightModeRoundedIcon /> : <DarkModeRoundedIcon />}
         </IconButton>
-        <IconButton onClick={() => setShowLeaderboard(true)}>
+        <IconButton onClick={() => setShowStats(true)}>
           <QueryStatsRoundedIcon />
         </IconButton>
         <IconButton onClick={() => setShowLeaderboard(true)}>
@@ -36,9 +39,11 @@ const Header = ({ logoutUser, darkMode, toggleTheme }) => {
           <LogoutRoundedIcon />
         </IconButton>
       </div>
+
       {showLeaderboard && (
         <Leaderboard setShowLeaderboard={setShowLeaderboard} />
       )}
+      {showStats && <Statistics user={user} setShowStats={setShowStats} />}
     </header>
   )
 }
