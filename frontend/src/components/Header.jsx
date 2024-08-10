@@ -1,11 +1,11 @@
-import LogoutIcon from '@mui/icons-material/Logout'
-import SettingsIcon from '@mui/icons-material/Settings'
-import LeaderboardIcon from '@mui/icons-material/Leaderboard'
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
+import QueryStatsRoundedIcon from '@mui/icons-material/QueryStatsRounded'
+import LeaderboardRoundedIcon from '@mui/icons-material/LeaderboardRounded'
+import HelpOutlineRoundedIcon from '@mui/icons-material/HelpOutlineRounded'
+import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded'
+import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
 import { IconButton } from '@mui/material'
 
 import Leaderboard from './Leaderboard'
-
 import { useState } from 'react'
 
 const Header = ({ logoutUser }) => {
@@ -16,16 +16,19 @@ const Header = ({ logoutUser }) => {
       <h1 className='title'>Stockle</h1>
       <div className='icons'>
         <IconButton onClick={() => setShowLeaderboard(true)}>
-          <LeaderboardIcon />
+          <QueryStatsRoundedIcon />
+        </IconButton>
+        <IconButton onClick={() => setShowLeaderboard(true)}>
+          <LeaderboardRoundedIcon />
         </IconButton>
         <IconButton>
-          <HelpOutlineIcon />
+          <HelpOutlineRoundedIcon />
         </IconButton>
         <IconButton>
-          <SettingsIcon />
+          <SettingsRoundedIcon />
         </IconButton>
         <IconButton onClick={() => logoutUser()}>
-          <LogoutIcon />
+          <LogoutRoundedIcon />
         </IconButton>
       </div>
       {showLeaderboard && (

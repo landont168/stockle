@@ -48,6 +48,7 @@ const App = () => {
   // set solution
   useEffect(() => {
     const randomSolution = stocks[Math.floor(Math.random() * stocks.length)]
+    console.log(randomSolution)
     setSolution(randomSolution)
   }, [stocks])
 
@@ -66,7 +67,7 @@ const App = () => {
       console.log('game over')
       setTimeout(() => setShowModal(true), 3000)
     }
-    if (attempts > 6) {
+    if (attempts === 6 && !gameOver) {
       setGameOver(true)
       setWon(false)
     }
@@ -96,7 +97,6 @@ const App = () => {
   return (
     <div className='game'>
       <Header logoutUser={logoutUser} />
-      {solution && <div>solution: {solution.name}</div>}
       {solutionHistory && <StockChart data={solutionHistory} />}
       <Board guesses={guesses} solution={solution} />
       <SearchBar

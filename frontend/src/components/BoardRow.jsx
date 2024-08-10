@@ -1,69 +1,106 @@
 import numeral from 'numeral'
+import CheckIcon from '@mui/icons-material/Check'
+import ClearIcon from '@mui/icons-material/Clear'
+import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown'
+import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp'
 
 const BoardRow = ({ guess, solution }) => {
-  // note: refactor into custom hook??
-  const formatNumber = (number) => {
-    const formattedNumber = numeral(number).format('0.0a')
-    return formattedNumber
+  // format to readable number
+  const formatNum = (num) => {
+    const formattedNum = numeral(num).format('0.0a')
+    return formattedNum
   }
 
-  const checkGuessNumber = (guessNumber, solNumber) => {
-    const formattedNumber = `$${formatNumber(guessNumber)}`
-    if (guessNumber < solNumber) {
-      return `⬆️ ${formattedNumber}`
-    } else if (guessNumber > solNumber) {
-      return `⬇️ ${formattedNumber}`
-    }
-    return `✅ ${formattedNumber}`
+  // provide feedback for number characteristics
+  const numberFeedback = (guessNum, solNumber) => {
+    const formattedNum = `$${formatNum(guessNum)}`
+    return (
+      <div className='entry'>
+        {guessNum > solNumber ? (
+          <ArrowCircleDownIcon sx={{ color: 'red' }} />
+        ) : guessNum < solNumber ? (
+          <ArrowCircleUpIcon sx={{ color: 'blue' }} />
+        ) : (
+          <CheckIcon sx={{ color: 'green' }} />
+        )}
+        {formattedNum}
+      </div>
+    )
   }
 
-  const checkGuessString = (guessString, solString) => {
-    if (guessString === solString) {
-      return `✅ ${guessString}`
-    }
-    return `❌ ${guessString}`
+  // provide feedback for string characteristics
+  const stringFeedback = (guessStr, solStr) => {
+    return (
+      <div className='entry'>
+        {guessStr === solStr ? (
+          <CheckIcon sx={{ color: 'green' }} />
+        ) : (
+          <ClearIcon sx={{ color: 'red' }} />
+        )}
+        {guessStr}
+      </div>
+    )
   }
 
-  const checkGuessVolume = (guessVolume, solVolume) => {
-    const formattedNumber = `${formatNumber(guessVolume)}`
-    if (guessVolume < solVolume) {
-      return `⬆️ ${formattedNumber}`
-    } else if (guessVolume > solVolume) {
-      return `⬇️ ${formattedNumber}`
-    }
-    return `✅ ${formattedNumber}`
+  const nameFeedback = (guessStr, solStr, guessTicker) => {
+    return (
+      <div className='entry'>
+        {guessStr === solStr ? (
+          <CheckIcon sx={{ color: 'green' }} />
+        ) : (
+          <ClearIcon sx={{ color: 'red' }} />
+        )}
+        {`${guessStr} (${guessTicker})`}
+      </div>
+    )
   }
 
-  const checkGuessSharePrice = (guessSharePrice, solSharePrice) => {
+  const volumeFeedback = (guessVolume, solVolume) => {
+    const formattedNumber = formatNum(guessVolume)
+    return (
+      <div className='entry'>
+        {guessVolume < solVolume ? (
+          <ArrowCircleUpIcon sx={{ color: 'blue' }} />
+        ) : guessVolume > solVolume ? (
+          <ArrowCircleDownIcon sx={{ color: 'red' }} />
+        ) : (
+          <CheckIcon sx={{ color: 'green' }} />
+        )}
+        {formattedNumber}
+      </div>
+    )
+  }
+
+  const sharePriceFeedback = (guessSharePrice, solSharePrice) => {
     const formattedNumber = `$${numeral(guessSharePrice).format('0.00')}`
-    if (guessSharePrice < solSharePrice) {
-      return `⬆️ ${formattedNumber}`
-    } else if (guessSharePrice > solSharePrice) {
-      return `⬇️ ${formattedNumber}`
-    }
-    return `✅ ${formattedNumber}`
+    return (
+      <div className='entry'>
+        {guessSharePrice < solSharePrice ? (
+          <ArrowCircleUpIcon sx={{ color: 'blue' }} />
+        ) : guessSharePrice > solSharePrice ? (
+          <ArrowCircleDownIcon sx={{ color: 'red' }} />
+        ) : (
+          <CheckIcon sx={{ color: 'green' }} />
+        )}
+        {formattedNumber}
+      </div>
+    )
   }
 
   return (
     <div className='row'>
       <div className='row-name'>
-        {guess &&
-          `${checkGuessString(guess.name, solution.name)} (${guess.ticker})`}
+        {guess && nameFeedback(guess.name, solution.name, guess.ticker)}
       </div>
       <div className='row-sector'>
-        {guess && `${checkGuessString(guess.sector, solution.sector)}`}
+        {guess && stringFeedback(guess.sector, solution.sector)}
       </div>
+      <div>{guess && numberFeedback(guess.marketCap, solution.marketCap)}</div>
       <div>
-        {guess && `${checkGuessNumber(guess.marketCap, solution.marketCap)}`}
+        {guess && sharePriceFeedback(guess.sharePrice, solution.sharePrice)}
       </div>
-      <div>
-        {guess &&
-          `${checkGuessSharePrice(guess.sharePrice, solution.sharePrice)}`}
-      </div>
-      <div>
-        {guess && `${checkGuessNumber(guess.revenue, solution.revenue)}`}
-      </div>
-      <div>{guess && `${checkGuessVolume(guess.volume, solution.volume)}`}</div>
+      <div>{guess && numberFeedback(guess.revenue, solution.revenue)}</div>
+      <div>{guess && volumeFeedback(guess.volume, solution.volume)}</div>
     </div>
   )
 }
