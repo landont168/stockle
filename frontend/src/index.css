@@ -128,7 +128,11 @@ body {
   max-width: 600px;
   padding: 15px 30px 40px 30px;
   border-radius: 8px;
-  margin: 300px auto;
+  margin: 0 auto;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .modal-header {
@@ -137,8 +141,14 @@ body {
   align-items: center;
 }
 
+.modal-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .modal-content {
-  padding: 20px;
+  padding: 0 20px;
 }
 
 .modal-close-button {
@@ -149,9 +159,27 @@ body {
   margin-right: -15px;
 }
 
+.modal-stats {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 0 20px;
+  height: 100%;
+}
+
 /* fade in */
 .fade-in {
-  animation: fadeIn 3s;
+  animation: fadeIn 2s;
 }
 
 @keyframes fadeIn {
