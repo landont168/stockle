@@ -125,7 +125,7 @@ body {
 }
 
 .modal-container {
-  max-width: 600px;
+  width: 450px;
   padding: 15px 30px 40px 30px;
   border-radius: 8px;
   margin: 0 auto;
@@ -145,10 +145,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 10px;
 }
 
 .modal-content {
-  padding: 0 20px;
+  padding: 0 20px 30px 20px;
 }
 
 .modal-close-button {

@@ -38,11 +38,17 @@ aug 9, 2024 (6 hours)
 - ok not sure why but im getting some reduce typeerror randomly (sometimes) so gonna need to eventually look more into it (smth to do with tooltip in the stockchart component?)
 - update #2 (3 hours): redesigned game board + header with cleaner mui icons + created togglable dark mode with mui. mui is acc super convenient + refactored modal + fixed modal theme color to match light/dark mode
 
-aug 10, 2024 (2 hours)
+aug 10, 2024 (4 hours)
 
 - todo: implement stats modal (redesign user schema to include stats info + design frontend)
-- update #1: implemented stat modal - took longer than expected because i needed to redesign how i was handling game wins/losses (took out of useeffect hook into body function that handles game logic - had to also configure the backend to work properly with an update route for the user + frontend service for backend) - thinking about using jwt to identify user but ill put that on the side for now (i have token but not doing anything w it)
-- todo: need to design the statistics modal rq (hopefully it looks similar to the wordle version with a bar graph with chartjs?)
+- update #1 (2 hours): set up stat modal - took longer than expected because i needed to redesign how i was handling game wins/losses (took out of useeffect hook into body function that handles game logic - had to also configure the backend to work properly with an update route for the user + frontend service for backend) - thinking about using jwt to identify user but ill put that on the side for now (i have token but not doing anything w it)
+- update #2 (1 hour): designed stat modal - took a bit of time with css + chartjs to create the stats/guess distribution ui but it looks pretty good now + fixed theme preservation on reload
+- update #3 (1 hour): cannot figure out bug that suggests a reduce issue in the underlying chartjs magic? nothing on google/gpt wont help. mannnnnnnn...
+
+aug 11, 2024
+
+- todo: implement leaderboard modal to display top 5 players with most games won?
+- update #1 (1 hour): implemented leaderboard modal with mui data grid
 
 ### challenges:
 
@@ -53,7 +59,6 @@ aug 10, 2024 (2 hours)
 
 ### todo:
 
-- implement statistics modal (ex. display games played, win %, win streak, highest win streak, guess distribution)
 - add notifications (ex. successful/unsuccessful login, successful/unsuccessful signup)
 - implement leaderboard (ex. display usernames with most game wins)
 - eventually make app responsive with css? (dont wanna do this tbh)

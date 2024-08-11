@@ -2,7 +2,8 @@ import ModalTemplate from './ModalTemplate'
 import DistributionChart from './DistributionChart'
 
 const Statistics = ({ user, setShowStats }) => {
-  const winPercentage = Math.round((user.gamesWon / user.gamesPlayed) * 100)
+  const winPercentage =
+    Math.round((user.gamesWon / user.gamesPlayed) * 100) || 0
 
   return (
     <ModalTemplate handleClose={() => setShowStats(false)}>

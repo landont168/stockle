@@ -11,7 +11,7 @@ import {
   Filler,
 } from 'chart.js'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 ChartJS.register(
   CategoryScale,
@@ -26,14 +26,20 @@ ChartJS.register(
 
 const StockChart = ({ data }) => {
   const animate = useRef(true)
+
   useEffect(() => {
     animate.current = false
   }, [])
 
   // extract dates and prices
-  const labels = data.map((item) => item.date)
-  const prices = data.map((item) => item.price)
+  const [labels, setLabels] = useState(data.map((item) => item.date))
+  const [prices, setPrices] = useState(data.map((item) => item.price))
 
+  useEffect(() => {
+    setLabels(data.map((item) => item.date))
+    setPrices(data.map((item) => item.price))
+    console.log('fetching...')
+  }, [data])
   // determine chart color based on price change
   const priceChange = prices[prices.length - 1] - prices[0]
   const borderColor = priceChange > 0 ? '#4CAF50' : '#EF5350'
@@ -89,8 +95,14 @@ const StockChart = ({ data }) => {
           display: true,
           text: 'Date',
         },
+        grid: {
+          display: false,
+        },
       },
       y: {
+        ticks: {
+          maxTicksLimit: 6,
+        },
         title: {
           display: true,
           text: 'Price (USD)',
@@ -130,6 +142,11 @@ const StockChart = ({ data }) => {
   const chartOptions = {
     ...options,
     animations: animate.current ? options.animations : false, // Disable animation on updates
+  }
+
+  if (data.length === 0) {
+    console.log('no data')
+    return <div>No data available</div>
   }
 
   return (

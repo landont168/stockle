@@ -17,6 +17,7 @@ const DistributionChart = ({ distribution }) => {
     labels: ['1', '2', '3', '4', '5', '6'],
     datasets: [
       {
+        label: 'Frequency',
         data: distribution,
         backgroundColor: 'rgba(76, 175, 80, 0.2)',
         borderColor: '#4CAF50',

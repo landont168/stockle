@@ -93,15 +93,9 @@ const App = () => {
 
   useEffect(() => {
     if (gameOver) {
-      console.log('game over')
-      if (won) {
-        console.log('win')
-      } else {
-        console.log('lose')
-      }
       setTimeout(() => setShowModal(true), 1000)
     }
-  }, [gameOver, won])
+  }, [gameOver])
 
   // login/logout user
   const loginUser = async (userCredentials) => {
@@ -127,6 +121,7 @@ const App = () => {
 
   const theme = darkMode ? darkTheme : lightTheme
 
+  // login/signup forms
   if (user === null) {
     return (
       <ThemeProvider theme={theme}>
@@ -136,6 +131,7 @@ const App = () => {
     )
   }
 
+  // actual game
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />

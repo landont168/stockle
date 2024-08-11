@@ -1,7 +1,6 @@
 import QueryStatsRoundedIcon from '@mui/icons-material/QueryStatsRounded'
 import LeaderboardRoundedIcon from '@mui/icons-material/LeaderboardRounded'
 import HelpOutlineRoundedIcon from '@mui/icons-material/HelpOutlineRounded'
-import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded'
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded'
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded'
@@ -31,9 +30,6 @@ const Header = ({ user, logoutUser, darkMode, toggleTheme }) => {
         </IconButton>
         <IconButton>
           <HelpOutlineRoundedIcon />
-        </IconButton>
-        <IconButton>
-          <SettingsRoundedIcon />
         </IconButton>
         <IconButton onClick={() => logoutUser()}>
           <LogoutRoundedIcon />
