@@ -6,7 +6,7 @@ import { useTheme } from '@mui/system'
 const ModalTemplate = ({ children, handleClose }) => {
   const theme = useTheme()
   return (
-    <Modal onClose={handleClose} open>
+    <Modal open onClose={handleClose}>
       <Box
         className='modal-container'
         sx={{
@@ -22,7 +22,7 @@ const ModalTemplate = ({ children, handleClose }) => {
             <CloseIcon />
           </IconButton>
         </div>
-        {children}
+        <div className='modal-content'>{children}</div>
       </Box>
     </Modal>
   )

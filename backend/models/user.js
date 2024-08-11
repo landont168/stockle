@@ -15,6 +15,30 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  gamesPlayed: {
+    type: Number,
+    required: true,
+  },
+  gamesWon: {
+    type: Number,
+    required: true,
+  },
+  currentStreak: {
+    type: Number,
+    required: true,
+  },
+  maxStreak: {
+    type: Number,
+    required: true,
+  },
+  wonLastGame: {
+    type: Boolean,
+    required: true,
+  },
+  guessDistribution: {
+    type: Array,
+    required: true,
+  },
 })
 
 userSchema.set('toJSON', {

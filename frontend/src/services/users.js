@@ -11,4 +11,10 @@ const createUser = async (newUser) => {
   return response.data
 }
 
-export default { getUsers, createUser }
+const updateUser = async (id, gameInfo) => {
+  console.log('info', gameInfo)
+  const response = await axios.put(`${baseUrl}/${id}`, gameInfo)
+  return response.data
+}
+
+export default { getUsers, createUser, updateUser }

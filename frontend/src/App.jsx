@@ -5,18 +5,12 @@ import CssBaseline from '@mui/material/CssBaseline'
 const lightTheme = createTheme({
   palette: {
     mode: 'light',
-    background: {
-      modal: '#ffffff', // Light mode background
-    },
   },
 })
 
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
-    background: {
-      modal: '#1e1e1e', // Dark mode background
-    },
   },
 })
 
@@ -43,11 +37,13 @@ const App = () => {
   const stocks = useSelector((state) => state.stocks)
   const guesses = useSelector((state) => state.guesses)
 
-  // component states
+  // solution states
   const [solution, setSolution] = useState(null)
   const [solutionHistory, setSolutionHistory] = useState(null)
+
+  // component states
   const [gameOver, setGameOver] = useState(false)
-  const [won, setWon] = useState(true)
+  const [won, setWon] = useState(false)
   const [attempts, setAttempts] = useState(0)
   const [showModal, setShowModal] = useState(false)
   const [darkMode, setDarkMode] = useState(false)
@@ -80,22 +76,21 @@ const App = () => {
   useEffect(() => {
     if (!solution) return
     historyService.getHistory(solution.historyId).then((historyObject) => {
-      console.log(historyObject.stockHistory)
       setSolutionHistory(historyObject.stockHistory)
     })
   }, [solution])
 
-  // game over
   useEffect(() => {
     if (gameOver) {
       console.log('game over')
-      setTimeout(() => setShowModal(true), 3000)
+      if (won) {
+        console.log('win')
+      } else {
+        console.log('lose')
+      }
+      setTimeout(() => setShowModal(true), 1000)
     }
-    if (attempts === 6 && !gameOver) {
-      setGameOver(true)
-      setWon(false)
-    }
-  }, [gameOver, attempts, won])
+  }, [gameOver, won])
 
   // login/logout user
   const loginUser = async (userCredentials) => {
@@ -118,11 +113,6 @@ const App = () => {
   const toggleTheme = () => {
     setDarkMode(!darkMode)
   }
-  // const theme = createTheme({
-  //   palette: {
-  //     mode: darkMode ? 'dark' : 'light',
-  //   },
-  // })
   const theme = darkMode ? darkTheme : lightTheme
 
   if (user === null) {
@@ -152,6 +142,10 @@ const App = () => {
           setGameOver={setGameOver}
           attempts={attempts}
           setAttempts={setAttempts}
+          won={won}
+          setWon={setWon}
+          user={user}
+          setUser={setUser}
         />
         {showModal && (
           <GameOver

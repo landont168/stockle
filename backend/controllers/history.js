@@ -8,7 +8,6 @@ historyRouter.get('/', async (request, response) => {
 
 historyRouter.get('/:id', async (request, response) => {
   const history = await History.findById(request.params.id)
-  console.log(history)
   response.json(history)
 })
 

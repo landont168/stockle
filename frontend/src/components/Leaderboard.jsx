@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { initializeUsers } from '../reducers/usersReducer'
 import { useEffect } from 'react'
-import Modal from './ModalTemplate'
+import ModalTemplate from './ModalTemplate'
 
 const Leaderboard = ({ setShowLeaderboard }) => {
   const dispatch = useDispatch()
@@ -14,14 +14,14 @@ const Leaderboard = ({ setShowLeaderboard }) => {
   console.log(users)
 
   return (
-    <Modal handleClose={() => setShowLeaderboard(false)}>
+    <ModalTemplate handleClose={() => setShowLeaderboard(false)}>
       <div className='modal-leaderboard'>
         <h1>Leaderboard</h1>
         {users.map((user) => (
           <p key={user.username}>{user.username}</p>
         ))}
       </div>
-    </Modal>
+    </ModalTemplate>
   )
 }
 

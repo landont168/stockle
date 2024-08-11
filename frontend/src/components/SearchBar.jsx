@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addGuess } from '../reducers/guessReducer'
+import usersService from '../services/users'
 
 // material ui
 import TextField from '@mui/material/TextField'
@@ -14,11 +15,24 @@ const SearchBar = ({
   setGameOver,
   attempts,
   setAttempts,
+  won,
+  setWon,
+  user,
+  setUser,
 }) => {
   const dispatch = useDispatch()
   const stocks = useSelector((state) => state.stocks)
   const guesses = useSelector((state) => state.guesses)
   const [guess, setGuess] = useState('')
+
+  const updateStats = async (result) => {
+    const updatedUser = await usersService.updateUser(user.id, {
+      wonGame: result,
+      attempts,
+    })
+    window.localStorage.setItem('loggedUser', JSON.stringify(updatedUser))
+    setUser(updatedUser)
+  }
 
   const handleGuess = (e) => {
     e.preventDefault()
@@ -29,9 +43,17 @@ const SearchBar = ({
       return
     }
 
-    // correct guess
+    // correct guess or no more attempts => game over
     if (solution.id === guess.id) {
       setGameOver(true)
+      setWon(true)
+      updateStats(true)
+    }
+
+    if (attempts === 5) {
+      setGameOver(true)
+      console.log('no more attempts')
+      updateStats(false)
     }
 
     // duplicate guess

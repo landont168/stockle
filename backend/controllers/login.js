@@ -18,6 +18,8 @@ loginRouter.post('/', async (request, response) => {
     })
   }
 
+  console.log('user', user)
+
   // create token
   const userForToken = {
     username: user.username,
@@ -25,7 +27,22 @@ loginRouter.post('/', async (request, response) => {
   }
   const token = jwt.sign(userForToken, config.SECRET)
 
-  response.status(200).send({ token, username: user.username, name: user.name })
+  const userObject = {
+    token,
+    username: user.username,
+    name: user.name,
+    id: user.id,
+    gamesPlayed: user.gamesPlayed,
+    gamesWon: user.gamesWon,
+    currentStreak: user.currentStreak,
+    maxStreak: user.maxStreak,
+    wonLastGame: user.wonLastGame,
+    guessDistribution: user.guessDistribution,
+  }
+
+  console.log(userObject)
+
+  response.status(200).send(userObject)
 })
 
 module.exports = loginRouter
