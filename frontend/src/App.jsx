@@ -46,13 +46,24 @@ const App = () => {
   const [won, setWon] = useState(false)
   const [attempts, setAttempts] = useState(0)
   const [showModal, setShowModal] = useState(false)
-  const [darkMode, setDarkMode] = useState(false)
 
   // user login
   const [user, setUser] = useState(null)
 
+  // theme
+  const [darkMode, setDarkMode] = useState(() => {
+    const savedMode = localStorage.getItem('darkMode')
+    return savedMode === 'true'
+  })
+
+  // update local storage on theme toggle
+  useEffect(() => {
+    window.localStorage.setItem('darkMode', darkMode)
+  }, [darkMode])
+
   // restore user on refresh
   useEffect(() => {
+    // get user
     const loggedUserJSON = window.localStorage.getItem('loggedUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
@@ -113,6 +124,7 @@ const App = () => {
   const toggleTheme = () => {
     setDarkMode(!darkMode)
   }
+
   const theme = darkMode ? darkTheme : lightTheme
 
   if (user === null) {
