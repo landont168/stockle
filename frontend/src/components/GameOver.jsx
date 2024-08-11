@@ -5,7 +5,7 @@ const GameOver = ({ won, attempts, solution, handleClose }) => {
     <ModalTemplate handleClose={handleClose}>
       {won && (
         <div className='modal-content'>
-          <h1>Congratulations, you won!</h1>
+          <h1>Congratulations!</h1>
           <p>Answer: {solution.name}</p>
           <p>You guessed the stock in {attempts} guesses!</p>
         </div>

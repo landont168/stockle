@@ -1,6 +1,5 @@
-import QueryStatsRoundedIcon from '@mui/icons-material/QueryStatsRounded'
+import InsightsRoundedIcon from '@mui/icons-material/InsightsRounded'
 import LeaderboardRoundedIcon from '@mui/icons-material/LeaderboardRounded'
-// import HelpOutlineRoundedIcon from '@mui/icons-material/HelpOutlineRounded'
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded'
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded'
@@ -24,7 +23,7 @@ const Header = ({ user, logoutUser, darkMode, toggleTheme, refreshGame }) => {
           {darkMode ? <LightModeRoundedIcon /> : <DarkModeRoundedIcon />}
         </IconButton>
         <IconButton onClick={() => setShowStats(true)}>
-          <QueryStatsRoundedIcon />
+          <InsightsRoundedIcon />
         </IconButton>
         <IconButton onClick={() => setShowLeaderboard(true)}>
           <LeaderboardRoundedIcon />

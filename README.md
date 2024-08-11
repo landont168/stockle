@@ -61,5 +61,5 @@ aug 11, 2024
 ### todo:
 
 - add notifications (ex. successful/unsuccessful login, successful/unsuccessful signup)
-- implement leaderboard (ex. display usernames with most game wins)
+- dockerize app (run python script, build frontend, etc)
 - eventually make app responsive with css? (dont wanna do this tbh)

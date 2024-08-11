@@ -20,6 +20,7 @@ const DataTable = ({ rows }) => {
         pageSizeOptions={[5]}
         disableColumnMenu
         hideFooterSelectedRowCount
+        disableColumnResize={true}
       />
     </div>
   )

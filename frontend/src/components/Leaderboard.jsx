@@ -27,14 +27,10 @@ const Leaderboard = ({ setShowLeaderboard }) => {
     )
   }, [users])
 
-  console.log(sortedUsers)
-
   return (
     <ModalTemplate handleClose={() => setShowLeaderboard(false)}>
-      <div>
-        <h1 className='modal-title'>Leaderboard</h1>
-        <DataTable rows={sortedUsers} />
-      </div>
+      <h1 className='modal-title'>Leaderboard</h1>
+      <DataTable rows={sortedUsers} />
     </ModalTemplate>
   )
 }
