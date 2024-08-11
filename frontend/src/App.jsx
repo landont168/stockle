@@ -15,9 +15,10 @@ const darkTheme = createTheme({
 })
 
 // redux
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { initializeStocks } from './reducers/stockReducer'
+import { resetGuesses } from './reducers/guessReducer'
 
 // services
 import loginService from './services/login'
@@ -76,25 +77,25 @@ const App = () => {
     dispatch(initializeStocks())
   }, [dispatch])
 
-  // set solution
-  useEffect(() => {
+  const fetchSolution = useCallback(() => {
+    if (stocks.length === 0) return
     const randomSolution = stocks[Math.floor(Math.random() * stocks.length)]
-    console.log(randomSolution)
+    console.log('solution:', randomSolution)
     setSolution(randomSolution)
+    historyService
+      .getHistory(randomSolution.historyId)
+      .then((historyObject) => {
+        setSolutionHistory(historyObject.stockHistory)
+      })
   }, [stocks])
 
-  // fetch history for solution
+  // set solution
   useEffect(() => {
-    if (!solution) return
-    historyService.getHistory(solution.historyId).then((historyObject) => {
-      setSolutionHistory(historyObject.stockHistory)
-    })
-  }, [solution])
+    fetchSolution()
+  }, [fetchSolution])
 
   useEffect(() => {
-    if (gameOver) {
-      setTimeout(() => setShowModal(true), 1000)
-    }
+    gameOver ? setTimeout(() => setShowModal(true), 1000) : null
   }, [gameOver])
 
   // login/logout user
@@ -107,6 +108,16 @@ const App = () => {
     } catch {
       console.log('wrong credentials')
     }
+  }
+
+  const refreshGame = () => {
+    setSolution(null)
+    setSolutionHistory(null)
+    setGameOver(false)
+    setWon(false)
+    setAttempts(0)
+    dispatch(resetGuesses())
+    fetchSolution()
   }
 
   const logoutUser = () => {
@@ -141,6 +152,7 @@ const App = () => {
           logoutUser={logoutUser}
           darkMode={darkMode}
           toggleTheme={toggleTheme}
+          refreshGame={refreshGame}
         />
         {solutionHistory && <StockChart data={solutionHistory} />}
         <Board guesses={guesses} solution={solution} />

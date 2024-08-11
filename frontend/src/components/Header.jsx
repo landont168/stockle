@@ -1,9 +1,10 @@
 import QueryStatsRoundedIcon from '@mui/icons-material/QueryStatsRounded'
 import LeaderboardRoundedIcon from '@mui/icons-material/LeaderboardRounded'
-import HelpOutlineRoundedIcon from '@mui/icons-material/HelpOutlineRounded'
+// import HelpOutlineRoundedIcon from '@mui/icons-material/HelpOutlineRounded'
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded'
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded'
+import ReplayRoundedIcon from '@mui/icons-material/ReplayRounded'
 import { IconButton } from '@mui/material'
 import { useState } from 'react'
 
@@ -11,7 +12,7 @@ import { useState } from 'react'
 import Leaderboard from './Leaderboard'
 import Statistics from './Statistics'
 
-const Header = ({ user, logoutUser, darkMode, toggleTheme }) => {
+const Header = ({ user, logoutUser, darkMode, toggleTheme, refreshGame }) => {
   const [showLeaderboard, setShowLeaderboard] = useState(false)
   const [showStats, setShowStats] = useState(false)
 
@@ -28,8 +29,8 @@ const Header = ({ user, logoutUser, darkMode, toggleTheme }) => {
         <IconButton onClick={() => setShowLeaderboard(true)}>
           <LeaderboardRoundedIcon />
         </IconButton>
-        <IconButton>
-          <HelpOutlineRoundedIcon />
+        <IconButton onClick={() => refreshGame()}>
+          <ReplayRoundedIcon />
         </IconButton>
         <IconButton onClick={() => logoutUser()}>
           <LogoutRoundedIcon />

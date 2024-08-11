@@ -3,7 +3,7 @@ import { DataGrid } from '@mui/x-data-grid'
 const columns = [
   { field: 'id', headerName: 'Rank', width: 100 },
   { field: 'username', headerName: 'Username', width: 150 },
-  { field: 'score', headerName: 'Score', width: 90 },
+  { field: 'score', headerName: 'Won', width: 90 },
 ]
 
 const DataTable = ({ rows }) => {

@@ -10,8 +10,11 @@ const guessSlice = createSlice({
       newGuesses[attempts] = guess
       return newGuesses
     },
+    resetGuesses() {
+      return [...Array(6)]
+    },
   },
 })
 
-export const { addGuess } = guessSlice.actions
+export const { addGuess, resetGuesses } = guessSlice.actions
 export default guessSlice.reducer
