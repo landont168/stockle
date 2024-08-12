@@ -63,7 +63,7 @@ notes on docker:
 aug 12, 2024
 
 - todo: implement account menu dropdown + run python script on initial docker startup? (do not fetch if stocks db already populated?)
-- update #1 (1 hour) - implemented account menu dropdown with mui (contains stats + logout options) - maybe add settings/help?
+- update #1 (2 hours) - implemented account menu dropdown with mui (contains stats + logout options) - maybe add settings/help? also highlighted logged in user in leaderboard for better design and disabled click highlight on non-logged in users
 
 ### challenges:
 

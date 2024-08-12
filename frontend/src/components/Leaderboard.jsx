@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import ModalTemplate from './ModalTemplate'
 import DataTable from './DataTable'
 
-const Leaderboard = ({ setShowLeaderboard }) => {
+const Leaderboard = ({ setShowLeaderboard, userId }) => {
   const dispatch = useDispatch()
   const users = useSelector((state) => state.users)
   const [sortedUsers, setSortedUsers] = useState([])
@@ -20,12 +20,14 @@ const Leaderboard = ({ setShowLeaderboard }) => {
       sortedUsers.map((user, index) => {
         return {
           id: index + 1,
-          username: user.username,
+          username:
+            user.id === userId ? `${user.username} (You)` : user.username,
           score: user.gamesWon,
+          isCurrentUser: user.id === userId,
         }
       })
     )
-  }, [users])
+  }, [users, userId])
 
   return (
     <ModalTemplate handleClose={() => setShowLeaderboard(false)}>

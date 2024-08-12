@@ -21,6 +21,10 @@ const DataTable = ({ rows }) => {
         disableColumnMenu
         hideFooterSelectedRowCount
         disableColumnResize={true}
+        isRowSelectable={(params) => params.row.isCurrentUser}
+        getRowClassName={(params) =>
+          params.row.isCurrentUser ? 'Mui-selected' : ''
+        }
       />
     </div>
   )
