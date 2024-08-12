@@ -19,7 +19,7 @@ const BoardRow = ({ guess, solution }) => {
         {guessNum > solNumber ? (
           <ArrowCircleDownIcon sx={{ color: 'red' }} />
         ) : guessNum < solNumber ? (
-          <ArrowCircleUpIcon sx={{ color: 'blue' }} />
+          <ArrowCircleUpIcon sx={{ color: 'orange' }} />
         ) : (
           <CheckIcon sx={{ color: 'green' }} />
         )}
@@ -60,7 +60,7 @@ const BoardRow = ({ guess, solution }) => {
     return (
       <div className='entry'>
         {guessVolume < solVolume ? (
-          <ArrowCircleUpIcon sx={{ color: 'blue' }} />
+          <ArrowCircleUpIcon sx={{ color: 'orange' }} />
         ) : guessVolume > solVolume ? (
           <ArrowCircleDownIcon sx={{ color: 'red' }} />
         ) : (
@@ -76,7 +76,7 @@ const BoardRow = ({ guess, solution }) => {
     return (
       <div className='entry'>
         {guessSharePrice < solSharePrice ? (
-          <ArrowCircleUpIcon sx={{ color: 'blue' }} />
+          <ArrowCircleUpIcon sx={{ color: 'orange' }} />
         ) : guessSharePrice > solSharePrice ? (
           <ArrowCircleDownIcon sx={{ color: 'red' }} />
         ) : (

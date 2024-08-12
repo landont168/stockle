@@ -11,10 +11,11 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     restart: unless-stopped
-    env_file: ./backend/.env
     volumes:
       - ./backend:/app
       - /app/node_modules
+    environment:
+      - PORT=4000
     ports:
       - 4000:4000
     networks:

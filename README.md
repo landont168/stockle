@@ -50,8 +50,7 @@ aug 11, 2024 (4 hours)
 - todo: implement leaderboard modal to display top 5 players with most games won?
 - update #1 (1 hour): implemented leaderboard modal with mui data grid
 - update #2 (1 hour): created button to refresh game - had to change fetching solution logic by using usecallback hook. the callback hook is actually super useful becuse it creates a "singular function definition" and is only redefined when its dependencies change (stocks). this ensures that a useeffect hook can depend on the callback function as a dependecy before fetching a solution (since fetchsolution only changes when stocks is changed - and stocks is needed for fetching a solution - so the useeffect helps us fetch a solution on the initial render). it also allows us to call the callback function upon a button click for a solution refetch since it will simply call the function without triggering the useeffect hook (since the function def itself hasnt changed). the problem was that i was defining the fetch function as a normal js function - but the problem with that is that on the re-render, its function def would change - and therefore the useeffect hook would be triggered, which calls the fetch function - which triggers the effect hook - causing an infinite loop. wowzers
-
-- update #3 (2 hours): created containers for the backend + frontend.
+- update #3 (2 hours): created containers for the backend + frontend. proxied api requests to appropriate api url (conditionally goes to localhost if not using docker or docker backend service if using docker). not sure if i need to containerize the mongodb db but i think i need to run the python script to fetch data (goal is to create app on any machine) - assuming user has mongodb connection.
 
 notes on docker:
 
@@ -60,6 +59,11 @@ notes on docker:
 - dockerfile - instructions for building an image (ex. installing dependencies, copying source code, etc)
 - image - snapshot of software
 - docker compose - tool for building and running multiple docker containers using a yaml config file (specifies services, networks, volumes)
+
+aug 12, 2024
+
+- todo: implement account menu dropdown + run python script on initial docker startup? (do not fetch if stocks db already populated?)
+- update #1 (1 hour) - implemented account menu dropdown with mui (contains stats + logout options) - maybe add settings/help?
 
 ### challenges:
 
