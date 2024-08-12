@@ -121,14 +121,14 @@ const StockChart = ({ data }) => {
     },
     // chart animation
 
-    animations: {
-      tension: {
-        duration: 300,
-        easing: 'easeOutQuad',
-        from: 0.5,
-        to: 0,
-        loop: false,
-      },
+    animation: {
+      // tension: {
+      //   duration: 300,
+      //   easing: 'easeOutQuad',
+      //   from: 0.5,
+      //   to: 0,
+      //   loop: false,
+      // },
       x: {
         type: 'number',
         easing: 'linear',
