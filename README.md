@@ -51,6 +51,16 @@ aug 11, 2024
 - update #1 (1 hour): implemented leaderboard modal with mui data grid
 - update #2 (1 hour): created button to refresh game - had to change fetching solution logic by using usecallback hook. the callback hook is actually super useful becuse it creates a "singular function definition" and is only redefined when its dependencies change (stocks). this ensures that a useeffect hook can depend on the callback function as a dependecy before fetching a solution (since fetchsolution only changes when stocks is changed - and stocks is needed for fetching a solution - so the useeffect helps us fetch a solution on the initial render). it also allows us to call the callback function upon a button click for a solution refetch since it will simply call the function without triggering the useeffect hook (since the function def itself hasnt changed). the problem was that i was defining the fetch function as a normal js function - but the problem with that is that on the re-render, its function def would change - and therefore the useeffect hook would be triggered, which calls the fetch function - which triggers the effect hook - causing an infinite loop. wowzers
 
+- update #3 (2 hours): created containers for the backend + frontend.
+
+notes on docker:
+
+- docker - platform for developing + running apps in containers
+- container - package that includes all the goodies to run software (ex. source code, runtime, dependencies, env variables, config files)
+- dockerfile - instructions for building an image (ex. installing dependencies, copying source code, etc)
+- image - snapshot of software
+
+
 ### challenges:
 
 - trying to find free apis to use (pivoted from spotifle idea with artists to stocks since yfinance makes life easier)
