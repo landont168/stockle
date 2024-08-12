@@ -1,7 +1,7 @@
 import LeaderboardRoundedIcon from '@mui/icons-material/LeaderboardRounded'
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded'
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded'
-import LoopRoundedIcon from '@mui/icons-material/LoopRounded'
+import ShuffleRoundedIcon from '@mui/icons-material/ShuffleRounded'
 import { IconButton } from '@mui/material'
 import { useState } from 'react'
 
@@ -29,9 +29,9 @@ const Header = ({ user, logoutUser, darkMode, toggleTheme, refreshGame }) => {
             <LeaderboardRoundedIcon />
           </IconButton>
         </Tooltip>
-        <Tooltip title='New Game'>
+        <Tooltip title='Shuffle'>
           <IconButton onClick={() => refreshGame()}>
-            <LoopRoundedIcon />
+            <ShuffleRoundedIcon />
           </IconButton>
         </Tooltip>
         <AccountMenu
@@ -43,7 +43,7 @@ const Header = ({ user, logoutUser, darkMode, toggleTheme, refreshGame }) => {
       {showLeaderboard && (
         <Leaderboard setShowLeaderboard={setShowLeaderboard} userId={user.id} />
       )}
-      {showStats && <Statistics setShowStats={setShowStats} />}
+      {showStats && <Statistics user={user} setShowStats={setShowStats} />}
     </header>
   )
 }

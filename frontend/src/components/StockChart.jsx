@@ -64,6 +64,16 @@ const StockChart = ({ data }) => {
     ],
   }
 
+  // animation duration setup
+  const totalDuration = 2000
+  const delayBetweenPoints = totalDuration / data.length
+  const previousY = (ctx) =>
+    ctx.index === 0
+      ? ctx.chart.scales.y.getPixelForValue(100)
+      : ctx.chart
+          .getDatasetMeta(ctx.datasetIndex)
+          .data[ctx.index - 1].getProps(['y'], true).y
+
   // chart.js options
   const options = {
     type: 'line',
@@ -110,6 +120,7 @@ const StockChart = ({ data }) => {
       },
     },
     // chart animation
+
     animations: {
       tension: {
         duration: 300,
@@ -121,19 +132,27 @@ const StockChart = ({ data }) => {
       x: {
         type: 'number',
         easing: 'linear',
-        duration: 500,
+        duration: delayBetweenPoints,
         from: NaN,
         delay(ctx) {
-          return ctx.index * 10
+          if (ctx.type !== 'data' || ctx.xStarted) {
+            return 0
+          }
+          ctx.xStarted = true
+          return ctx.index * delayBetweenPoints
         },
       },
       y: {
         type: 'number',
         easing: 'linear',
-        duration: 500,
-        from: (ctx) => ctx.chart.scales.y.getPixelForValue(100),
+        duration: delayBetweenPoints,
+        from: previousY,
         delay(ctx) {
-          return ctx.index * 10
+          if (ctx.type !== 'data' || ctx.yStarted) {
+            return 0
+          }
+          ctx.yStarted = true
+          return ctx.index * delayBetweenPoints
         },
       },
     },
