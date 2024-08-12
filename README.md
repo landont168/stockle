@@ -45,7 +45,7 @@ aug 10, 2024 (4 hours)
 - update #2 (1 hour): designed stat modal - took a bit of time with css + chartjs to create the stats/guess distribution ui but it looks pretty good now + fixed theme preservation on reload
 - update #3 (1 hour): cannot figure out bug that suggests a reduce issue in the underlying chartjs magic? nothing on google/gpt wont help. mannnnnnnn...
 
-aug 11, 2024
+aug 11, 2024 (4 hours)
 
 - todo: implement leaderboard modal to display top 5 players with most games won?
 - update #1 (1 hour): implemented leaderboard modal with mui data grid
@@ -59,7 +59,7 @@ notes on docker:
 - container - package that includes all the goodies to run software (ex. source code, runtime, dependencies, env variables, config files)
 - dockerfile - instructions for building an image (ex. installing dependencies, copying source code, etc)
 - image - snapshot of software
-
+- docker compose - tool for building and running multiple docker containers using a yaml config file (specifies services, networks, volumes)
 
 ### challenges:
 
@@ -67,6 +67,7 @@ notes on docker:
 - frontend design (css) - using material ui + chartjs to help make app look cooler/cleaner/easier for me to focus on actual react design (hooks, props)
 - refactoring stock history into separete endpoint - use history id stored in stock resource to fetch at /api/history:id instead of storing huge amounts of data into stock redux store
 - making chartjs work (hover design, render animation, disable animation upon updating state and re-rendering app)
+- setting up docker compose to containerize backend + frontend - and then figuring out how to still enable local development with the api proxying
 
 ### todo:
 
