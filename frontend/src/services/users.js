@@ -12,7 +12,6 @@ const createUser = async (newUser) => {
 }
 
 const updateUser = async (id, gameInfo) => {
-  console.log('info', gameInfo)
   const response = await axios.put(`${baseUrl}/${id}`, gameInfo)
   return response.data
 }

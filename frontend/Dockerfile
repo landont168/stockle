@@ -9,8 +9,9 @@ COPY package*.json ./
 
 # install dependencies
 RUN npm install
+
 # copy source code into container
 COPY . .
 
-# Start the frontend server with hot reloading (React’s dev server usually handles this)
+# start frontend server
 CMD ["npm", "run", "dev", "--", "--host"]
