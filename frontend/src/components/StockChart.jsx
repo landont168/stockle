@@ -6,7 +6,6 @@ import {
   LineElement,
   PointElement,
   Title,
-  Tooltip,
   Legend,
   Filler,
 } from 'chart.js'
@@ -19,7 +18,6 @@ ChartJS.register(
   LineElement,
   PointElement,
   Title,
-  Tooltip,
   Legend,
   Filler
 )
@@ -38,7 +36,6 @@ const StockChart = ({ data }) => {
   useEffect(() => {
     setLabels(data.map((item) => item.date))
     setPrices(data.map((item) => item.price))
-    console.log('fetching...')
   }, [data])
   // determine chart color based on price change
   const priceChange = prices[prices.length - 1] - prices[0]
@@ -65,8 +62,8 @@ const StockChart = ({ data }) => {
   }
 
   // animation duration setup
-  const totalDuration = 2000
-  const delayBetweenPoints = totalDuration / data.length
+  const totalDuration = 1000
+  const delayBetweenPoints = data.length > 0 ? totalDuration / data.length : 0
   const previousY = (ctx) =>
     ctx.index === 0
       ? ctx.chart.scales.y.getPixelForValue(100)
@@ -120,15 +117,7 @@ const StockChart = ({ data }) => {
       },
     },
     // chart animation
-
     animation: {
-      // tension: {
-      //   duration: 300,
-      //   easing: 'easeOutQuad',
-      //   from: 0.5,
-      //   to: 0,
-      //   loop: false,
-      // },
       x: {
         type: 'number',
         easing: 'linear',
@@ -161,11 +150,6 @@ const StockChart = ({ data }) => {
   const chartOptions = {
     ...options,
     animations: animate.current ? options.animations : false, // Disable animation on updates
-  }
-
-  if (data.length === 0) {
-    console.log('no data')
-    return <div>No data available</div>
   }
 
   return (

@@ -60,10 +60,15 @@ notes on docker:
 - image - snapshot of software
 - docker compose - tool for building and running multiple docker containers using a yaml config file (specifies services, networks, volumes)
 
-aug 12, 2024
+aug 12, 2024 (4 hours)
 
 - todo: implement account menu dropdown + run python script on initial docker startup? (do not fetch if stocks db already populated?)
 - update #1 (2 hours) - implemented account menu dropdown with mui (contains stats + logout options) - maybe add settings/help? also highlighted logged in user in leaderboard for better design and disabled click highlight on non-logged in users
+- update #2 (2 hour) - genuinly cant figure out why im getting a typeerror/reduce error - i think chartjs is using it but i cant figure out how to fix it. it might just be a problem on their end because i have no control over how they use their functions underneath the hood. idek
+
+aug 13, 2024
+
+- todo: start refactoring/cleaning up code, run python script when building docker image, redesign game board with mui table? help/settings option in navbar? look into deploying app
 
 ### challenges:
 

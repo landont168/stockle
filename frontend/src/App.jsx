@@ -143,7 +143,7 @@ const App = () => {
             toggleTheme={toggleTheme}
             refreshGame={refreshGame}
           />
-          {solutionHistory && <StockChart data={solutionHistory} />}
+          {solution && solutionHistory && <StockChart data={solutionHistory} />}
           <Board guesses={guesses} solution={solution} />
           <SearchBar
             solution={solution}
