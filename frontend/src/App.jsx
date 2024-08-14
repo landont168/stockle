@@ -16,10 +16,12 @@ import historyService from './services/history'
 import Header from './components/Header'
 import Board from './components/Board'
 import SearchBar from './components/SearchBar'
-import GameOver from './components/GameOver'
+// import GameOver from './components/GameOver'
+import Statistics from './components/Statistics'
 import LoginForm from './components/LoginForm'
 import StockChart from './components/StockChart'
 import SnackBar from './components/SnackBar'
+import Alert from './components/Alert'
 
 // mui themes
 const lightTheme = createTheme({
@@ -48,7 +50,7 @@ const App = () => {
   const [gameOver, setGameOver] = useState(false)
   const [won, setWon] = useState(false)
   const [attempts, setAttempts] = useState(0)
-  const [showModal, setShowModal] = useState(false)
+  const [showStats, setShowStats] = useState(false)
   const [user, setUser] = useState(null)
   const [darkMode, setDarkMode] = useState(() => {
     const savedMode = localStorage.getItem('darkMode')
@@ -93,7 +95,8 @@ const App = () => {
   }, [fetchSolution])
 
   useEffect(() => {
-    gameOver ? setTimeout(() => setShowModal(true), 2000) : null
+    gameOver ? setTimeout(() => setShowStats(true), 2000) : null
+    console.log('GAME OVER')
   }, [gameOver])
 
   // login user
@@ -153,6 +156,9 @@ const App = () => {
             darkMode={darkMode}
             toggleTheme={toggleTheme}
             refreshGame={refreshGame}
+            showStats={showStats}
+            setShowStats={setShowStats}
+            gmameOver={gameOver}
           />
           {solution && solutionHistory && <StockChart data={solutionHistory} />}
           <Board guesses={guesses} solution={solution} />
@@ -167,12 +173,12 @@ const App = () => {
             user={user}
             setUser={setUser}
           />
-          {showModal && (
-            <GameOver
-              won={won}
-              attempts={attempts}
-              solution={solution}
-              handleClose={() => setShowModal(false)}
+          {gameOver && <Alert solution={solution} />}
+          {gameOver && showStats && (
+            <Statistics
+              user={user}
+              setShowStats={setShowStats}
+              title={won ? 'Congraulations!' : 'Thanks for playing!'}
             />
           )}
           {notification.message && <SnackBar notification={notification} />}

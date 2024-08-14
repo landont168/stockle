@@ -1,6 +1,10 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addGuess } from '../reducers/guessReducer'
+import {
+  setNotification,
+  removeNotification,
+} from '../reducers/notificationReducer'
 import usersService from '../services/users'
 
 // material ui
@@ -36,10 +40,12 @@ const SearchBar = ({
 
   const handleGuess = (e) => {
     e.preventDefault()
+    dispatch(removeNotification())
 
     // validate guess input
     if (!guess) {
       console.log('please select stock')
+      dispatch(setNotification('Please select a stock.', false))
       return
     }
 
@@ -50,16 +56,20 @@ const SearchBar = ({
       updateStats(true)
     }
 
-    if (attempts === 5) {
-      setGameOver(true)
-      console.log('no more attempts')
-      updateStats(false)
-    }
-
     // duplicate guess
     if (guesses.some((g) => g && g.id === guess.id)) {
       console.log('already guessed')
-      return false
+      dispatch(
+        setNotification('Already guessed. Guess a different stock.', false)
+      )
+      return
+    }
+
+    // valid guess
+    if (attempts + 1 === 6) {
+      setGameOver(true)
+      console.log('no more attempts')
+      updateStats(false)
     }
 
     dispatch(addGuess({ guess, attempts }))

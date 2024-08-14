@@ -25,9 +25,8 @@ const SnackBar = ({ notification }) => {
     <div>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
         <Alert
-          onClose={handleClose}
           severity={type}
-          variant='filled'
+          // variant='filled'
           sx={{ width: '100%' }}
         >
           {notification.message}

@@ -11,9 +11,18 @@ import Leaderboard from './Leaderboard'
 import Statistics from './Statistics'
 import AccountMenu from './AccountMenu'
 
-const Header = ({ user, logoutUser, darkMode, toggleTheme, refreshGame }) => {
+const Header = ({
+  user,
+  logoutUser,
+  darkMode,
+  toggleTheme,
+  refreshGame,
+  showStats,
+  setShowStats,
+  gameOver,
+}) => {
   const [showLeaderboard, setShowLeaderboard] = useState(false)
-  const [showStats, setShowStats] = useState(false)
+  // const [showStats, setShowStats] = useState(false)
 
   return (
     <header className='header-container'>
@@ -43,7 +52,9 @@ const Header = ({ user, logoutUser, darkMode, toggleTheme, refreshGame }) => {
       {showLeaderboard && (
         <Leaderboard setShowLeaderboard={setShowLeaderboard} userId={user.id} />
       )}
-      {showStats && <Statistics user={user} setShowStats={setShowStats} />}
+      {showStats && !gameOver && (
+        <Statistics user={user} setShowStats={setShowStats} title='History' />
+      )}
     </header>
   )
 }

@@ -23,7 +23,6 @@ const LoginForm = ({ loginUser }) => {
   const dispatch = useDispatch()
   const notification = useSelector((state) => state.notification)
   const [showSignUpForm, setShowSignUpForm] = useState(false)
-  const [signupSuccess, setSignupSuccess] = useState(false)
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -35,12 +34,7 @@ const LoginForm = ({ loginUser }) => {
   }
 
   if (showSignUpForm) {
-    return (
-      <SignUpForm
-        setShowSignUpForm={setShowSignUpForm}
-        setSignupSuccess={setSignupSuccess}
-      />
-    )
+    return <SignUpForm setShowSignUpForm={setShowSignUpForm} />
   }
 
   console.log(notification)

@@ -1,13 +1,13 @@
 import ModalTemplate from './ModalTemplate'
 import DistributionChart from './DistributionChart'
 
-const Statistics = ({ user, setShowStats }) => {
+const Statistics = ({ user, setShowStats, title }) => {
   const winPercentage =
     Math.round((user.gamesWon / user.gamesPlayed) * 100) || 0
 
   return (
     <ModalTemplate handleClose={() => setShowStats(false)}>
-      <h1 className='modal-title'>History</h1>
+      <h1 className='modal-title'>{title}</h1>
       <h4>STATISTICS</h4>
       <div className='modal-stats'>
         <div className='stat'>

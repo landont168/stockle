@@ -17,7 +17,7 @@ import {
 import SnackBar from './SnackBar'
 import usersService from '../services/users'
 
-const SignUp = ({ setShowSignUpForm, setSignupSuccess }) => {
+const SignUp = ({ setShowSignUpForm }) => {
   const notification = useSelector((state) => state.notification)
   console.log(notification)
 
@@ -29,7 +29,6 @@ const SignUp = ({ setShowSignUpForm, setSignupSuccess }) => {
         const user = await usersService.createUser(newUser)
         console.log('success', user)
         setShowSignUpForm(false)
-        setSignupSuccess(true)
         dispatch(
           setNotification('Your account has been successfully created.', true)
         )
