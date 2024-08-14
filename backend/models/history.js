@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const historiesSchema = new mongoose.Schema({
+const historySchema = new mongoose.Schema({
   stockHistory: [
     {
       _id: false,
@@ -10,7 +10,7 @@ const historiesSchema = new mongoose.Schema({
   ],
 })
 
-historiesSchema.set('toJSON', {
+historySchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
@@ -18,4 +18,4 @@ historiesSchema.set('toJSON', {
   },
 })
 
-module.exports = mongoose.model('Histories', historiesSchema)
+module.exports = mongoose.model('Histories', historySchema)

@@ -34,21 +34,15 @@ usersRouter.post('/', async (request, response) => {
     guessDistribution: Array(6).fill(0),
   })
   const savedUser = await user.save()
-  console.log(savedUser)
   response.status(201).json(savedUser)
 })
 
-// update user stats
 usersRouter.put('/:id', async (request, response) => {
   const { id } = request.params
   const { wonGame, attempts } = request.body
-  console.log(wonGame)
-
-  console.log('updating user stats...')
 
   // get user and update stats
   const user = await User.findById(id)
-
   const newCurrentStreak = wonGame ? user.currentStreak + 1 : 0
   const updatedFields = {
     gamesPlayed: user.gamesPlayed + 1,
@@ -62,14 +56,14 @@ usersRouter.put('/:id', async (request, response) => {
         })
       : user.guessDistribution,
   }
+
+  // update user stats in db
   const updatedUser = await User.findByIdAndUpdate(id, updatedFields, {
     new: true,
   })
-  console.log(updatedUser)
   response.json(updatedUser)
 })
 
-// delete all users
 usersRouter.delete('/', async (request, response) => {
   await User.deleteMany({})
   response.status(204).end()

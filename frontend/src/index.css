@@ -9,11 +9,15 @@
 
 body {
   font-size: 1em;
+  height: 100%;
+  width: 100%;
+  /* overflow: hidden; */
+  /* height: 100vh;
+  width: 100vw; */
 }
 
 .game {
   text-align: center;
-  width: 100%;
 }
 
 /* header */
@@ -42,7 +46,8 @@ body {
 
 /* stock chart */
 .stock-chart {
-  width: 60%;
+  width: 50%;
+  max-width: 1200px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -53,36 +58,40 @@ body {
 .row {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .row > h3 {
   display: block;
-  width: 225px;
+  width: 150px;
   height: 30px;
-  /* fix eventually to remove top margin (8px) */
-  margin: 20px 8px 0px 8px;
+  margin: 20px 8px 0 8px;
   padding: 2px;
   font-size: 1.2em;
+  overflow: hidden;
 }
 
 .row > h3 > .row-name {
-  width: 425px;
+  width: 400px;
 }
 
 .row > h3 > .row-sector {
-  width: 275px;
+  width: 250px;
 }
 
 .row > div {
   display: block;
-  width: 225px;
-  height: 60px;
+  width: 150px;
+  height: 50px;
   border: 2px solid;
   border-radius: 8px;
   margin: 8px;
-  line-height: 60px;
+  line-height: 50px;
   font-weight: bold;
-  font-size: 1.2em;
+  font-size: 1.1em;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .entry {
@@ -93,11 +102,11 @@ body {
 }
 
 .row > .row-name {
-  width: 425px;
+  width: 400px;
 }
 
 .row > .row-sector {
-  width: 275px;
+  width: 250px;
 }
 
 /* search form */

@@ -21,7 +21,7 @@ const BasicAlert = ({ solution }) => {
         TransitionComponent={state.Transition}
         key={state.Transition.name}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        sx={{ marginTop: '45px' }}
+        sx={{ marginTop: '55px', width: '25%' }}
       >
         <Alert severity='info' sx={{ width: '100%' }}>
           Answer: {solution.name} ({solution.ticker})

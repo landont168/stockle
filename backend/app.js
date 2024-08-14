@@ -1,8 +1,6 @@
-// express app
+// set up express app
 const express = require('express')
 const app = express()
-
-// imports
 require('express-async-errors')
 const mongoose = require('mongoose')
 const cors = require('cors')

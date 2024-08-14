@@ -2,7 +2,7 @@ import BoardRow from './BoardRow'
 
 const Board = ({ guesses, solution }) => {
   return (
-    <div>
+    <div className='board'>
       <div className='row'>
         <h3 className='row-name'>Name</h3>
         <h3 className='row-sector'>Sector</h3>

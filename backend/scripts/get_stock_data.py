@@ -4,24 +4,24 @@ import pymongo
 import os
 from dotenv import load_dotenv
 
-# source venv/bin/activate
-
-# setup databases
+# connect to databases
 load_dotenv()
 MONGODB_URI = os.getenv('MONGODB_URI')
 client = pymongo.MongoClient(MONGODB_URI)
-db = client['stockle']
-stocks_db = db['stocks']
-history_db = db['histories']
+
+# clear existing collections
+stocks_db = client['stockle']['stocks']
+history_db = client['stockle']['histories']
 stocks_db.drop()
 history_db.drop()
 
+# web scrape sp500 tickers from wikipedia
 def get_tickers():
   wiki_url = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
   df = pd.read_html(wiki_url, header=0)[0][['Symbol', 'Security']]
   return df
 
-
+# fetch stock data from yfinance
 def get_stock_data(df):
   stock_data = []
 
@@ -41,7 +41,6 @@ def get_stock_data(df):
         'volume': info['averageVolume'],
       }
 
-      # get history
       hist = ticker_obj.history(start="2024-01-01")
       stock_hist = [{'date': date.strftime('%Y-%m-%d'), 'price': round(float(data['Close']), 2)} for date, data in hist.iterrows()]
       history_id = history_db.insert_one({'stockHistory': stock_hist}).inserted_id
@@ -54,7 +53,6 @@ def get_stock_data(df):
 
 
 def main():
-  # insert stock data into db
   tickers = get_tickers()
   stock_data = get_stock_data(tickers)
   stocks_db.insert_many(stock_data)

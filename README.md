@@ -72,7 +72,9 @@ aug 13, 2024 (1 hour)
 - update #1 (1 hour): implemented noti for successful/failed sign up
 
 aug 14, 2024:
-- update #1 (1 hour)
+
+- update #1 (1 hour) - added notifications for successful/failed signin/login/logout
+- update #2 (1 hour) - displayed stat modal + soluton on game end using mui alert + handled dup guesses + fixed game logic handling bug
 
 ### challenges:
 
@@ -81,9 +83,10 @@ aug 14, 2024:
 - refactoring stock history into separete endpoint - use history id stored in stock resource to fetch at /api/history:id instead of storing huge amounts of data into stock redux store
 - making chartjs work (hover design, render animation, disable animation upon updating state and re-rendering app)
 - setting up docker compose to containerize backend + frontend - and then figuring out how to still enable local development with the api proxying
+- adding small features has been really annoying bc i tend need to lift some state components up and pass a bunch of props or change the logic of how things worked (ex. account menu + notis)
 
 ### todo:
 
-- add notifications (ex. successful/unsuccessful login, successful/unsuccessful signup)
-- dockerize app (run python script, build frontend, etc)
+- dockerize app and deploy with aws? (run python script in venv, build frontend, etc)
 - eventually make app responsive with css? (dont wanna do this tbh)
+- refactor app (clean up code and comments + console logs)

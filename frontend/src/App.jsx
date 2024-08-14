@@ -95,7 +95,7 @@ const App = () => {
   }, [fetchSolution])
 
   useEffect(() => {
-    gameOver ? setTimeout(() => setShowStats(true), 2000) : null
+    gameOver ? setTimeout(() => setShowStats(true), 2500) : null
     console.log('GAME OVER')
   }, [gameOver])
 
