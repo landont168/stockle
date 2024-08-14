@@ -8,19 +8,38 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 
+// redux to update notifications state
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  setNotification,
+  removeNotification,
+} from '../reducers/notificationReducer'
+import SnackBar from './SnackBar'
 import usersService from '../services/users'
 
-const SignUp = ({ setShowSignUpForm }) => {
+const SignUp = ({ setShowSignUpForm, setSignupSuccess }) => {
+  const notification = useSelector((state) => state.notification)
+  console.log(notification)
+
+  const dispatch = useDispatch()
   const handleSubmit = (e) => {
     e.preventDefault()
-    setShowSignUpForm(false)
-
     const signupUser = async (newUser) => {
       try {
         const user = await usersService.createUser(newUser)
         console.log('success', user)
+        setShowSignUpForm(false)
+        setSignupSuccess(true)
+        dispatch(
+          setNotification('Your account has been successfully created.', true)
+        )
       } catch {
-        console.log('bad input')
+        dispatch(
+          setNotification(
+            'Invalid password or username. Please try again.',
+            false
+          )
+        )
       }
     }
 
@@ -49,6 +68,7 @@ const SignUp = ({ setShowSignUpForm }) => {
         <Typography component='h1' variant='h5' sx={{ fontWeight: 'bold' }}>
           Sign up to Stockle
         </Typography>
+
         <Box component='form' noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
@@ -105,8 +125,11 @@ const SignUp = ({ setShowSignUpForm }) => {
           <Grid container justifyContent='flex-end'>
             <Grid item>
               <Button
+                onClick={() => {
+                  setShowSignUpForm(false)
+                  dispatch(removeNotification())
+                }}
                 variant='text'
-                onClick={() => setShowSignUpForm(false)}
                 sx={{
                   textTransform: 'none',
                   padding: 0,
@@ -117,12 +140,13 @@ const SignUp = ({ setShowSignUpForm }) => {
                   },
                 }}
               >
-                {"Don't have an account? Log in"}
+                {'Already have an account? Log in'}
               </Button>
             </Grid>
           </Grid>
         </Box>
       </Box>
+      {notification.message && <SnackBar notification={notification} />}
     </Container>
   )
 }

@@ -66,9 +66,13 @@ aug 12, 2024 (4 hours)
 - update #1 (2 hours) - implemented account menu dropdown with mui (contains stats + logout options) - maybe add settings/help? also highlighted logged in user in leaderboard for better design and disabled click highlight on non-logged in users
 - update #2 (2 hour) - genuinly cant figure out why im getting a typeerror/reduce error - i think chartjs is using it but i cant figure out how to fix it. it might just be a problem on their end because i have no control over how they use their functions underneath the hood. idek
 
-aug 13, 2024
+aug 13, 2024 (1 hour)
 
-- todo: start refactoring/cleaning up code, run python script when building docker image, redesign game board with mui table? help/settings option in navbar? look into deploying app
+- todo: add notifications for signup/login? change game over screen to statistics modal? start refactoring/cleaning up code, run python script when building docker image, redesign game board with mui table? help/settings option in navbar? look into deploying app
+- update #1 (1 hour): implemented noti for successful/failed sign up
+
+aug 14, 2024:
+- update #1 (1 hour)
 
 ### challenges:
 

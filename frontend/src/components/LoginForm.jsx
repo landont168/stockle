@@ -9,12 +9,21 @@ import LoginIcon from '@mui/icons-material/Login'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 
+import SnackBar from './SnackBar'
+
 // react
 import { useState } from 'react'
 import SignUpForm from './SignUpForm'
 
+// reset noti state
+import { removeNotification } from '../reducers/notificationReducer'
+import { useSelector, useDispatch } from 'react-redux'
+
 const LoginForm = ({ loginUser }) => {
+  const dispatch = useDispatch()
+  const notification = useSelector((state) => state.notification)
   const [showSignUpForm, setShowSignUpForm] = useState(false)
+  const [signupSuccess, setSignupSuccess] = useState(false)
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -26,8 +35,15 @@ const LoginForm = ({ loginUser }) => {
   }
 
   if (showSignUpForm) {
-    return <SignUpForm setShowSignUpForm={setShowSignUpForm} />
+    return (
+      <SignUpForm
+        setShowSignUpForm={setShowSignUpForm}
+        setSignupSuccess={setSignupSuccess}
+      />
+    )
   }
+
+  console.log(notification)
 
   return (
     <Container component='main' maxWidth='xs'>
@@ -80,7 +96,10 @@ const LoginForm = ({ loginUser }) => {
             <Grid item>
               <Button
                 variant='text'
-                onClick={() => setShowSignUpForm(true)}
+                onClick={() => {
+                  setShowSignUpForm(true)
+                  dispatch(removeNotification())
+                }}
                 sx={{
                   textTransform: 'none',
                   padding: 0,
@@ -97,6 +116,7 @@ const LoginForm = ({ loginUser }) => {
           </Grid>
         </Box>
       </Box>
+      {notification.message && <SnackBar notification={notification} />}
     </Container>
   )
 }

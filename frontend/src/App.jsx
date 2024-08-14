@@ -6,6 +6,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { initializeStocks } from './reducers/stockReducer'
 import { resetGuesses } from './reducers/guessReducer'
+import { setNotification } from './reducers/notificationReducer'
 
 // services
 import loginService from './services/login'
@@ -18,6 +19,7 @@ import SearchBar from './components/SearchBar'
 import GameOver from './components/GameOver'
 import LoginForm from './components/LoginForm'
 import StockChart from './components/StockChart'
+import SnackBar from './components/SnackBar'
 
 // mui themes
 const lightTheme = createTheme({
@@ -36,6 +38,7 @@ const App = () => {
   const dispatch = useDispatch()
   const stocks = useSelector((state) => state.stocks)
   const guesses = useSelector((state) => state.guesses)
+  const notification = useSelector((state) => state.notification)
 
   // solution states
   const [solution, setSolution] = useState(null)
@@ -99,8 +102,15 @@ const App = () => {
       const user = await loginService.login(userCredentials)
       window.localStorage.setItem('loggedUser', JSON.stringify(user))
       setUser(user)
+      dispatch(setNotification('Successfully logged in!', true))
     } catch {
-      console.log('wrong credentials')
+      console.log('failed to login')
+      dispatch(
+        setNotification(
+          'Failed to log in. Invalid username or password.',
+          false
+        )
+      )
     }
   }
 
@@ -109,6 +119,7 @@ const App = () => {
     window.localStorage.removeItem('loggedUser')
     setUser(null)
     refreshGame()
+    dispatch(setNotification('Successfully logged out!', true))
   }
 
   // refresh game state
@@ -164,6 +175,7 @@ const App = () => {
               handleClose={() => setShowModal(false)}
             />
           )}
+          {notification.message && <SnackBar notification={notification} />}
         </div>
       )}
     </ThemeProvider>
