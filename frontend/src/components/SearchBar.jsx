@@ -25,7 +25,7 @@ const SearchBar = ({
   const stocks = useSelector((state) => state.stocks)
   const guesses = useSelector((state) => state.guesses)
   const user = useSelector((state) => state.user)
-  const [guess, setGuess] = useState('')
+  const [guess, setGuess] = useState(null)
 
   // update user stats after game ends
   const updateStats = async (result) => {
@@ -40,6 +40,7 @@ const SearchBar = ({
   const handleGuess = (e) => {
     e.preventDefault()
     dispatch(removeNotification())
+    setGuess(null)
 
     // validate guess input
     if (!guess) {
@@ -70,7 +71,6 @@ const SearchBar = ({
 
     dispatch(addGuess({ guess, attempts }))
     setAttempts(attempts + 1)
-    setGuess('')
   }
 
   return (
@@ -83,6 +83,7 @@ const SearchBar = ({
             options={stocks}
             getOptionLabel={(option) => `${option.name} (${option.ticker})`}
             sx={{ width: 350, marginRight: '5px' }}
+            value={guess}
             onChange={(e, newValue) => setGuess(newValue)}
             renderInput={(params) => <TextField {...params} label='Stock' />}
           />

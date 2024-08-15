@@ -46,10 +46,10 @@ const AccountMenu = ({ setShowStats, initial, refreshGame }) => {
           >
             <Avatar
               sx={{
-                width: 30,
-                height: 30,
+                width: 35,
+                height: 35,
                 bgcolor: 'primary.main',
-                fontSize: 17,
+                fontSize: 20,
               }}
             >
               {initial.toUpperCase()}

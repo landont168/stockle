@@ -71,10 +71,14 @@ aug 13, 2024 (1 hour)
 - todo: add notifications for signup/login? change game over screen to statistics modal? start refactoring/cleaning up code, run python script when building docker image, redesign game board with mui table? help/settings option in navbar? look into deploying app
 - update #1 (1 hour): implemented noti for successful/failed sign up
 
-aug 14, 2024:
+aug 14, 2024 (4 hours):
 
 - update #1 (1 hour) - added notifications for successful/failed signin/login/logout
 - update #2 (1 hour) - displayed stat modal + soluton on game end using mui alert + handled dup guesses + fixed game logic handling bug
+- update #3 (2 hours) - refactored frontend - took a while but got most of the junk cleaned up :)
+
+aug 15, 2024
+- todo: 
 
 ### challenges:
 
@@ -89,4 +93,4 @@ aug 14, 2024:
 
 - dockerize app and deploy with aws? (run python script in venv, build frontend, etc)
 - eventually make app responsive with css? (dont wanna do this tbh)
-- refactor app (clean up code and comments + console logs)
+- 

@@ -27,17 +27,21 @@ const Header = ({
       <div className='header-icons'>
         <Tooltip title={'Theme'}>
           <IconButton onClick={() => toggleTheme()}>
-            {darkMode ? <LightModeRoundedIcon /> : <DarkModeRoundedIcon />}
+            {darkMode ? (
+              <LightModeRoundedIcon style={{ fontSize: 30 }} />
+            ) : (
+              <DarkModeRoundedIcon style={{ fontSize: 30 }} />
+            )}
           </IconButton>
         </Tooltip>
         <Tooltip title='Leaderboard'>
           <IconButton onClick={() => setShowLeaderboard(true)}>
-            <LeaderboardRoundedIcon />
+            <LeaderboardRoundedIcon style={{ fontSize: 30 }} />
           </IconButton>
         </Tooltip>
         <Tooltip title='Shuffle'>
           <IconButton onClick={() => refreshGame()}>
-            <ShuffleRoundedIcon />
+            <ShuffleRoundedIcon style={{ fontSize: 30 }} />
           </IconButton>
         </Tooltip>
         <AccountMenu
