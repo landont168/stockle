@@ -100,7 +100,7 @@ const App = () => {
       <CssBaseline />
       {!user && <LoginForm />}
       {user && (
-        <div>
+        <>
           <Header
             darkMode={darkMode}
             toggleTheme={toggleTheme}
@@ -126,7 +126,7 @@ const App = () => {
             />
           )}
           {notification && <Notification notification={notification} />}
-        </div>
+        </>
       )}
     </ThemeProvider>
   )

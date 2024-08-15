@@ -6,9 +6,8 @@ import CloseIcon from '@mui/icons-material/Close'
 const Popup = ({ children, handleClose }) => {
   const theme = useTheme()
   return (
-    <Modal open onClose={handleClose}>
+    <Modal open onClose={handleClose} className='modal-container'>
       <Box
-        className='modal-container'
         sx={{
           bgcolor: theme.palette.background.paper,
           color: theme.palette.text.primary,
@@ -18,7 +17,7 @@ const Popup = ({ children, handleClose }) => {
         }}
       >
         <div className='modal-header'>
-          <IconButton onClick={handleClose} className='modal-close-button'>
+          <IconButton onClick={handleClose}>
             <CloseIcon />
           </IconButton>
         </div>

@@ -8,54 +8,53 @@
 }
 
 body {
-  font-size: 1em;
+  width: 100vw;
+  height: 100vh;
+}
+
+#root {
   height: 100%;
   width: 100%;
-  overflow: hidden;
 }
 
 /* header */
 .header-container {
   position: relative;
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   border-bottom: 1px solid #eee;
   padding: 4px;
-  margin-bottom: 5px;
 }
 
 .header-title {
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  text-align: center;
 }
 
 .header-icons {
   margin-left: auto;
-  margin-right: 6px;
   display: flex;
-  gap: 10px;
+  gap: 8px;
 }
 
-/* stock chart */
+/* stock chart container */
 .stock-chart {
-  width: 70%;
-  height: 40vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  margin-bottom: 5px;
+  width: 60%;
+  height: 40%;
+  margin: 8px auto;
 }
 
-/* board */
+/* FIX: FIX BOARD CSS */
+.board {
+  display: flex;
+  flex-direction: column;
+}
+
 .row {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex: 1;
 }
 
 .row > h3 {
@@ -107,45 +106,24 @@ body {
   width: 250px;
 }
 
-/* search form */
+/* search container */
 .search-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 30px 0 50px 0;
-}
-
-.search-form {
-  display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 20px;
 }
 
-/* modal */
-.modal-background {
-  background: rgba(255, 255, 255, 0.7);
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-}
-
+/* modal container */
 .modal-container {
-  width: 450px;
-  padding: 15px 30px 40px 30px;
-  border-radius: 8px;
-  margin: 0 auto;
-  position: fixed;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -40%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .modal-header {
   display: flex;
   justify-content: flex-end;
-  align-items: center;
 }
 
 .modal-title {
@@ -156,31 +134,19 @@ body {
 }
 
 .modal-content {
-  padding: 0 20px 30px 20px;
-}
-
-.modal-close-button {
-  background: none;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  margin-right: -15px;
+  padding: 0 20px 20px 20px;
 }
 
 .modal-stats {
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
-  width: 100%;
 }
 
-.stat {
+.modal-stat {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   text-align: center;
-  margin: 0 20px;
-  height: 100%;
+  margin: 0 15px;
 }

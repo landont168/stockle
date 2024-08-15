@@ -74,31 +74,29 @@ const SearchBar = ({
   }
 
   return (
-    <div className='search-container'>
-      <form className='search-form' onSubmit={handleGuess}>
-        <div>
-          <Autocomplete
-            disablePortal
-            id='combo-box-demo'
-            options={stocks}
-            getOptionLabel={(option) => `${option.name} (${option.ticker})`}
-            sx={{ width: 350, marginRight: '5px' }}
-            value={guess}
-            onChange={(e, newValue) => setGuess(newValue)}
-            renderInput={(params) => <TextField {...params} label='Stock' />}
-            disabled={gameOver}
-          />
-        </div>
-        <Button
-          type='submit'
-          variant='contained'
-          endIcon={<SendIcon />}
+    <form className='search-container' onSubmit={handleGuess}>
+      <div>
+        <Autocomplete
+          disablePortal
+          id='combo-box-demo'
+          options={stocks}
+          getOptionLabel={(option) => `${option.name} (${option.ticker})`}
+          sx={{ width: 350, marginRight: '5px' }}
+          value={guess}
+          onChange={(e, newValue) => setGuess(newValue)}
+          renderInput={(params) => <TextField {...params} label='Stock' />}
           disabled={gameOver}
-        >
-          Guess
-        </Button>
-      </form>
-    </div>
+        />
+      </div>
+      <Button
+        type='submit'
+        variant='contained'
+        endIcon={<SendIcon />}
+        disabled={gameOver}
+      >
+        Guess
+      </Button>
+    </form>
   )
 }
 

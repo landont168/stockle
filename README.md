@@ -79,7 +79,7 @@ aug 14, 2024 (4 hours):
 
 aug 15, 2024
 
-- todo:
+- update #1: refactor react + css
 
 ### challenges:
 
@@ -93,4 +93,5 @@ aug 15, 2024
 ### todo:
 
 - improve responsiveness of app (header + gameboard) - use mui grid for game board instead?
+- use tailwind css instead of raw css?
 - dockerize app and deploy with aws? (run python script in venv, build frontend, etc)
