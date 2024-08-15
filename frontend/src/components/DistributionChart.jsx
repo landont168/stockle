@@ -12,7 +12,6 @@ import {
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 const DistributionChart = ({ distribution }) => {
-  // set up distribution data
   const data = {
     labels: ['1', '2', '3', '4', '5', '6'],
     datasets: [
@@ -26,7 +25,7 @@ const DistributionChart = ({ distribution }) => {
     ],
   }
 
-  // format horizontal bar chart with no gridlines
+  // format horizontal bar chart
   const options = {
     indexAxis: 'y',
     scales: {

@@ -1,17 +1,17 @@
+import TextField from '@mui/material/TextField'
+import Autocomplete from '@mui/material/Autocomplete'
+import Button from '@mui/material/Button'
+import SendIcon from '@mui/icons-material/Send'
+
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addGuess } from '../reducers/guessReducer'
+import { setUser } from '../reducers/userReducer'
 import {
   setNotification,
   removeNotification,
 } from '../reducers/notificationReducer'
 import usersService from '../services/users'
-
-// material ui
-import TextField from '@mui/material/TextField'
-import Autocomplete from '@mui/material/Autocomplete'
-import Button from '@mui/material/Button'
-import SendIcon from '@mui/icons-material/Send'
 
 const SearchBar = ({
   solution,
@@ -19,23 +19,22 @@ const SearchBar = ({
   setGameOver,
   attempts,
   setAttempts,
-  won,
   setWon,
-  user,
-  setUser,
 }) => {
   const dispatch = useDispatch()
   const stocks = useSelector((state) => state.stocks)
   const guesses = useSelector((state) => state.guesses)
+  const user = useSelector((state) => state.user)
   const [guess, setGuess] = useState('')
 
+  // update user stats after game ends
   const updateStats = async (result) => {
     const updatedUser = await usersService.updateUser(user.id, {
       wonGame: result,
       attempts,
     })
     window.localStorage.setItem('loggedUser', JSON.stringify(updatedUser))
-    setUser(updatedUser)
+    dispatch(setUser(updatedUser))
   }
 
   const handleGuess = (e) => {
@@ -44,12 +43,11 @@ const SearchBar = ({
 
     // validate guess input
     if (!guess) {
-      console.log('please select stock')
-      dispatch(setNotification('Please select a stock.', false))
+      dispatch(setNotification('Please select a stock.', 'error'))
       return
     }
 
-    // correct guess or no more attempts => game over
+    // correct guess
     if (solution.id === guess.id) {
       setGameOver(true)
       setWon(true)
@@ -58,17 +56,15 @@ const SearchBar = ({
 
     // duplicate guess
     if (guesses.some((g) => g && g.id === guess.id)) {
-      console.log('already guessed')
       dispatch(
-        setNotification('Already guessed. Guess a different stock.', false)
+        setNotification('Already guessed. Guess a different stock.', 'error')
       )
       return
     }
 
-    // valid guess
+    // incorrect guess on last guess
     if (attempts + 1 === 6) {
       setGameOver(true)
-      console.log('no more attempts')
       updateStats(false)
     }
 
@@ -78,32 +74,28 @@ const SearchBar = ({
   }
 
   return (
-    <div>
-      <div className='search-container'>
-        <form className='search-form' onSubmit={handleGuess}>
-          <div>
-            <Autocomplete
-              disablePortal
-              id='combo-box-demo'
-              options={stocks}
-              getOptionLabel={(option) => `${option.name} (${option.ticker})`}
-              sx={{ width: 350, marginRight: '5px' }}
-              onChange={(event, newValue) => setGuess(newValue)}
-              renderInput={(params) => <TextField {...params} label='Stock' />}
-            />
-          </div>
-          {!gameOver && (
-            <Button type='submit' variant='contained' endIcon={<SendIcon />}>
-              Guess
-            </Button>
-          )}
-          {gameOver && (
-            <Button variant='contained' disabled endIcon={<SendIcon />}>
-              Guess
-            </Button>
-          )}
-        </form>
-      </div>
+    <div className='search-container'>
+      <form className='search-form' onSubmit={handleGuess}>
+        <div>
+          <Autocomplete
+            disablePortal
+            id='combo-box-demo'
+            options={stocks}
+            getOptionLabel={(option) => `${option.name} (${option.ticker})`}
+            sx={{ width: 350, marginRight: '5px' }}
+            onChange={(e, newValue) => setGuess(newValue)}
+            renderInput={(params) => <TextField {...params} label='Stock' />}
+          />
+        </div>
+        <Button
+          type='submit'
+          variant='contained'
+          endIcon={<SendIcon />}
+          disabled={gameOver}
+        >
+          Guess
+        </Button>
+      </form>
     </div>
   )
 }

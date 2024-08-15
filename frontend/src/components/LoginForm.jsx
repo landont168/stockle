@@ -1,28 +1,43 @@
-// material ui
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
-import CssBaseline from '@mui/material/CssBaseline'
 import TextField from '@mui/material/TextField'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
-import LoginIcon from '@mui/icons-material/Login'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
-
-import SnackBar from './SnackBar'
-
-// react
+import LoginRoundedIcon from '@mui/icons-material/LoginRounded'
 import { useState } from 'react'
-import SignUpForm from './SignUpForm'
-
-// reset noti state
-import { removeNotification } from '../reducers/notificationReducer'
 import { useSelector, useDispatch } from 'react-redux'
+import { setUser } from '../reducers/userReducer'
+import {
+  setNotification,
+  removeNotification,
+} from '../reducers/notificationReducer'
+import loginService from '../services/login'
 
-const LoginForm = ({ loginUser }) => {
+import SignupForm from './SignupForm'
+import Notification from './Notification'
+
+const LoginForm = () => {
   const dispatch = useDispatch()
   const notification = useSelector((state) => state.notification)
-  const [showSignUpForm, setShowSignUpForm] = useState(false)
+  const [showSignupForm, setShowSignupForm] = useState(false)
+
+  const loginUser = async (credentials) => {
+    try {
+      const user = await loginService.login(credentials)
+      window.localStorage.setItem('loggedUser', JSON.stringify(user))
+      dispatch(setUser(user))
+      dispatch(setNotification('Successfully logged in!', 'success'))
+    } catch {
+      dispatch(
+        setNotification(
+          'Failed to log in. Invalid username or password.',
+          'error'
+        )
+      )
+    }
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -33,15 +48,17 @@ const LoginForm = ({ loginUser }) => {
     })
   }
 
-  if (showSignUpForm) {
-    return <SignUpForm setShowSignUpForm={setShowSignUpForm} />
+  const handleClick = () => {
+    setShowSignupForm(true)
+    dispatch(removeNotification())
   }
 
-  console.log(notification)
+  if (showSignupForm) {
+    return <SignupForm setShowSignUpForm={setShowSignupForm} />
+  }
 
   return (
     <Container component='main' maxWidth='xs'>
-      <CssBaseline />
       <Box
         sx={{
           marginTop: 8,
@@ -51,7 +68,7 @@ const LoginForm = ({ loginUser }) => {
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
-          <LoginIcon />
+          <LoginRoundedIcon />
         </Avatar>
         <Typography component='h1' variant='h5' sx={{ fontWeight: 'bold' }}>
           Log in to Stockle
@@ -90,10 +107,7 @@ const LoginForm = ({ loginUser }) => {
             <Grid item>
               <Button
                 variant='text'
-                onClick={() => {
-                  setShowSignUpForm(true)
-                  dispatch(removeNotification())
-                }}
+                onClick={handleClick}
                 sx={{
                   textTransform: 'none',
                   padding: 0,
@@ -110,7 +124,7 @@ const LoginForm = ({ loginUser }) => {
           </Grid>
         </Box>
       </Box>
-      {notification.message && <SnackBar notification={notification} />}
+      {notification && <Notification notification={notification} />}
     </Container>
   )
 }

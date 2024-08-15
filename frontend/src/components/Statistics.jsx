@@ -1,13 +1,15 @@
-import ModalTemplate from './ModalTemplate'
+import { useSelector } from 'react-redux'
+import Modal from './Modal'
 import DistributionChart from './DistributionChart'
 
-const Statistics = ({ user, setShowStats, title }) => {
+const Statistics = ({ setShowStats, text }) => {
+  const user = useSelector((state) => state.user)
   const winPercentage =
     Math.round((user.gamesWon / user.gamesPlayed) * 100) || 0
 
   return (
-    <ModalTemplate handleClose={() => setShowStats(false)}>
-      <h1 className='modal-title'>{title}</h1>
+    <Modal handleClose={() => setShowStats(false)}>
+      <h1 className='modal-title'>{text}</h1>
       <h4>STATISTICS</h4>
       <div className='modal-stats'>
         <div className='stat'>
@@ -29,7 +31,7 @@ const Statistics = ({ user, setShowStats, title }) => {
       </div>
       <h4>GUESS DISTRIBUTION</h4>
       <DistributionChart distribution={user.guessDistribution} />
-    </ModalTemplate>
+    </Modal>
   )
 }
 

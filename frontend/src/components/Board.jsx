@@ -1,6 +1,8 @@
+import { useSelector } from 'react-redux'
 import BoardRow from './BoardRow'
 
-const Board = ({ guesses, solution }) => {
+const Board = ({ solution }) => {
+  const guesses = useSelector((state) => state.guesses)
   return (
     <div className='board'>
       <div className='row'>

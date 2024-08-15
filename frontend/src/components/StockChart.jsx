@@ -37,6 +37,7 @@ const StockChart = ({ data }) => {
     setLabels(data.map((item) => item.date))
     setPrices(data.map((item) => item.price))
   }, [data])
+
   // determine chart color based on price change
   const priceChange = prices[prices.length - 1] - prices[0]
   const borderColor = priceChange > 0 ? '#4CAF50' : '#EF5350'
@@ -147,9 +148,10 @@ const StockChart = ({ data }) => {
     },
   }
 
+  // prevent animation on subsequent renders
   const chartOptions = {
     ...options,
-    animations: animate.current ? options.animations : false, // Disable animation on updates
+    animations: animate.current ? options.animations : false,
   }
 
   return (

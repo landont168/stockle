@@ -1,42 +1,38 @@
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
-import CssBaseline from '@mui/material/CssBaseline'
 import TextField from '@mui/material/TextField'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
-
-// redux to update notifications state
 import { useDispatch, useSelector } from 'react-redux'
 import {
   setNotification,
   removeNotification,
 } from '../reducers/notificationReducer'
-import SnackBar from './SnackBar'
 import usersService from '../services/users'
 
-const SignUp = ({ setShowSignUpForm }) => {
-  const notification = useSelector((state) => state.notification)
-  console.log(notification)
+import Notification from './Notification'
 
+const SignupForm = ({ setShowSignUpForm }) => {
   const dispatch = useDispatch()
+  const notification = useSelector((state) => state.notification)
+
   const handleSubmit = (e) => {
     e.preventDefault()
     const signupUser = async (newUser) => {
       try {
-        const user = await usersService.createUser(newUser)
-        console.log('success', user)
-        setShowSignUpForm(false)
+        await usersService.createUser(newUser)
         dispatch(
-          setNotification('Your account has been successfully created.', true)
+          setNotification('Your account was successfully created.', 'success')
         )
+        setShowSignUpForm(false)
       } catch {
         dispatch(
           setNotification(
             'Invalid password or username. Please try again.',
-            false
+            'error'
           )
         )
       }
@@ -50,9 +46,13 @@ const SignUp = ({ setShowSignUpForm }) => {
     })
   }
 
+  const handleClick = () => {
+    setShowSignUpForm(false)
+    dispatch(removeNotification())
+  }
+
   return (
     <Container component='main' maxWidth='xs'>
-      <CssBaseline />
       <Box
         sx={{
           marginTop: 8,
@@ -124,10 +124,7 @@ const SignUp = ({ setShowSignUpForm }) => {
           <Grid container justifyContent='flex-end'>
             <Grid item>
               <Button
-                onClick={() => {
-                  setShowSignUpForm(false)
-                  dispatch(removeNotification())
-                }}
+                onClick={handleClick}
                 variant='text'
                 sx={{
                   textTransform: 'none',
@@ -145,9 +142,9 @@ const SignUp = ({ setShowSignUpForm }) => {
           </Grid>
         </Box>
       </Box>
-      {notification.message && <SnackBar notification={notification} />}
+      {notification && <Notification notification={notification} />}
     </Container>
   )
 }
 
-export default SignUp
+export default SignupForm

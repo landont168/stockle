@@ -5,20 +5,32 @@ import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Divider from '@mui/material/Divider'
 import Tooltip from '@mui/material/Tooltip'
-
-// icons
 import { IconButton } from '@mui/material'
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
 import InsightsRoundedIcon from '@mui/icons-material/InsightsRounded'
 
-const AccountMenu = ({ setShowStats, initial, logoutUser }) => {
+import { setUser } from '../reducers/userReducer'
+import { setNotification } from '../reducers/notificationReducer'
+import { useDispatch } from 'react-redux'
+
+const AccountMenu = ({ setShowStats, initial, refreshGame }) => {
+  const dispatch = useDispatch()
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
   }
+
   const handleClose = () => {
     setAnchorEl(null)
+  }
+
+  const logoutUser = () => {
+    window.localStorage.removeItem('loggedUser')
+    refreshGame()
+    dispatch(setUser(null))
+    dispatch(setNotification('Successfully logged out!', 'success'))
   }
 
   return (
@@ -37,7 +49,7 @@ const AccountMenu = ({ setShowStats, initial, logoutUser }) => {
                 width: 30,
                 height: 30,
                 bgcolor: 'primary.main',
-                fontSize: 18,
+                fontSize: 17,
               }}
             >
               {initial.toUpperCase()}

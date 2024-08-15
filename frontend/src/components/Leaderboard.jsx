@@ -1,39 +1,58 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { initializeUsers } from '../reducers/usersReducer'
+import { useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
-import ModalTemplate from './ModalTemplate'
-import DataTable from './DataTable'
+import { DataGrid } from '@mui/x-data-grid'
+import Modal from './Modal'
 
-const Leaderboard = ({ setShowLeaderboard, userId }) => {
-  const dispatch = useDispatch()
+const columns = [
+  { field: 'id', headerName: 'Rank', width: 100 },
+  { field: 'username', headerName: 'Username', width: 150 },
+  { field: 'score', headerName: 'Won', width: 90 },
+]
+
+const Leaderboard = ({ setShowLeaderboard }) => {
+  const user = useSelector((state) => state.user)
   const users = useSelector((state) => state.users)
   const [sortedUsers, setSortedUsers] = useState([])
 
-  useEffect(() => {
-    dispatch(initializeUsers())
-  }, [dispatch])
-
-  // sort users by score and format to display in the leaderboard
+  // sort users by games won
   useEffect(() => {
     const sortedUsers = [...users].sort((a, b) => b.gamesWon - a.gamesWon)
     setSortedUsers(
-      sortedUsers.map((user, index) => {
+      sortedUsers.map((u, index) => {
         return {
           id: index + 1,
-          username:
-            user.id === userId ? `${user.username} (You)` : user.username,
-          score: user.gamesWon,
-          isCurrentUser: user.id === userId,
+          username: u.id === user.id ? `${u.username} (You)` : u.username,
+          score: u.gamesWon,
+          isCurrentUser: u.id === user.id,
         }
       })
     )
-  }, [users, userId])
+  }, [users, user])
 
+  // display leaderboard with mui datagrid
   return (
-    <ModalTemplate handleClose={() => setShowLeaderboard(false)}>
+    <Modal handleClose={() => setShowLeaderboard(false)}>
       <h1 className='modal-title'>Leaderboard</h1>
-      <DataTable rows={sortedUsers} />
-    </ModalTemplate>
+      <div style={{ height: '100%', width: '100%' }}>
+        <DataGrid
+          rows={sortedUsers}
+          columns={columns}
+          initialState={{
+            pagination: {
+              paginationModel: { page: 0, pageSize: 5 },
+            },
+          }}
+          pageSizeOptions={[5]}
+          disableColumnMenu
+          hideFooterSelectedRowCount
+          disableColumnResize={true}
+          isRowSelectable={(params) => params.row.isCurrentUser}
+          getRowClassName={(params) =>
+            params.row.isCurrentUser ? 'Mui-selected' : ''
+          }
+        />
+      </div>
+    </Modal>
   )
 }
 

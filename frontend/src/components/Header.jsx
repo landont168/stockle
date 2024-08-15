@@ -1,34 +1,31 @@
-import LeaderboardRoundedIcon from '@mui/icons-material/LeaderboardRounded'
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded'
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded'
+import LeaderboardRoundedIcon from '@mui/icons-material/LeaderboardRounded'
 import ShuffleRoundedIcon from '@mui/icons-material/ShuffleRounded'
+import Tooltip from '@mui/material/Tooltip'
 import { IconButton } from '@mui/material'
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 
-// components
-import Tooltip from '@mui/material/Tooltip'
 import Leaderboard from './Leaderboard'
 import Statistics from './Statistics'
 import AccountMenu from './AccountMenu'
 
 const Header = ({
-  user,
-  logoutUser,
   darkMode,
   toggleTheme,
   refreshGame,
   showStats,
   setShowStats,
-  gameOver,
 }) => {
+  const user = useSelector((state) => state.user)
   const [showLeaderboard, setShowLeaderboard] = useState(false)
-  // const [showStats, setShowStats] = useState(false)
 
   return (
     <header className='header-container'>
-      <h1 className='title'>Stockle</h1>
-      <div className='icons'>
-        <Tooltip title='Theme'>
+      <h1 className='header-title'>Stockle</h1>
+      <div className='header-icons'>
+        <Tooltip title={'Theme'}>
           <IconButton onClick={() => toggleTheme()}>
             {darkMode ? <LightModeRoundedIcon /> : <DarkModeRoundedIcon />}
           </IconButton>
@@ -46,15 +43,13 @@ const Header = ({
         <AccountMenu
           setShowStats={setShowStats}
           initial={user.username[0]}
-          logoutUser={logoutUser}
+          refreshGame={refreshGame}
         />
       </div>
       {showLeaderboard && (
-        <Leaderboard setShowLeaderboard={setShowLeaderboard} userId={user.id} />
+        <Leaderboard setShowLeaderboard={setShowLeaderboard} />
       )}
-      {showStats && !gameOver && (
-        <Statistics user={user} setShowStats={setShowStats} title='History' />
-      )}
+      {showStats && <Statistics setShowStats={setShowStats} text='History' />}
     </header>
   )
 }
