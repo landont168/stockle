@@ -28,20 +28,20 @@ const Header = ({
         <Tooltip title={'Theme'}>
           <IconButton onClick={() => toggleTheme()}>
             {darkMode ? (
-              <LightModeRoundedIcon style={{ fontSize: 30 }} />
+              <LightModeRoundedIcon style={{ fontSize: 26 }} />
             ) : (
-              <DarkModeRoundedIcon style={{ fontSize: 30 }} />
+              <DarkModeRoundedIcon style={{ fontSize: 26 }} />
             )}
           </IconButton>
         </Tooltip>
         <Tooltip title='Leaderboard'>
           <IconButton onClick={() => setShowLeaderboard(true)}>
-            <LeaderboardRoundedIcon style={{ fontSize: 30 }} />
+            <LeaderboardRoundedIcon style={{ fontSize: 26 }} />
           </IconButton>
         </Tooltip>
         <Tooltip title='Shuffle'>
           <IconButton onClick={() => refreshGame()}>
-            <ShuffleRoundedIcon style={{ fontSize: 30 }} />
+            <ShuffleRoundedIcon style={{ fontSize: 26 }} />
           </IconButton>
         </Tooltip>
         <AccountMenu

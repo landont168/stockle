@@ -32,17 +32,4 @@ export const loginUser = (credentials) => {
   }
 }
 
-// export const initUser = () => {
-//   return async (dispatch) => {
-//     dispatch(set(user))
-//   }
-// }
-
-// export const clearUser = () => {
-//   return async (dispatch) => {
-//     storageService.removeUser()
-//     dispatch(clear())
-//   }
-// }
-
 export default userSlice.reducer

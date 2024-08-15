@@ -44,7 +44,7 @@ const SearchBar = ({
 
     // validate guess input
     if (!guess) {
-      dispatch(setNotification('Please select a stock.', 'error'))
+      dispatch(setNotification('Please select a stock.', 'warning'))
       return
     }
 
@@ -58,7 +58,7 @@ const SearchBar = ({
     // duplicate guess
     if (guesses.some((g) => g && g.id === guess.id)) {
       dispatch(
-        setNotification('Already guessed. Guess a different stock.', 'error')
+        setNotification('Already guessed. Guess a different stock.', 'warning')
       )
       return
     }
@@ -86,6 +86,7 @@ const SearchBar = ({
             value={guess}
             onChange={(e, newValue) => setGuess(newValue)}
             renderInput={(params) => <TextField {...params} label='Stock' />}
+            disabled={gameOver}
           />
         </div>
         <Button

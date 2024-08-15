@@ -76,6 +76,7 @@ const StockChart = ({ data }) => {
   const options = {
     type: 'line',
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         display: false,
@@ -113,7 +114,7 @@ const StockChart = ({ data }) => {
         },
         title: {
           display: true,
-          text: 'Price (USD)',
+          text: 'Share Price ($)',
         },
       },
     },

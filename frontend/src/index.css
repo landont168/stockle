@@ -11,6 +11,7 @@ body {
   font-size: 1em;
   height: 100%;
   width: 100%;
+  overflow: hidden;
 }
 
 /* header */
@@ -21,8 +22,8 @@ body {
   justify-content: center;
   align-items: center;
   border-bottom: 1px solid #eee;
-  padding: 8px;
-  margin-bottom: 8px;
+  padding: 4px;
+  margin-bottom: 5px;
 }
 
 .header-title {
@@ -33,18 +34,20 @@ body {
 
 .header-icons {
   margin-left: auto;
+  margin-right: 6px;
   display: flex;
   gap: 10px;
 }
 
 /* stock chart */
 .stock-chart {
-  width: 50%;
-  max-width: 1200px;
+  width: 70%;
+  height: 40vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: auto;
+  margin: 0 auto;
+  margin-bottom: 5px;
 }
 
 /* board */
@@ -52,6 +55,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex: 1;
 }
 
 .row > h3 {
@@ -60,7 +64,7 @@ body {
   height: 30px;
   margin: 1px 4px 0px 4px;
   padding: 2px;
-  font-size: 1.2em;
+  font-size: 1.1em;
   overflow: hidden;
   text-align: center;
 }
@@ -79,7 +83,7 @@ body {
   height: 45px;
   border: 2px solid;
   border-radius: 8px;
-  margin: 1px 4px 4px 4px;
+  margin: 1px 4px 2px 4px;
   line-height: 45px;
   font-weight: bold;
   font-size: 1.1em;
@@ -108,7 +112,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 25px 0 50px 0;
+  padding: 30px 0 50px 0;
 }
 
 .search-form {
@@ -133,9 +137,9 @@ body {
   border-radius: 8px;
   margin: 0 auto;
   position: fixed;
-  top: 50%;
+  top: 40%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -40%);
 }
 
 .modal-header {

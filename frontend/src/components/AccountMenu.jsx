@@ -9,7 +9,7 @@ import { IconButton } from '@mui/material'
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
 import InsightsRoundedIcon from '@mui/icons-material/InsightsRounded'
 
-import { setUser } from '../reducers/userReducer'
+import { setUser, clearUser } from '../reducers/userReducer'
 import { setNotification } from '../reducers/notificationReducer'
 import { useDispatch } from 'react-redux'
 
@@ -29,7 +29,7 @@ const AccountMenu = ({ setShowStats, initial, refreshGame }) => {
   const logoutUser = () => {
     window.localStorage.removeItem('loggedUser')
     refreshGame()
-    dispatch(setUser(null))
+    dispatch(clearUser())
     dispatch(setNotification('Successfully logged out!', 'success'))
   }
 
@@ -46,10 +46,10 @@ const AccountMenu = ({ setShowStats, initial, refreshGame }) => {
           >
             <Avatar
               sx={{
-                width: 35,
-                height: 35,
+                width: 30,
+                height: 30,
                 bgcolor: 'primary.main',
-                fontSize: 20,
+                fontSize: 18,
               }}
             >
               {initial.toUpperCase()}

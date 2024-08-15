@@ -78,7 +78,8 @@ aug 14, 2024 (4 hours):
 - update #3 (2 hours) - refactored frontend - took a while but got most of the junk cleaned up :)
 
 aug 15, 2024
-- todo: 
+
+- todo:
 
 ### challenges:
 
@@ -91,6 +92,5 @@ aug 15, 2024
 
 ### todo:
 
+- improve responsiveness of app (header + gameboard) - use mui grid for game board instead?
 - dockerize app and deploy with aws? (run python script in venv, build frontend, etc)
-- eventually make app responsive with css? (dont wanna do this tbh)
-- 
