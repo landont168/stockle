@@ -28,7 +28,7 @@ const useDarkMode = () => {
     window.localStorage.setItem('darkMode', !darkMode)
   }
 
-  return { darkMode, setDarkMode, theme, toggleTheme }
+  return { darkMode, theme, toggleTheme }
 }
 
 export default useDarkMode

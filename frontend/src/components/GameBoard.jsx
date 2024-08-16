@@ -5,97 +5,18 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
-import CheckIcon from '@mui/icons-material/Check'
-import ClearIcon from '@mui/icons-material/Clear'
-import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown'
-import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp'
-
-import numeral from 'numeral'
+import Feedback from './Feedback'
 import { useSelector } from 'react-redux'
 
 const GameBoard = ({ solution }) => {
   const guesses = useSelector((state) => state.guesses)
-
-  // format big numbers to readable number
-  const formatNum = (num) => {
-    const formattedNum = numeral(num).format('0.0a')
-    return formattedNum
-  }
-
-  // provide number feedback
-  const numFeedback = (guessNum, solNum) => {
-    const formattedNum = formatNum(guessNum)
-    return (
-      <span className='guess-cell'>
-        {guessNum > solNum ? (
-          <ArrowCircleDownIcon sx={{ color: 'red' }} />
-        ) : guessNum < solNum ? (
-          <ArrowCircleUpIcon sx={{ color: 'green' }} />
-        ) : (
-          <CheckIcon sx={{ color: 'green' }} />
-        )}
-        ${formattedNum}
-      </span>
-    )
-  }
-
-  const sharePriceFeedback = (guessSharePrice, solSharePrice) => {
-    const formattedNumber = numeral(guessSharePrice).format('0.00')
-    return (
-      <span className='guess-cell'>
-        {guessSharePrice < solSharePrice ? (
-          <ArrowCircleUpIcon sx={{ color: 'green' }} />
-        ) : guessSharePrice > solSharePrice ? (
-          <ArrowCircleDownIcon sx={{ color: 'red' }} />
-        ) : (
-          <CheckIcon sx={{ color: 'green' }} />
-        )}
-        ${formattedNumber}
-      </span>
-    )
-  }
-
-  const stringFeedback = (guessStr, solStr) => {
-    return (
-      <span className='guess-cell'>
-        {guessStr === solStr ? (
-          <CheckIcon sx={{ color: 'green' }} />
-        ) : (
-          <ClearIcon sx={{ color: 'red' }} />
-        )}
-        {guessStr}
-      </span>
-    )
-  }
-
-  const nameFeedback = (guess) => {
-    return (
-      <span className='guess-cell'>
-        {guess.id === solution.id ? (
-          <CheckIcon sx={{ color: 'green' }} />
-        ) : (
-          <ClearIcon sx={{ color: 'red' }} />
-        )}
-        {`${guess.name} (${guess.ticker})`}
-      </span>
-    )
-  }
-
-  const volumeFeedback = (guessVolume, solVolume) => {
-    const formattedNumber = formatNum(guessVolume)
-    return (
-      <span className='guess-cell'>
-        {guessVolume > solVolume ? (
-          <ArrowCircleDownIcon sx={{ color: 'red' }} />
-        ) : guessVolume < solVolume ? (
-          <ArrowCircleUpIcon sx={{ color: 'green' }} />
-        ) : (
-          <CheckIcon sx={{ color: 'green' }} />
-        )}
-        {formattedNumber}
-      </span>
-    )
-  }
+  const {
+    NameFeedback,
+    SectorFeedback,
+    NumFeedback,
+    SharePriceFeedback,
+    VolumeFeedback,
+  } = Feedback(solution)
 
   return (
     <div className='game-board'>
@@ -131,23 +52,34 @@ const GameBoard = ({ solution }) => {
                     paddingLeft: '16px',
                   }}
                 >
-                  {row && nameFeedback(row)}
+                  {row && <NameFeedback guess={row} />}
                 </TableCell>
                 <TableCell sx={{ width: '150px', padding: '8px' }}>
-                  {row && stringFeedback(row.sector, solution.sector)}
+                  {row && <SectorFeedback guessStr={row.sector} />}
                 </TableCell>
                 <TableCell sx={{ width: '100px', padding: '8px' }}>
-                  {row && numFeedback(row.marketCap, solution.marketCap)}
+                  {row && (
+                    <NumFeedback
+                      guessNum={row.marketCap}
+                      solNum={solution.marketCap}
+                    />
+                  )}
                 </TableCell>
                 <TableCell sx={{ width: '100px', padding: '8px' }}>
-                  {row &&
-                    sharePriceFeedback(row.sharePrice, solution.sharePrice)}
+                  {row && (
+                    <SharePriceFeedback guessSharePrice={row.sharePrice} />
+                  )}
                 </TableCell>
                 <TableCell sx={{ width: '100px', padding: '8px' }}>
-                  {row && numFeedback(row.revenue, solution.revenue)}
+                  {row && (
+                    <NumFeedback
+                      guessNum={row.revenue}
+                      solNum={solution.revenue}
+                    />
+                  )}
                 </TableCell>
                 <TableCell sx={{ width: '100px', padding: '8px' }}>
-                  {row && volumeFeedback(row.volume, solution.volume)}
+                  {row && <VolumeFeedback guessVolume={row.volume} />}
                 </TableCell>
               </TableRow>
             ))}

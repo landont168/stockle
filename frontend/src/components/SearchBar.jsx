@@ -6,12 +6,11 @@ import SendIcon from '@mui/icons-material/Send'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addGuess } from '../reducers/guessReducer'
-import { setUser } from '../reducers/userReducer'
+import { updateUser } from '../reducers/userReducer'
 import {
   setNotification,
   removeNotification,
 } from '../reducers/notificationReducer'
-import usersService from '../services/users'
 
 const SearchBar = ({ solution, attempts, setAttempts, won, setWon }) => {
   const dispatch = useDispatch()
@@ -20,16 +19,12 @@ const SearchBar = ({ solution, attempts, setAttempts, won, setWon }) => {
   const user = useSelector((state) => state.user)
   const [guess, setGuess] = useState(null)
 
-  // update user stats after game ends
-  const updateStats = async (result) => {
-    const updatedUser = await usersService.updateUser(user.id, {
-      wonGame: result,
-      attempts,
-    })
-    window.localStorage.setItem('loggedUser', JSON.stringify(updatedUser))
-    dispatch(setUser(updatedUser))
+  // update user stats when game ends
+  const updateStats = (wonGame) => {
+    dispatch(updateUser(user.id, { wonGame, attempts }))
   }
 
+  // handle user guesses
   const handleGuess = (e) => {
     e.preventDefault()
     dispatch(removeNotification())
@@ -43,7 +38,6 @@ const SearchBar = ({ solution, attempts, setAttempts, won, setWon }) => {
 
     // correct guess
     if (solution.id === guess.id) {
-      // setGameOver(true)
       setWon(true)
       updateStats(true)
     }
@@ -58,7 +52,6 @@ const SearchBar = ({ solution, attempts, setAttempts, won, setWon }) => {
 
     // incorrect guess on last guess
     if (attempts + 1 === 6) {
-      // setGameOver(true)
       setWon(false)
       updateStats(false)
     }
@@ -66,8 +59,6 @@ const SearchBar = ({ solution, attempts, setAttempts, won, setWon }) => {
     dispatch(addGuess({ guess, attempts }))
     setAttempts(attempts + 1)
   }
-
-  const gameOver = won !== null
 
   return (
     <form className='search-container' onSubmit={handleGuess}>
@@ -81,14 +72,14 @@ const SearchBar = ({ solution, attempts, setAttempts, won, setWon }) => {
           value={guess}
           onChange={(e, newValue) => setGuess(newValue)}
           renderInput={(params) => <TextField {...params} label='Stock' />}
-          disabled={gameOver}
+          disabled={won !== null}
         />
       </div>
       <Button
         type='submit'
         variant='contained'
         endIcon={<SendIcon />}
-        disabled={gameOver}
+        disabled={won !== null}
       >
         Guess
       </Button>

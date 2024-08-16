@@ -29,7 +29,7 @@ const App = () => {
   const [attempts, setAttempts] = useState(0)
   const [showStats, setShowStats] = useState(false)
   const { solution, getSolution } = useSolution()
-  const { darkMode, setDarkMode, theme, toggleTheme } = useDarkMode()
+  const { darkMode, theme, toggleTheme } = useDarkMode()
 
   // fetch initial data
   useEffect(() => {
@@ -60,7 +60,6 @@ const App = () => {
         <>
           <Header
             darkMode={darkMode}
-            setDarkMode={setDarkMode}
             toggleTheme={toggleTheme}
             refreshGame={refreshGame}
             showStats={showStats}

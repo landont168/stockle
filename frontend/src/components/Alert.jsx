@@ -7,16 +7,11 @@ const GrowTransition = (props) => {
 }
 
 const BasicAlert = ({ solution }) => {
-  const state = {
-    open: true,
-    Transition: GrowTransition,
-  }
-
   return (
     <Snackbar
-      open={state.open}
-      TransitionComponent={state.Transition}
-      key={state.Transition.name}
+      open={true}
+      TransitionComponent={GrowTransition}
+      key={GrowTransition.name}
       anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       sx={{ marginTop: '55px' }}
     >

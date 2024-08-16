@@ -4,8 +4,6 @@ import DistributionChart from './DistributionChart'
 
 const Statistics = ({ setShowStats, text }) => {
   const user = useSelector((state) => state.user)
-  const winPercentage =
-    Math.round((user.gamesWon / user.gamesPlayed) * 100) || 0
 
   return (
     <Modal handleClose={() => setShowStats(false)}>
@@ -17,7 +15,7 @@ const Statistics = ({ setShowStats, text }) => {
           <span>Played</span>
         </div>
         <div className='modal-stat'>
-          <h1>{winPercentage}</h1>
+          <h1>{Math.round((user.gamesWon / user.gamesPlayed) * 100) || 0}</h1>
           <span>Win %</span>
         </div>
         <div className='modal-stat'>

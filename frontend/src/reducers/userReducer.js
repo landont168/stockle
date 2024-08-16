@@ -60,4 +60,16 @@ export const signupUser = (newUser) => {
   }
 }
 
+export const updateUser = (id, gameInfo) => {
+  return async (dispatch) => {
+    try {
+      const updatedUser = await userService.updateUser(id, gameInfo)
+      window.localStorage.setItem('loggedUser', JSON.stringify(updatedUser))
+      dispatch(setUser(updatedUser))
+    } catch {
+      dispatch(setNotification('Failed to update user.', 'error'))
+    }
+  }
+}
+
 export default userSlice.reducer

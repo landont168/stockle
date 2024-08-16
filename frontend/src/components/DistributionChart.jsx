@@ -26,14 +26,14 @@ const DistributionChart = ({ distribution }) => {
   }
 
   // format horizontal bar chart
+  const maxValue = Math.max(...distribution)
   const options = {
     indexAxis: 'y',
     scales: {
       x: {
-        display: true,
-        suggestedMax: Math.max(...distribution) + 1,
+        suggestedMax: maxValue + 1,
         ticks: {
-          stepSize: 2,
+          stepSize: Math.ceil(maxValue / 6),
         },
         grid: {
           display: false,

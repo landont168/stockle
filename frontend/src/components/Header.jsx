@@ -13,7 +13,6 @@ import AccountMenu from './AccountMenu'
 
 const Header = ({
   darkMode,
-  setDarkMode,
   toggleTheme,
   refreshGame,
   showStats,
@@ -28,28 +27,23 @@ const Header = ({
       <div className='header-icons'>
         <Tooltip title={'Theme'}>
           <IconButton onClick={() => toggleTheme()}>
-            {darkMode ? (
-              <LightModeRoundedIcon style={{ fontSize: 26 }} />
-            ) : (
-              <DarkModeRoundedIcon style={{ fontSize: 26 }} />
-            )}
+            {darkMode ? <LightModeRoundedIcon /> : <DarkModeRoundedIcon />}
           </IconButton>
         </Tooltip>
         <Tooltip title='Leaderboard'>
           <IconButton onClick={() => setShowLeaderboard(true)}>
-            <LeaderboardRoundedIcon style={{ fontSize: 26 }} />
+            <LeaderboardRoundedIcon />
           </IconButton>
         </Tooltip>
         <Tooltip title='Shuffle'>
           <IconButton onClick={() => refreshGame()}>
-            <ShuffleRoundedIcon style={{ fontSize: 26 }} />
+            <ShuffleRoundedIcon />
           </IconButton>
         </Tooltip>
         <AccountMenu
-          setShowStats={setShowStats}
           initial={user.username[0]}
+          setShowStats={setShowStats}
           refreshGame={refreshGame}
-          setDarkMode={setDarkMode}
         />
       </div>
       {showLeaderboard && (

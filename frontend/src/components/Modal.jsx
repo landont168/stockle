@@ -3,7 +3,7 @@ import { Modal, Box } from '@mui/material'
 import { useTheme } from '@mui/system'
 import CloseIcon from '@mui/icons-material/Close'
 
-const Popup = ({ children, handleClose }) => {
+const BasicModal = ({ children, handleClose }) => {
   const theme = useTheme()
   return (
     <Modal open onClose={handleClose} className='modal-container'>
@@ -27,4 +27,4 @@ const Popup = ({ children, handleClose }) => {
   )
 }
 
-export default Popup
+export default BasicModal
