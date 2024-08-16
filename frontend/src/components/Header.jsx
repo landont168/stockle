@@ -13,6 +13,7 @@ import AccountMenu from './AccountMenu'
 
 const Header = ({
   darkMode,
+  setDarkMode,
   toggleTheme,
   refreshGame,
   showStats,
@@ -48,6 +49,7 @@ const Header = ({
           setShowStats={setShowStats}
           initial={user.username[0]}
           refreshGame={refreshGame}
+          setDarkMode={setDarkMode}
         />
       </div>
       {showLeaderboard && (

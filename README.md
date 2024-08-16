@@ -1,5 +1,8 @@
 # stockle
 
+- backend: node/express (api), python (fetch data), mongodb (database)
+- frontend: react (ui), mui (ui components), redux (state management), chartjs (stock chart + guess distribution)
+
 aug 6, 2024 (9 hours)
 
 - after grinding the full stack open course offered by the university of helsinki, i want to test my skills by building some full stack side project
@@ -77,11 +80,14 @@ aug 14, 2024 (4 hours):
 - update #2 (1 hour) - displayed stat modal + soluton on game end using mui alert + handled dup guesses + fixed game logic handling bug
 - update #3 (2 hours) - refactored frontend - took a while but got most of the junk cleaned up :)
 
-aug 15, 2024
+aug 15, 2024 (5 hour)
 
 - update #1: refactor react + css (2 hours)
 - update #2: converted janky game board into mui table (2 hours)
-- update #3: continued to refactor css as much as possible and improve responsiveness (1 hour). gonna go over frontend one more time to remove unused stuff. might also convert css to tailwind since its been simplified so much (half the lines of css lol). not sure if tailwind css is good or not
+- update #3: continued to refactor css as much as possible and improve responsiveness (1 hour). gonna go over frontend one more time to remove unused stuff. looked into refactoring css into tailwind css but i dont like how messy it can get and id rather keep all the styling in one spot
+
+aug 16, 2024 
+- todo: continue to refactor frontend as much as possible (ex. refactor dark theme stuff into hook?)
 
 ### challenges:
 
@@ -91,8 +97,9 @@ aug 15, 2024
 - making chartjs work (hover design, render animation, disable animation upon updating state and re-rendering app)
 - setting up docker compose to containerize backend + frontend - and then figuring out how to still enable local development with the api proxying
 - adding small features has been really annoying bc i tend need to lift some state components up and pass a bunch of props or change the logic of how things worked (ex. account menu + notis)
+- improving responsivenes with css - switching to mui table as game board and fixing small issues (ex. width/height changes on rerender, styling issues)
 
 ### todo:
 
-- switch to tailwind css instead of raw css?
+- update python script to fetch all stocks on us market?
 - dockerize app and deploy with aws? (run python script in venv, build frontend, etc)

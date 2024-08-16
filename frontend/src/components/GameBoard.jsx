@@ -30,7 +30,7 @@ const GameBoard = ({ solution }) => {
         {guessNum > solNum ? (
           <ArrowCircleDownIcon sx={{ color: 'red' }} />
         ) : guessNum < solNum ? (
-          <ArrowCircleUpIcon sx={{ color: 'orange' }} />
+          <ArrowCircleUpIcon sx={{ color: 'green' }} />
         ) : (
           <CheckIcon sx={{ color: 'green' }} />
         )}
@@ -44,7 +44,7 @@ const GameBoard = ({ solution }) => {
     return (
       <span className='guess-cell'>
         {guessSharePrice < solSharePrice ? (
-          <ArrowCircleUpIcon sx={{ color: 'orange' }} />
+          <ArrowCircleUpIcon sx={{ color: 'green' }} />
         ) : guessSharePrice > solSharePrice ? (
           <ArrowCircleDownIcon sx={{ color: 'red' }} />
         ) : (
@@ -88,7 +88,7 @@ const GameBoard = ({ solution }) => {
         {guessVolume > solVolume ? (
           <ArrowCircleDownIcon sx={{ color: 'red' }} />
         ) : guessVolume < solVolume ? (
-          <ArrowCircleUpIcon sx={{ color: 'orange' }} />
+          <ArrowCircleUpIcon sx={{ color: 'green' }} />
         ) : (
           <CheckIcon sx={{ color: 'green' }} />
         )}
@@ -133,35 +133,20 @@ const GameBoard = ({ solution }) => {
                 >
                   {row && nameFeedback(row)}
                 </TableCell>
-                <TableCell
-                  align='right'
-                  sx={{ width: '150px', padding: '8px' }}
-                >
+                <TableCell sx={{ width: '150px', padding: '8px' }}>
                   {row && stringFeedback(row.sector, solution.sector)}
                 </TableCell>
-                <TableCell
-                  align='right'
-                  sx={{ width: '100px', padding: '8px' }}
-                >
+                <TableCell sx={{ width: '100px', padding: '8px' }}>
                   {row && numFeedback(row.marketCap, solution.marketCap)}
                 </TableCell>
-                <TableCell
-                  align='right'
-                  sx={{ width: '100px', padding: '8px' }}
-                >
+                <TableCell sx={{ width: '100px', padding: '8px' }}>
                   {row &&
                     sharePriceFeedback(row.sharePrice, solution.sharePrice)}
                 </TableCell>
-                <TableCell
-                  align='right'
-                  sx={{ width: '100px', padding: '8px' }}
-                >
+                <TableCell sx={{ width: '100px', padding: '8px' }}>
                   {row && numFeedback(row.revenue, solution.revenue)}
                 </TableCell>
-                <TableCell
-                  align='right'
-                  sx={{ width: '100px', padding: '8px' }}
-                >
+                <TableCell sx={{ width: '100px', padding: '8px' }}>
                   {row && volumeFeedback(row.volume, solution.volume)}
                 </TableCell>
               </TableRow>

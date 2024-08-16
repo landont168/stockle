@@ -9,11 +9,11 @@ import { IconButton } from '@mui/material'
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
 import InsightsRoundedIcon from '@mui/icons-material/InsightsRounded'
 
-import { setUser, clearUser } from '../reducers/userReducer'
+import { setUser } from '../reducers/userReducer'
 import { setNotification } from '../reducers/notificationReducer'
 import { useDispatch } from 'react-redux'
 
-const AccountMenu = ({ setShowStats, initial, refreshGame }) => {
+const AccountMenu = ({ setShowStats, initial, refreshGame, setDarkMode }) => {
   const dispatch = useDispatch()
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
@@ -28,8 +28,10 @@ const AccountMenu = ({ setShowStats, initial, refreshGame }) => {
 
   const logoutUser = () => {
     window.localStorage.removeItem('loggedUser')
+    window.localStorage.removeItem('darkMode')
+    setDarkMode(false)
     refreshGame()
-    dispatch(clearUser())
+    dispatch(setUser(null))
     dispatch(setNotification('Successfully logged out!', 'success'))
   }
 

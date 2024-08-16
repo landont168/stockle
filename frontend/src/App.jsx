@@ -103,6 +103,7 @@ const App = () => {
         <>
           <Header
             darkMode={darkMode}
+            setDarkMode={setDarkMode}
             toggleTheme={toggleTheme}
             refreshGame={refreshGame}
             showStats={showStats}

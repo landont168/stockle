@@ -20,7 +20,7 @@ const BasicAlert = ({ solution }) => {
       anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       sx={{ marginTop: '55px' }}
     >
-      <Alert severity='info' sx={{ width: '100%' }}>
+      <Alert severity='info' sx={{ width: '100%', fontWeight: 'bold' }}>
         Answer: {solution.name} ({solution.ticker})
       </Alert>
     </Snackbar>
