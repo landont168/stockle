@@ -7,14 +7,10 @@
   font-family: 'Roboto', verdana;
 }
 
-body {
+body,
+#root {
   width: 100vw;
   height: 100vh;
-}
-
-#root {
-  height: 100%;
-  width: 100%;
 }
 
 /* header */
@@ -24,7 +20,7 @@ body {
   justify-content: center;
   align-items: center;
   border-bottom: 1px solid #eee;
-  padding: 4px;
+  padding: 6px;
 }
 
 .header-title {
@@ -39,34 +35,33 @@ body {
   gap: 8px;
 }
 
-/* stock chart container */
+/* stock chart */
 .stock-chart {
-  width: 60%;
-  height: 35%;
+  width: 70%;
+  height: 30%;
   margin: 30px auto;
 }
 
 /* game board */
 .game-board {
   width: 70%;
-  margin: 0 auto;
+  margin: 20px auto;
 }
 
 .guess-cell {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
 }
 
-/* search container */
+/* search */
 .search-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
 }
 
-/* modal container */
+/* modal */
 .modal-container {
   display: flex;
   justify-content: center;
@@ -79,9 +74,7 @@ body {
 }
 
 .modal-title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
   margin-bottom: 10px;
 }
 

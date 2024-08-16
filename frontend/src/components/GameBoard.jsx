@@ -85,7 +85,6 @@ const GameBoard = ({ solution }) => {
     const formattedNumber = formatNum(guessVolume)
     return (
       <span className='guess-cell'>
-        {formattedNumber}
         {guessVolume > solVolume ? (
           <ArrowCircleDownIcon sx={{ color: 'red' }} />
         ) : guessVolume < solVolume ? (
@@ -93,6 +92,7 @@ const GameBoard = ({ solution }) => {
         ) : (
           <CheckIcon sx={{ color: 'green' }} />
         )}
+        {formattedNumber}
       </span>
     )
   }
@@ -100,7 +100,7 @@ const GameBoard = ({ solution }) => {
   return (
     <div className='game-board'>
       <TableContainer component={Paper}>
-        <Table sx={{ Width: 750 }} aria-label='simple table'>
+        <Table sx={{ Width: 650 }} aria-label='simple table'>
           <TableHead>
             <TableRow>
               <TableCell sx={{ padding: '8px', paddingLeft: '16px' }}>
@@ -125,7 +125,11 @@ const GameBoard = ({ solution }) => {
                 <TableCell
                   component='th'
                   scope='row'
-                  sx={{ width: '200px', padding: '8px', paddingLeft: '16px' }}
+                  sx={{
+                    width: '200px',
+                    padding: '8px',
+                    paddingLeft: '16px',
+                  }}
                 >
                   {row && nameFeedback(row)}
                 </TableCell>

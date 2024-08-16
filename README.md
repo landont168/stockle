@@ -81,6 +81,7 @@ aug 15, 2024
 
 - update #1: refactor react + css (2 hours)
 - update #2: converted janky game board into mui table (2 hours)
+- update #3: continued to refactor css as much as possible and improve responsiveness (1 hour). gonna go over frontend one more time to remove unused stuff. might also convert css to tailwind since its been simplified so much (half the lines of css lol). not sure if tailwind css is good or not
 
 ### challenges:
 
@@ -93,6 +94,5 @@ aug 15, 2024
 
 ### todo:
 
-- improve responsiveness of app (header + gameboard) - use mui grid for game board instead?
 - switch to tailwind css instead of raw css?
 - dockerize app and deploy with aws? (run python script in venv, build frontend, etc)

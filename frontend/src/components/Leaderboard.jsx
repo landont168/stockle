@@ -33,25 +33,23 @@ const Leaderboard = ({ setShowLeaderboard }) => {
   return (
     <Modal handleClose={() => setShowLeaderboard(false)}>
       <h1 className='modal-title'>Leaderboard</h1>
-      <div style={{ height: '100%', width: '100%' }}>
-        <DataGrid
-          rows={sortedUsers}
-          columns={columns}
-          initialState={{
-            pagination: {
-              paginationModel: { page: 0, pageSize: 5 },
-            },
-          }}
-          pageSizeOptions={[5]}
-          disableColumnMenu
-          hideFooterSelectedRowCount
-          disableColumnResize={true}
-          isRowSelectable={(params) => params.row.isCurrentUser}
-          getRowClassName={(params) =>
-            params.row.isCurrentUser ? 'Mui-selected' : ''
-          }
-        />
-      </div>
+      <DataGrid
+        rows={sortedUsers}
+        columns={columns}
+        initialState={{
+          pagination: {
+            paginationModel: { page: 0, pageSize: 5 },
+          },
+        }}
+        pageSizeOptions={[5]}
+        disableColumnMenu
+        hideFooterSelectedRowCount
+        disableColumnResize={true}
+        isRowSelectable={(params) => params.row.isCurrentUser}
+        getRowClassName={(params) =>
+          params.row.isCurrentUser ? 'Mui-selected' : ''
+        }
+      />
     </Modal>
   )
 }
