@@ -34,6 +34,7 @@ body {
 
 .header-icons {
   margin-left: auto;
+  margin-right: 8px;
   display: flex;
   gap: 8px;
 }
@@ -41,69 +42,20 @@ body {
 /* stock chart container */
 .stock-chart {
   width: 60%;
-  height: 40%;
-  margin: 8px auto;
+  height: 35%;
+  margin: 30px auto;
 }
 
-/* FIX: FIX BOARD CSS */
-.board {
-  display: flex;
-  flex-direction: column;
+/* game board */
+.game-board {
+  width: 70%;
+  margin: 0 auto;
 }
 
-.row {
+.guess-cell {
   display: flex;
-  justify-content: center;
   align-items: center;
-}
-
-.row > h3 {
-  display: block;
-  width: 150px;
-  height: 30px;
-  margin: 1px 4px 0px 4px;
-  padding: 2px;
-  font-size: 1.1em;
-  overflow: hidden;
-  text-align: center;
-}
-
-.row > h3 > .row-name {
-  width: 400px;
-}
-
-.row > h3 > .row-sector {
-  width: 250px;
-}
-
-.row > div {
-  display: block;
-  width: 150px;
-  height: 45px;
-  border: 2px solid;
-  border-radius: 8px;
-  margin: 1px 4px 2px 4px;
-  line-height: 45px;
-  font-weight: bold;
-  font-size: 1.1em;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-.entry {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 6px;
-}
-
-.row > .row-name {
-  width: 400px;
-}
-
-.row > .row-sector {
-  width: 250px;
+  gap: 5px;
 }
 
 /* search container */

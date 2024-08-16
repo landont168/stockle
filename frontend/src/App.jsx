@@ -10,13 +10,13 @@ import { setNotification } from './reducers/notificationReducer'
 import historyService from './services/history'
 
 import Header from './components/Header'
-import Board from './components/Board'
 import SearchBar from './components/SearchBar'
 import Statistics from './components/Statistics'
 import LoginForm from './components/LoginForm'
 import StockChart from './components/StockChart'
 import Notification from './components/Notification'
 import Alert from './components/Alert'
+import GameBoard from './components/GameBoard'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -109,7 +109,7 @@ const App = () => {
             setShowStats={setShowStats}
           />
           {solutionHistory && <StockChart data={solutionHistory} />}
-          <Board solution={solution} />
+          <GameBoard solution={solution} />
           <SearchBar
             solution={solution}
             gameOver={gameOver}
