@@ -1,7 +1,6 @@
 import CssBaseline from '@mui/material/CssBaseline'
 import { ThemeProvider } from '@mui/material/styles'
 import { useState, useEffect } from 'react'
-
 import { useSelector, useDispatch } from 'react-redux'
 import { initializeStocks } from './reducers/stockReducer'
 import { initializeUsers } from './reducers/usersReducer'
@@ -28,7 +27,6 @@ const App = () => {
 
   const [won, setWon] = useState(null)
   const [attempts, setAttempts] = useState(0)
-
   const [showStats, setShowStats] = useState(false)
   const { solution, getSolution } = useSolution()
   const { darkMode, setDarkMode, theme, toggleTheme } = useDarkMode()

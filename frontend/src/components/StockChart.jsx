@@ -23,6 +23,7 @@ ChartJS.register(
 )
 
 const StockChart = ({ data }) => {
+  
   const animate = useRef(true)
 
   useEffect(() => {

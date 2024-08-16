@@ -6,53 +6,29 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import LoginRoundedIcon from '@mui/icons-material/LoginRounded'
+import SignupForm from './SignupForm'
+
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { setUser } from '../reducers/userReducer'
-import {
-  setNotification,
-  removeNotification,
-} from '../reducers/notificationReducer'
-import loginService from '../services/login'
-
-import SignupForm from './SignupForm'
+import { loginUser } from '../reducers/userReducer'
 
 const LoginForm = () => {
   const dispatch = useDispatch()
   const [showSignupForm, setShowSignupForm] = useState(false)
 
-  const loginUser = async (credentials) => {
-    try {
-      const user = await loginService.login(credentials)
-      window.localStorage.setItem('loggedUser', JSON.stringify(user))
-      dispatch(setUser(user))
-      dispatch(setNotification('Successfully logged in!', 'success'))
-    } catch {
-      dispatch(
-        setNotification(
-          'Failed to log in. Invalid username or password.',
-          'error'
-        )
-      )
-    }
-  }
-
   const handleSubmit = (e) => {
     e.preventDefault()
     const data = new FormData(e.currentTarget)
-    loginUser({
-      username: data.get('username'),
-      password: data.get('password'),
-    })
-  }
-
-  const handleClick = () => {
-    setShowSignupForm(true)
-    dispatch(removeNotification())
+    dispatch(
+      loginUser({
+        username: data.get('username'),
+        password: data.get('password'),
+      })
+    )
   }
 
   if (showSignupForm) {
-    return <SignupForm setShowSignUpForm={setShowSignupForm} />
+    return <SignupForm setShowSignupForm={setShowSignupForm} />
   }
 
   return (
@@ -105,7 +81,7 @@ const LoginForm = () => {
             <Grid item>
               <Button
                 variant='text'
-                onClick={handleClick}
+                onClick={() => setShowSignupForm(true)}
                 sx={{
                   textTransform: 'none',
                   padding: 0,

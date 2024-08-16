@@ -7,45 +7,26 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import { useDispatch } from 'react-redux'
-import {
-  setNotification,
-  removeNotification,
-} from '../reducers/notificationReducer'
-import usersService from '../services/users'
+import { signupUser } from '../reducers/userReducer'
 
-const SignupForm = ({ setShowSignUpForm }) => {
+const SignupForm = ({ setShowSignupForm }) => {
   const dispatch = useDispatch()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    const signupUser = async (newUser) => {
-      try {
-        await usersService.createUser(newUser)
-        dispatch(
-          setNotification('Your account was successfully created.', 'success')
-        )
-        setShowSignUpForm(false)
-      } catch {
-        dispatch(
-          setNotification(
-            'Invalid password or username. Please try again.',
-            'error'
-          )
-        )
-      }
-    }
-
     const data = new FormData(e.currentTarget)
-    signupUser({
-      name: data.get('firstName') + ' ' + data.get('lastName'),
-      username: data.get('username'),
-      password: data.get('password'),
-    })
-  }
-
-  const handleClick = () => {
-    setShowSignUpForm(false)
-    dispatch(removeNotification())
+    try {
+      await dispatch(
+        signupUser({
+          name: data.get('firstName') + ' ' + data.get('lastName'),
+          username: data.get('username'),
+          password: data.get('password'),
+        })
+      )
+      setShowSignupForm(false)
+    } catch {
+      return
+    }
   }
 
   return (
@@ -121,7 +102,7 @@ const SignupForm = ({ setShowSignUpForm }) => {
           <Grid container justifyContent='flex-end'>
             <Grid item>
               <Button
-                onClick={handleClick}
+                onClick={() => setShowSignupForm(false)}
                 variant='text'
                 sx={{
                   textTransform: 'none',
