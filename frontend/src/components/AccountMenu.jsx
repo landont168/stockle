@@ -9,8 +9,7 @@ import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
 import InsightsRoundedIcon from '@mui/icons-material/InsightsRounded'
 
 import { useState, Fragment } from 'react'
-import { setUser } from '../reducers/userReducer'
-import { setNotification } from '../reducers/notificationReducer'
+import { logoutUser } from '../reducers/userReducer'
 import { useDispatch } from 'react-redux'
 
 const AccountMenu = ({ initial, setShowStats, refreshGame }) => {
@@ -26,10 +25,8 @@ const AccountMenu = ({ initial, setShowStats, refreshGame }) => {
     setAnchorEl(null)
   }
 
-  const logoutUser = () => {
-    window.localStorage.removeItem('loggedUser')
-    dispatch(setUser(null))
-    dispatch(setNotification('Successfully logged out!', 'success'))
+  const logoutGame = () => {
+    dispatch(logoutUser())
     refreshGame()
   }
 
@@ -72,7 +69,7 @@ const AccountMenu = ({ initial, setShowStats, refreshGame }) => {
           Statistics
         </MenuItem>
         <Divider />
-        <MenuItem onClick={() => logoutUser()}>
+        <MenuItem onClick={() => logoutGame()}>
           <LogoutRoundedIcon sx={{ mr: 1 }} />
           Logout
         </MenuItem>

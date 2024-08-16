@@ -43,6 +43,14 @@ export const loginUser = (credentials) => {
   }
 }
 
+export const logoutUser = () => {
+  return async (dispatch) => {
+    window.localStorage.removeItem('loggedUser')
+    dispatch(setUser(null))
+    dispatch(setNotification('Successfully logged out!', 'success'))
+  }
+}
+
 export const signupUser = (newUser) => {
   return async (dispatch) => {
     try {

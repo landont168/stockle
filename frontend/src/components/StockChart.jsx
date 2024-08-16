@@ -23,12 +23,11 @@ ChartJS.register(
 )
 
 const StockChart = ({ data }) => {
-  
-  const animate = useRef(true)
+  // const animate = useRef(true)
 
-  useEffect(() => {
-    animate.current = false
-  }, [])
+  // useEffect(() => {
+  //   animate.current = false
+  // }, [])
 
   // extract dates and prices
   const [labels, setLabels] = useState(data.map((item) => item.date))
@@ -151,14 +150,14 @@ const StockChart = ({ data }) => {
   }
 
   // prevent animation on subsequent renders
-  const chartOptions = {
-    ...options,
-    animations: animate.current ? options.animations : false,
-  }
+  // const chartOptions = {
+  //   ...options,
+  //   animations: animate.current ? options.animations : false,
+  // }
 
   return (
     <div className='stock-chart'>
-      <Line data={chartData} options={chartOptions} />
+      <Line data={chartData} options={options} />
     </div>
   )
 }

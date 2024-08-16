@@ -6,7 +6,6 @@ import { initializeStocks } from './reducers/stockReducer'
 import { initializeUsers } from './reducers/usersReducer'
 import { initializeUser } from './reducers/userReducer'
 import { resetGuesses } from './reducers/guessReducer'
-import { setNotification } from './reducers/notificationReducer'
 
 import useDarkMode from './hooks/useDarkMode'
 import useSolution from './hooks/useSolution'
@@ -45,7 +44,6 @@ const App = () => {
 
   // refresh game
   const refreshGame = () => {
-    dispatch(setNotification('Game refreshed!', 'success'))
     dispatch(resetGuesses())
     setWon(null)
     setAttempts(0)
