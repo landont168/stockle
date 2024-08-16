@@ -6,18 +6,15 @@ import Box from '@mui/material/Box'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import {
   setNotification,
   removeNotification,
 } from '../reducers/notificationReducer'
 import usersService from '../services/users'
 
-import Notification from './Notification'
-
 const SignupForm = ({ setShowSignUpForm }) => {
   const dispatch = useDispatch()
-  const notification = useSelector((state) => state.notification)
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -142,7 +139,6 @@ const SignupForm = ({ setShowSignUpForm }) => {
           </Grid>
         </Box>
       </Box>
-      {notification && <Notification notification={notification} />}
     </Container>
   )
 }

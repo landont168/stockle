@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import LoginRoundedIcon from '@mui/icons-material/LoginRounded'
 import { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setUser } from '../reducers/userReducer'
 import {
   setNotification,
@@ -16,11 +16,9 @@ import {
 import loginService from '../services/login'
 
 import SignupForm from './SignupForm'
-import Notification from './Notification'
 
 const LoginForm = () => {
   const dispatch = useDispatch()
-  const notification = useSelector((state) => state.notification)
   const [showSignupForm, setShowSignupForm] = useState(false)
 
   const loginUser = async (credentials) => {
@@ -124,7 +122,6 @@ const LoginForm = () => {
           </Grid>
         </Box>
       </Box>
-      {notification && <Notification notification={notification} />}
     </Container>
   )
 }

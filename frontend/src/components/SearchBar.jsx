@@ -13,14 +13,7 @@ import {
 } from '../reducers/notificationReducer'
 import usersService from '../services/users'
 
-const SearchBar = ({
-  solution,
-  gameOver,
-  setGameOver,
-  attempts,
-  setAttempts,
-  setWon,
-}) => {
+const SearchBar = ({ solution, attempts, setAttempts, won, setWon }) => {
   const dispatch = useDispatch()
   const stocks = useSelector((state) => state.stocks)
   const guesses = useSelector((state) => state.guesses)
@@ -50,7 +43,7 @@ const SearchBar = ({
 
     // correct guess
     if (solution.id === guess.id) {
-      setGameOver(true)
+      // setGameOver(true)
       setWon(true)
       updateStats(true)
     }
@@ -65,13 +58,16 @@ const SearchBar = ({
 
     // incorrect guess on last guess
     if (attempts + 1 === 6) {
-      setGameOver(true)
+      // setGameOver(true)
+      setWon(false)
       updateStats(false)
     }
 
     dispatch(addGuess({ guess, attempts }))
     setAttempts(attempts + 1)
   }
+
+  const gameOver = won !== null
 
   return (
     <form className='search-container' onSubmit={handleGuess}>

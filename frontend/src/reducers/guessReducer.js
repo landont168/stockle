@@ -1,8 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+const initialState = [...Array(6)]
+
 const guessSlice = createSlice({
   name: 'guesses',
-  initialState: [...Array(6)],
+  initialState,
   reducers: {
     addGuess(state, action) {
       const { guess, attempts } = action.payload
@@ -11,7 +13,7 @@ const guessSlice = createSlice({
       return newGuesses
     },
     resetGuesses() {
-      return [...Array(6)]
+      return initialState
     },
   },
 })

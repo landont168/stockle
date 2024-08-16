@@ -1,0 +1,34 @@
+import { useState, useEffect } from 'react'
+import { createTheme } from '@mui/material/styles'
+
+const lightTheme = createTheme({
+  palette: {
+    mode: 'light',
+  },
+})
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+})
+
+const useDarkMode = () => {
+  const [theme, setTheme] = useState(lightTheme)
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem('darkMode') === 'true'
+  })
+
+  useEffect(() => {
+    setTheme(darkMode ? darkTheme : lightTheme)
+  }, [darkMode])
+
+  const toggleTheme = () => {
+    setDarkMode(!darkMode)
+    window.localStorage.setItem('darkMode', !darkMode)
+  }
+
+  return { darkMode, setDarkMode, theme, toggleTheme }
+}
+
+export default useDarkMode

@@ -86,8 +86,10 @@ aug 15, 2024 (5 hour)
 - update #2: converted janky game board into mui table (2 hours)
 - update #3: continued to refactor css as much as possible and improve responsiveness (1 hour). gonna go over frontend one more time to remove unused stuff. looked into refactoring css into tailwind css but i dont like how messy it can get and id rather keep all the styling in one spot
 
-aug 16, 2024 
+aug 16, 2024
+
 - todo: continue to refactor frontend as much as possible (ex. refactor dark theme stuff into hook?)
+- update #1 (2 hours): refactored frontend with custom hooks + reducers. having issue with no animation on game shuffle tho.
 
 ### challenges:
 

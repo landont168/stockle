@@ -18,4 +18,4 @@ historySchema.set('toJSON', {
   },
 })
 
-module.exports = mongoose.model('Histories', historySchema)
+module.exports = mongoose.model('History', historySchema)

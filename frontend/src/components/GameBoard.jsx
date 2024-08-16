@@ -118,7 +118,7 @@ const GameBoard = ({ solution }) => {
               <TableRow
                 key={i}
                 sx={{
-                  height: '50px',
+                  height: '45px',
                   '&:last-child td, &:last-child th': { border: 0 },
                 }}
               >
