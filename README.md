@@ -88,9 +88,9 @@ aug 15, 2024 (5 hour)
 
 aug 16, 2024
 
-- todo: continue to refactor frontend as much as possible (ex. refactor dark theme stuff into hook?)
+- todo: continue to refactor frontend as much as possible
 - update #1 (2 hours): refactored frontend with custom hooks + reducers. having issue with no animation on game shuffle tho
-- update #2 (3 hours): worked on more refactoring and cleaning up frontend LOL + created custom hook to abstract game logic/states
+- update #2 (3 hours): worked on more refactoring and cleaning up frontend LOL + created custom hook to abstract game logic/states. done with refactoring tho. only thing to do is to fix the stock chart animation and then should be chilling.
 
 ### challenges:
 
@@ -101,6 +101,7 @@ aug 16, 2024
 - setting up docker compose to containerize backend + frontend - and then figuring out how to still enable local development with the api proxying
 - adding small features has been really annoying bc i tend need to lift some state components up and pass a bunch of props or change the logic of how things worked (ex. account menu + notis)
 - improving responsivenes with css - switching to mui table as game board and fixing small issues (ex. width/height changes on rerender, styling issues)
+- refactoring frontend has taken so much time + energy - have to carefully think about app design (ex. what to abstract, props, reducers, hooks)
 
 ### todo:
 

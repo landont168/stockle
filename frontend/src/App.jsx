@@ -62,7 +62,7 @@ const App = () => {
             showStats={showStats}
             setShowStats={setShowStats}
           />
-          {solution && <StockChart data={solution.history} />}
+          {solution && solution && <StockChart data={solution.history} />}
           <GameBoard solution={solution} />
           <SearchBar
             solution={solution}
