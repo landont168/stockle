@@ -1,5 +1,6 @@
 const stocksRouter = require('express').Router()
 const Stock = require('../models/stock')
+const History = require('../models/history')
 
 stocksRouter.get('/', async (request, response) => {
   const stocks = await Stock.find({})
@@ -7,7 +8,11 @@ stocksRouter.get('/', async (request, response) => {
 })
 
 stocksRouter.get('/:id', async (request, response) => {
-  const stock = await Stock.findById(request.params.id)
+  const stock = await Stock.findById(request.params.id).populate({
+    path: 'history',
+    select: 'stockHistory',
+    transform: (doc) => doc.stockHistory,
+  })
   response.json(stock)
 })
 

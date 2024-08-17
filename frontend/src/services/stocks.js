@@ -6,6 +6,12 @@ const getAll = async () => {
   return response.data
 }
 
+const getStock = async (id) => {
+  const response = await axios.get(`${baseUrl}/${id}`)
+  return response.data
+}
+
 export default {
   getAll,
+  getStock,
 }

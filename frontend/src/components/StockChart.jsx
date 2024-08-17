@@ -26,7 +26,6 @@ const StockChart = ({ data }) => {
   const [dates, setDates] = useState(data.map((item) => item.date))
   const [prices, setPrices] = useState(data.map((item) => item.price))
   useEffect(() => {
-    console.log('effecting...')
     setDates(data.map((item) => item.date))
     setPrices(data.map((item) => item.price))
   }, [data])

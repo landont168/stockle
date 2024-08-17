@@ -44,7 +44,7 @@ def get_stock_data(df):
       hist = ticker_obj.history(start="2024-01-01")
       stock_hist = [{'date': date.strftime('%Y-%m-%d'), 'price': round(float(data['Close']), 2)} for date, data in hist.iterrows()]
       history_id = history_db.insert_one({'stockHistory': stock_hist}).inserted_id
-      stock_info['historyId'] = history_id
+      stock_info['history'] = history_id
       stock_data.append(stock_info)
     except Exception as e:
       print(f"Error: {e}")

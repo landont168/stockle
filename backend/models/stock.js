@@ -29,7 +29,7 @@ const stockSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  historyId: {
+  history: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'History',
   },

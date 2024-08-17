@@ -108,6 +108,9 @@ aug 16, 2024 (6 hours)
 
 ### todo:
 
+- use jwt for updating user stats? only return token which should be able to identify user?
+- instead of fetching for history separately, fetch hist for solution at api/stock/:id and populate historyid field
+- make guess history a state instead of in redux store?
 - build app so anyone can play (doesnt have to log in)
 - update python script to fetch all stocks on us market?
 - dockerize app and deploy with aws? (run python script in venv, build frontend, etc)

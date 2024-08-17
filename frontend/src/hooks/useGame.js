@@ -6,7 +6,7 @@ import {
   setNotification,
   removeNotification,
 } from '../reducers/notificationReducer'
-import historyService from '../services/history'
+import stockService from '../services/stocks'
 
 const useGame = () => {
   const dispatch = useDispatch()
@@ -23,20 +23,23 @@ const useGame = () => {
     if (stocks.length === 0) return
 
     const randomSolution = stocks[Math.floor(Math.random() * stocks.length)]
-    console.log('solution', randomSolution)
-    const solutionHistory = await historyService.getHistory(
-      randomSolution.historyId
-    )
-    setSolution({
-      ...randomSolution,
-      history: solutionHistory.stockHistory,
-    })
+    const solutionHistory = await stockService.getStock(randomSolution.id)
+    console.log('solution', solutionHistory)
+    setSolution(solutionHistory)
   }, [stocks])
 
   // get initial solution
   useEffect(() => {
     getSolution()
   }, [getSolution])
+
+  // update stats on game end
+  // useEffect(() => {
+  //   if (won !== null) {
+  //     const currentAttempt = attempts + 1
+  //     dispatch(updateUser(user.id, { won, attempts: currentAttempt }))
+  //   }
+  // }, [won, attempts, dispatch
 
   // validate guess input
   const handleGuess = (e) => {
