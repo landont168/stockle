@@ -39,7 +39,10 @@ body,
 .stock-chart {
   width: 70%;
   height: 40%;
-  margin: 20px auto;
+  margin: 30px auto 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* game board */

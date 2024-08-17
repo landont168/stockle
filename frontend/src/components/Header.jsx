@@ -43,7 +43,7 @@ const Header = ({
         <AccountMenu
           initial={user.username[0]}
           setShowStats={setShowStats}
-          newGame={resetGame}
+          resetGame={resetGame}
         />
       </div>
       {showLeaderboard && (

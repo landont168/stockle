@@ -13,6 +13,7 @@ import LoginForm from './components/LoginForm'
 import Statistics from './components/Statistics'
 import Header from './components/Header'
 import StockChart from './components/StockChart'
+import Progress from './components/Progress'
 import GameBoard from './components/GameBoard'
 import SearchBar from './components/SearchBar'
 import Notification from './components/Notification'
@@ -54,7 +55,7 @@ const App = () => {
             showStats={showStats}
             setShowStats={setShowStats}
           />
-          {solution && <StockChart data={solution.history} />}
+          {solution ? <StockChart data={solution.history} /> : <Progress />}
           <GameBoard solution={solution} />
           <SearchBar
             solution={solution}

@@ -86,12 +86,14 @@ aug 15, 2024 (5 hour)
 - update #2: converted janky game board into mui table (2 hours)
 - update #3: continued to refactor css as much as possible and improve responsiveness (1 hour). gonna go over frontend one more time to remove unused stuff. looked into refactoring css into tailwind css but i dont like how messy it can get and id rather keep all the styling in one spot
 
-aug 16, 2024
+aug 16, 2024 (6 hours)
 
 - todo: continue to refactor frontend as much as possible
 - update #1 (2 hours): refactored frontend with custom hooks + reducers. having issue with no animation on game shuffle tho
 - update #2 (3 hours): worked on more refactoring and cleaning up frontend LOL + created custom hook to abstract game logic/states. done with refactoring tho (i think).
 - update #3 (1 hour): wow. to fix the stock chart animation, after creating a branch of the old working version, ive realized that before fetching a new solution, u need to set solution to null first. wow. also refactored solution + game handling logic into single custom hook. frontend honestly looking pretty clean and nicely refactored :) been refactoring all day wow
+- update #4: added a cheeky progress circle thing on stock chart load as a placeholder so we avoid shifting when trying to render the stock chart. gonna start looking into how i could potentially deploy using aws services? would also need to buy domain heheh. ok wait something i could work on is allowing people to play without an account. i would need to create a "home screen" with a "login" and "play" button where login would direct user to login/signup form. and play button would direct user directly to the game. would also need to create a "how to play" modal. main "hard part" would be going over the code and handling different pieces of logic based on whether theres a user or not. for example, displaying leaderboard (would not include user), display stats (show a signup modal), do not update user stats, etc.
+- update #5: sad times. had to get rid of the progressive line stock chart animation because the bug is actually unsolvable (error on chartjs side) - the animation would simply fail and throw some random error in console...
 
 ### challenges:
 
@@ -106,5 +108,6 @@ aug 16, 2024
 
 ### todo:
 
+- build app so anyone can play (doesnt have to log in)
 - update python script to fetch all stocks on us market?
 - dockerize app and deploy with aws? (run python script in venv, build frontend, etc)
