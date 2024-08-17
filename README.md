@@ -89,7 +89,8 @@ aug 15, 2024 (5 hour)
 aug 16, 2024
 
 - todo: continue to refactor frontend as much as possible (ex. refactor dark theme stuff into hook?)
-- update #1 (2 hours): refactored frontend with custom hooks + reducers. having issue with no animation on game shuffle tho.
+- update #1 (2 hours): refactored frontend with custom hooks + reducers. having issue with no animation on game shuffle tho
+- update #2 (3 hours): worked on more refactoring and cleaning up frontend LOL + created custom hook to abstract game logic/states
 
 ### challenges:
 

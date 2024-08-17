@@ -12,7 +12,7 @@ import { useState, Fragment } from 'react'
 import { logoutUser } from '../reducers/userReducer'
 import { useDispatch } from 'react-redux'
 
-const AccountMenu = ({ initial, setShowStats, refreshGame }) => {
+const AccountMenu = ({ initial, setShowStats, newGame }) => {
   const dispatch = useDispatch()
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
@@ -27,7 +27,7 @@ const AccountMenu = ({ initial, setShowStats, refreshGame }) => {
 
   const logoutGame = () => {
     dispatch(logoutUser())
-    refreshGame()
+    newGame()
   }
 
   return (

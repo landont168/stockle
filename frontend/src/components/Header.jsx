@@ -14,7 +14,7 @@ import AccountMenu from './AccountMenu'
 const Header = ({
   darkMode,
   toggleTheme,
-  refreshGame,
+  newGame,
   showStats,
   setShowStats,
 }) => {
@@ -36,14 +36,14 @@ const Header = ({
           </IconButton>
         </Tooltip>
         <Tooltip title='Shuffle'>
-          <IconButton onClick={() => refreshGame()}>
+          <IconButton onClick={() => newGame()}>
             <ShuffleRoundedIcon />
           </IconButton>
         </Tooltip>
         <AccountMenu
           initial={user.username[0]}
           setShowStats={setShowStats}
-          refreshGame={refreshGame}
+          newGame={newGame}
         />
       </div>
       {showLeaderboard && (

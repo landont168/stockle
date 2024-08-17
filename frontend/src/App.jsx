@@ -5,10 +5,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import { initializeStocks } from './reducers/stockReducer'
 import { initializeUsers } from './reducers/usersReducer'
 import { initializeUser } from './reducers/userReducer'
-import { resetGuesses } from './reducers/guessReducer'
 
 import useDarkMode from './hooks/useDarkMode'
 import useSolution from './hooks/useSolution'
+import useGame from './hooks/useGame'
 
 import LoginForm from './components/LoginForm'
 import Statistics from './components/Statistics'
@@ -24,10 +24,9 @@ const App = () => {
   const user = useSelector((state) => state.user)
   const notification = useSelector((state) => state.notification)
 
-  const [won, setWon] = useState(null)
-  const [attempts, setAttempts] = useState(0)
   const [showStats, setShowStats] = useState(false)
   const { solution, getSolution } = useSolution()
+  const { guess, setGuess, won, handleGuess, resetGame } = useGame(solution)
   const { darkMode, theme, toggleTheme } = useDarkMode()
 
   // fetch initial data
@@ -37,16 +36,16 @@ const App = () => {
     dispatch(initializeUser())
   }, [dispatch])
 
-  // display stats modal when game ends
+  // handle game end
   useEffect(() => {
-    won !== null ? setTimeout(() => setShowStats(true), 2500) : null
+    if (won !== null) {
+      setTimeout(() => setShowStats(true), 2000)
+    }
   }, [won])
 
   // refresh game
-  const refreshGame = () => {
-    dispatch(resetGuesses())
-    setWon(null)
-    setAttempts(0)
+  const newGame = () => {
+    resetGame()
     getSolution()
   }
 
@@ -59,7 +58,7 @@ const App = () => {
           <Header
             darkMode={darkMode}
             toggleTheme={toggleTheme}
-            refreshGame={refreshGame}
+            newGame={newGame}
             showStats={showStats}
             setShowStats={setShowStats}
           />
@@ -67,10 +66,10 @@ const App = () => {
           <GameBoard solution={solution} />
           <SearchBar
             solution={solution}
-            attempts={attempts}
-            setAttempts={setAttempts}
             won={won}
-            setWon={setWon}
+            guess={guess}
+            setGuess={setGuess}
+            handleGuess={handleGuess}
           />
           {won !== null && <Alert solution={solution} />}
           {won !== null && showStats && (

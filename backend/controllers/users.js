@@ -39,20 +39,20 @@ usersRouter.post('/', async (request, response) => {
 
 usersRouter.put('/:id', async (request, response) => {
   const { id } = request.params
-  const { wonGame, attempts } = request.body
+  const { won, attempts } = request.body
 
   // get user and update stats
   const user = await User.findById(id)
-  const newCurrentStreak = wonGame ? user.currentStreak + 1 : 0
+  const newCurrentStreak = won ? user.currentStreak + 1 : 0
   const updatedFields = {
     gamesPlayed: user.gamesPlayed + 1,
-    gamesWon: wonGame ? user.gamesWon + 1 : user.gamesWon,
+    gamesWon: won ? user.gamesWon + 1 : user.gamesWon,
     currentStreak: newCurrentStreak,
     maxStreak: Math.max(user.maxStreak, newCurrentStreak),
-    wonLastGame: wonGame,
-    guessDistribution: wonGame
+    wonLastGame: won,
+    guessDistribution: won
       ? user.guessDistribution.map((freq, index) => {
-          return index === attempts ? freq + 1 : freq
+          return index + 1 === attempts ? freq + 1 : freq
         })
       : user.guessDistribution,
   }
