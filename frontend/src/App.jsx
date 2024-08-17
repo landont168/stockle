@@ -7,7 +7,6 @@ import { initializeUsers } from './reducers/usersReducer'
 import { initializeUser } from './reducers/userReducer'
 
 import useDarkMode from './hooks/useDarkMode'
-import useSolution from './hooks/useSolution'
 import useGame from './hooks/useGame'
 
 import LoginForm from './components/LoginForm'
@@ -25,8 +24,7 @@ const App = () => {
   const notification = useSelector((state) => state.notification)
 
   const [showStats, setShowStats] = useState(false)
-  const { solution, setSolution, getSolution } = useSolution()
-  const { guess, setGuess, won, handleGuess, resetGame } = useGame(solution)
+  const { solution, guess, setGuess, won, handleGuess, resetGame } = useGame()
   const { darkMode, theme, toggleTheme } = useDarkMode()
 
   // fetch initial data
@@ -43,13 +41,6 @@ const App = () => {
     }
   }, [won])
 
-  // refresh game
-  const newGame = () => {
-    setSolution(null)
-    resetGame()
-    getSolution()
-  }
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -59,7 +50,7 @@ const App = () => {
           <Header
             darkMode={darkMode}
             toggleTheme={toggleTheme}
-            newGame={newGame}
+            resetGame={resetGame}
             showStats={showStats}
             setShowStats={setShowStats}
           />
