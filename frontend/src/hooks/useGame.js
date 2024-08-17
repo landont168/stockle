@@ -33,14 +33,6 @@ const useGame = () => {
     getSolution()
   }, [getSolution])
 
-  // update stats on game end
-  // useEffect(() => {
-  //   if (won !== null) {
-  //     const currentAttempt = attempts + 1
-  //     dispatch(updateUser(user.id, { won, attempts: currentAttempt }))
-  //   }
-  // }, [won, attempts, dispatch
-
   // validate guess input
   const handleGuess = (e) => {
     e.preventDefault()

@@ -21,6 +21,7 @@ export const initializeUser = () => {
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       dispatch(setUser(user))
+      userService.setToken(user.token)
     }
   }
 }
@@ -31,6 +32,7 @@ export const loginUser = (credentials) => {
       const user = await loginService.login(credentials)
       window.localStorage.setItem('loggedUser', JSON.stringify(user))
       dispatch(setUser(user))
+      userService.setToken(user.token)
       dispatch(setNotification('Successfully logged in!', 'success'))
     } catch {
       dispatch(
@@ -47,6 +49,7 @@ export const logoutUser = () => {
   return async (dispatch) => {
     window.localStorage.removeItem('loggedUser')
     dispatch(setUser(null))
+    userService.setToken(null)
     dispatch(setNotification('Successfully logged out!', 'success'))
   }
 }
@@ -75,7 +78,9 @@ export const updateUser = (id, gameInfo) => {
       window.localStorage.setItem('loggedUser', JSON.stringify(updatedUser))
       dispatch(setUser(updatedUser))
     } catch {
-      dispatch(setNotification('Failed to update user.', 'error'))
+      dispatch(
+        setNotification('Your session has expired. Please log in.', 'error')
+      )
     }
   }
 }

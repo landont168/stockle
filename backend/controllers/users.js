@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt')
 const usersRouter = require('express').Router()
 const User = require('../models/user')
+const userExtractor = require('../utils/middleware').userExtractor
 
 usersRouter.get('/', async (request, response) => {
   const users = await User.find({})
@@ -37,12 +38,11 @@ usersRouter.post('/', async (request, response) => {
   response.status(201).json(savedUser)
 })
 
-usersRouter.put('/:id', async (request, response) => {
-  const { id } = request.params
+usersRouter.put('/:id', userExtractor, async (request, response) => {
+  const user = request.user
   const { won, attempts } = request.body
 
   // get user and update stats
-  const user = await User.findById(id)
   const newCurrentStreak = won ? user.currentStreak + 1 : 0
   const updatedFields = {
     gamesPlayed: user.gamesPlayed + 1,
@@ -58,10 +58,14 @@ usersRouter.put('/:id', async (request, response) => {
   }
 
   // update user stats in db
-  const updatedUser = await User.findByIdAndUpdate(id, updatedFields, {
+  const updatedUser = await User.findByIdAndUpdate(user.id, updatedFields, {
     new: true,
-  })
-  response.json(updatedUser)
+  }).lean()
+
+  // include token in response
+  const token = request.headers['authorization'].split(' ')[1]
+  const newUser = { ...updatedUser, token }
+  response.json(newUser)
 })
 
 usersRouter.delete('/', async (request, response) => {
