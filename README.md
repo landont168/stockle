@@ -90,7 +90,8 @@ aug 16, 2024
 
 - todo: continue to refactor frontend as much as possible
 - update #1 (2 hours): refactored frontend with custom hooks + reducers. having issue with no animation on game shuffle tho
-- update #2 (3 hours): worked on more refactoring and cleaning up frontend LOL + created custom hook to abstract game logic/states. done with refactoring tho. only thing to do is to fix the stock chart animation and then should be chilling.
+- update #2 (3 hours): worked on more refactoring and cleaning up frontend LOL + created custom hook to abstract game logic/states. done with refactoring tho (i think).
+- update #3 (1 hour): wow. to fix the stock chart animation, after creating a branch of the old working version, ive realized that before fetching a new solution, u need to set solution to null first. wow
 
 ### challenges:
 

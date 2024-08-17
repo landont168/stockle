@@ -28,6 +28,7 @@ const useSolution = () => {
 
   return {
     solution,
+    setSolution,
     getSolution,
   }
 }

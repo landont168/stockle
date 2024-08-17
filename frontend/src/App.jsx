@@ -25,7 +25,7 @@ const App = () => {
   const notification = useSelector((state) => state.notification)
 
   const [showStats, setShowStats] = useState(false)
-  const { solution, getSolution } = useSolution()
+  const { solution, setSolution, getSolution } = useSolution()
   const { guess, setGuess, won, handleGuess, resetGame } = useGame(solution)
   const { darkMode, theme, toggleTheme } = useDarkMode()
 
@@ -45,6 +45,7 @@ const App = () => {
 
   // refresh game
   const newGame = () => {
+    setSolution(null)
     resetGame()
     getSolution()
   }
@@ -62,7 +63,7 @@ const App = () => {
             showStats={showStats}
             setShowStats={setShowStats}
           />
-          {solution && solution && <StockChart data={solution.history} />}
+          {solution && <StockChart data={solution.history} />}
           <GameBoard solution={solution} />
           <SearchBar
             solution={solution}
