@@ -10,9 +10,14 @@ import InsightsRoundedIcon from '@mui/icons-material/InsightsRounded'
 
 import { useState, Fragment } from 'react'
 import { logoutUser } from '../reducers/userReducer'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
-const AccountMenu = ({ initial, setShowStats, resetGame }) => {
+import CreateAccount from './CreateAccount'
+
+const AccountMenu = ({ setShowStats, resetGame }) => {
+  const user = useSelector((state) => state.user)
+  const initial = user ? user.username[0] : 'A'
+
   const dispatch = useDispatch()
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
@@ -69,7 +74,7 @@ const AccountMenu = ({ initial, setShowStats, resetGame }) => {
           Statistics
         </MenuItem>
         <Divider />
-        <MenuItem onClick={() => logoutGame()}>
+        <MenuItem disabled={!user} onClick={() => logoutGame()}>
           <LogoutRoundedIcon sx={{ mr: 1 }} />
           Logout
         </MenuItem>

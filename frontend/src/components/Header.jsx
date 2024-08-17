@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux'
 import Leaderboard from './Leaderboard'
 import Statistics from './Statistics'
 import AccountMenu from './AccountMenu'
+import CreateAccount from './CreateAccount'
 
 const Header = ({
   darkMode,
@@ -40,16 +41,18 @@ const Header = ({
             <ShuffleRoundedIcon />
           </IconButton>
         </Tooltip>
-        <AccountMenu
-          initial={user.username[0]}
-          setShowStats={setShowStats}
-          resetGame={resetGame}
-        />
+        <AccountMenu setShowStats={setShowStats} resetGame={resetGame} />
       </div>
-      {showLeaderboard && (
+      {user && showLeaderboard && (
         <Leaderboard setShowLeaderboard={setShowLeaderboard} />
       )}
-      {showStats && <Statistics setShowStats={setShowStats} text='History' />}
+      {!user && showLeaderboard && (
+        <CreateAccount setShow={setShowLeaderboard} />
+      )}
+      {user && showStats && (
+        <Statistics setShowStats={setShowStats} text='History' />
+      )}
+      {!user && showStats && <CreateAccount setShow={setShowStats} />}
     </header>
   )
 }

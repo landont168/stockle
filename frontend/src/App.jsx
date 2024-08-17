@@ -18,11 +18,13 @@ import GameBoard from './components/GameBoard'
 import SearchBar from './components/SearchBar'
 import Notification from './components/Notification'
 import Alert from './components/Alert'
+import Home from './components/Home'
 
 const App = () => {
   const dispatch = useDispatch()
   const user = useSelector((state) => state.user)
   const notification = useSelector((state) => state.notification)
+  const isGuest = useSelector((state) => state.isGuest)
 
   const [showStats, setShowStats] = useState(false)
   const { solution, guess, setGuess, won, handleGuess, resetGame } = useGame()
@@ -45,8 +47,11 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      {!user && <LoginForm />}
-      {user && (
+      <Home />
+      {/* user wants to play on account => login form */}
+      {isGuest === false && !user && <LoginForm />}
+      {/* user wants to play as guest or logged in => play game */}
+      {(isGuest || user) && (
         <>
           <Header
             darkMode={darkMode}

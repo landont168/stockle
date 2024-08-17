@@ -95,6 +95,11 @@ aug 16, 2024 (6 hours)
 - update #4: added a cheeky progress circle thing on stock chart load as a placeholder so we avoid shifting when trying to render the stock chart. gonna start looking into how i could potentially deploy using aws services? would also need to buy domain heheh. ok wait something i could work on is allowing people to play without an account. i would need to create a "home screen" with a "login" and "play" button where login would direct user to login/signup form. and play button would direct user directly to the game. would also need to create a "how to play" modal. main "hard part" would be going over the code and handling different pieces of logic based on whether theres a user or not. for example, displaying leaderboard (would not include user), display stats (show a signup modal), do not update user stats, etc.
 - update #5: sad times. had to get rid of the progressive line stock chart animation because the bug is actually unsolvable (error on chartjs side) - the animation would simply fail and throw some random error in console...
 
+aug 17, 2024
+
+- update #1 (2 hours): refactored history route into stock route where frontend can retrieve a stock with its history directly using the populate method. the problem was that before i was storing all history in every stock which made the stock in the redux store giant. but i changed it so it only stores/fetches history for the actual solution stock (stored in react state instead). also made use of the jwt token to authenticate users when the game ends and i need to update user stats (extract user based on token).
+- update #2 (2 hours): ok i think i got the non-user game to work. used a boolean to flag an undetermined/guest/user. scuffed my way through it. gonna def need to go over the parts again and fix the modal sizing.
+
 ### challenges:
 
 - trying to find free apis to use (pivoted from spotifle idea with artists to stocks since yfinance makes life easier)
@@ -108,9 +113,6 @@ aug 16, 2024 (6 hours)
 
 ### todo:
 
-- use jwt for updating user stats? only return token which should be able to identify user?
-- instead of fetching for history separately, fetch hist for solution at api/stock/:id and populate historyid field
-- make guess history a state instead of in redux store?
-- build app so anyone can play (doesnt have to log in)
+- redesign app so non account players can still play (display signup modal when user clicks account/leaderboard icons + game end/stats screen)
 - update python script to fetch all stocks on us market?
 - dockerize app and deploy with aws? (run python script in venv, build frontend, etc)

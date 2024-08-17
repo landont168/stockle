@@ -31,10 +31,18 @@ const SignupForm = ({ setShowSignupForm }) => {
   }
 
   return (
-    <Container component='main' maxWidth='xs'>
+    <Container
+      component='main'
+      maxWidth='xs'
+      sx={{
+        height: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
       <Box
         sx={{
-          marginTop: 8,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',

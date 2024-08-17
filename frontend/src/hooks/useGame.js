@@ -36,6 +36,7 @@ const useGame = () => {
   // validate guess input
   const handleGuess = (e) => {
     e.preventDefault()
+    setGuess(null)
     dispatch(removeNotification())
 
     if (!guess) {
@@ -57,14 +58,19 @@ const useGame = () => {
     const currentAttempt = attempts + 1
     if (solution.id === guess.id) {
       setWon(true)
-      dispatch(updateUser(user.id, { won: true, attempts: currentAttempt }))
+      user
+        ? dispatch(updateUser(user.id, { won: true, attempts: currentAttempt }))
+        : null
     } else if (currentAttempt === 6) {
       setWon(false)
-      dispatch(updateUser(user.id, { won: false, attempts: currentAttempt }))
+      user
+        ? dispatch(
+            updateUser(user.id, { won: false, attempts: currentAttempt })
+          )
+        : null
     }
     dispatch(addGuess({ guess, attempts }))
     setAttempts(currentAttempt)
-    setGuess(null)
   }
 
   // reset game

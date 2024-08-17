@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react'
 import Modal from './Modal'
 
 const columns = [
-  { field: 'id', headerName: 'Rank', width: 100 },
-  { field: 'username', headerName: 'Username', width: 150 },
-  { field: 'score', headerName: 'Won', width: 90 },
+  { field: 'id', headerName: 'Rank', flex: 1 },
+  { field: 'username', headerName: 'Username', flex: 2 },
+  { field: 'score', headerName: 'Won', flex: 1 },
 ]
 
 const Leaderboard = ({ setShowLeaderboard }) => {
