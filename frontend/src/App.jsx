@@ -3,7 +3,6 @@ import { ThemeProvider } from '@mui/material/styles'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { initializeStocks } from './reducers/stockReducer'
-import { initializeUsers } from './reducers/usersReducer'
 import { initializeUser } from './reducers/userReducer'
 import useDarkMode from './hooks/useDarkMode'
 import useGame from './hooks/useGame'
@@ -32,7 +31,6 @@ const App = () => {
   // fetch initial data
   useEffect(() => {
     dispatch(initializeStocks())
-    dispatch(initializeUsers())
     dispatch(initializeUser())
   }, [dispatch])
 
@@ -67,7 +65,7 @@ const App = () => {
             handleGuess={handleGuess}
           />
           {won !== null && <Alert solution={solution} />}
-          {won !== null && showStats && (
+          {won !== null && showStats && !isGuest && (
             <Statistics handleClose={() => setShowStats(false)} />
           )}
         </>

@@ -5,7 +5,7 @@ import Avatar from '@mui/material/Avatar'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Tooltip from '@mui/material/Tooltip'
-import CreateAccount from './CreateAccount'
+import GuestForm from './GuestForm'
 import { useState, Fragment } from 'react'
 import { logoutUser } from '../reducers/userReducer'
 import { resetIsGuest } from '../reducers/guestReducer'
@@ -72,7 +72,7 @@ const AccountMenu = ({ resetGame }) => {
           </MenuItem>
         </Menu>
       )}
-      {!user && open && <CreateAccount handleClose={handleClose} />}
+      {!user && open && <GuestForm handleClose={handleClose} />}
     </Fragment>
   )
 }

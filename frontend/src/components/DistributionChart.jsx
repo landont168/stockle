@@ -34,6 +34,10 @@ const DistributionChart = ({ distribution }) => {
         suggestedMax: maxValue + 1,
         ticks: {
           maxTicksLimit: 6,
+          stepSize: 1,
+          callback: function (value) {
+            return Number.isInteger(value) ? value : ''
+          },
         },
         grid: {
           display: false,

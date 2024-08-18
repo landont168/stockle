@@ -8,7 +8,7 @@ import Tooltip from '@mui/material/Tooltip'
 import Leaderboard from './Leaderboard'
 import Statistics from './Statistics'
 import AccountMenu from './AccountMenu'
-import CreateAccount from './CreateAccount'
+import GuestForm from './GuestForm'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 
@@ -54,12 +54,10 @@ const Header = ({
       {user && showLeaderboard && (
         <Leaderboard handleClose={closeLeaderboard} />
       )}
-      {!user && showLeaderboard && (
-        <CreateAccount handleClose={closeLeaderboard} />
-      )}
+      {!user && showLeaderboard && <GuestForm handleClose={closeLeaderboard} />}
 
       {user && showStats && <Statistics handleClose={closeStats} />}
-      {!user && showStats && <CreateAccount handleClose={closeStats} />}
+      {!user && showStats && <GuestForm handleClose={closeStats} />}
     </header>
   )
 }

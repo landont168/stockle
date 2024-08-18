@@ -1,6 +1,7 @@
 import { DataGrid } from '@mui/x-data-grid'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useState, useEffect } from 'react'
+import { initializeUsers } from '../reducers/usersReducer'
 import Modal from './Modal'
 
 const columns = [
@@ -10,9 +11,15 @@ const columns = [
 ]
 
 const Leaderboard = ({ handleClose }) => {
+  const dispatch = useDispatch()
   const user = useSelector((state) => state.user)
   const users = useSelector((state) => state.users)
   const [sortedUsers, setSortedUsers] = useState([])
+
+  // refetch users
+  useEffect(() => {
+    dispatch(initializeUsers())
+  }, [dispatch])
 
   // sort users by games won
   useEffect(() => {

@@ -95,12 +95,12 @@ aug 16, 2024 (6 hours)
 - update #4: added a cheeky progress circle thing on stock chart load as a placeholder so we avoid shifting when trying to render the stock chart. gonna start looking into how i could potentially deploy using aws services? would also need to buy domain heheh. ok wait something i could work on is allowing people to play without an account. i would need to create a "home screen" with a "login" and "play" button where login would direct user to login/signup form. and play button would direct user directly to the game. would also need to create a "how to play" modal. main "hard part" would be going over the code and handling different pieces of logic based on whether theres a user or not. for example, displaying leaderboard (would not include user), display stats (show a signup modal), do not update user stats, etc.
 - update #5: sad times. had to get rid of the progressive line stock chart animation because the bug is actually unsolvable (error on chartjs side) - the animation would simply fail and throw some random error in console...
 
-aug 17, 2024
+aug 17, 2024 (8 hours)
 
 - update #1 (2 hours): refactored history route into stock route where frontend can retrieve a stock with its history directly using the populate method. the problem was that before i was storing all history in every stock which made the stock in the redux store giant. but i changed it so it only stores/fetches history for the actual solution stock (stored in react state instead). also made use of the jwt token to authenticate users when the game ends and i need to update user stats (extract user based on token).
 - update #2 (2 hours): ok i think i got the non-user game to work. used a boolean to flag an undetermined/guest/user. scuffed my way through it. gonna def need to go over the parts again and fix the modal sizing.
 - update #3 (2 hours): continued to clean up and adjust styling to be as responsive as possible. gotta be the most pointless thing lowk.
-- update #4 (2 hours): finished frontend revamp/styling/refactoring/responsive chug. also fixed issue with backend where i was returning an incorrect user object on the stats update - which messed up the leaderboard feature that displayed (you). need to fix issue where i only fetch user data on initial render - instead of whenever user clicks leaderboard - so the leaderboard isnt being updated as the user plays.
+- update #4 (2 hours): finished frontend revamp/styling/refactoring/responsive chug. also fixed issue with backend where i was returning an incorrect user object on the stats update - which messed up the leaderboard feature that displayed (you). also redesigned leaderboard to refetch on render - was only fetching on initial render before. also fixed some guest logic stuff. wow did not expect to get the guest feature done in less than a day but here we are lol.
 
 ### challenges:
 

@@ -52,6 +52,9 @@ body,
 }
 
 .stock-chart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 70%;
   height: 40%;
   margin: 10px auto;

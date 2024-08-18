@@ -7,7 +7,6 @@ const guestSlice = createSlice({
   initialState,
   reducers: {
     setIsGuest(state, action) {
-      console.log('hello')
       return action.payload
     },
     resetIsGuest() {

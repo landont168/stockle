@@ -1,7 +1,7 @@
 import Modal from './Modal'
 import LoginForm from './LoginForm'
 
-const CreateAccount = ({ handleClose }) => {
+const GuestForm = ({ handleClose }) => {
   return (
     <Modal handleClose={handleClose}>
       <LoginForm />
@@ -9,4 +9,4 @@ const CreateAccount = ({ handleClose }) => {
   )
 }
 
-export default CreateAccount
+export default GuestForm
