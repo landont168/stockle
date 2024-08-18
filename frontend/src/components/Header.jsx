@@ -32,8 +32,12 @@ const Header = ({
 
   return (
     <header className='header-container'>
-      <h1 className='header-title'>Stockle</h1>
-      <div className='header-icons'>
+      <div className='left-header-icons'>
+        <Tooltip title='Rules'>
+          <IconButton onClick={() => setShowRules(true)}>
+            <HelpOutlineRoundedIcon />
+          </IconButton>
+        </Tooltip>
         <Tooltip title={'Theme'}>
           <IconButton onClick={() => toggleTheme()}>
             {darkMode ? <LightModeRoundedIcon /> : <DarkModeRoundedIcon />}
@@ -44,11 +48,9 @@ const Header = ({
             <ShuffleRoundedIcon />
           </IconButton>
         </Tooltip>
-        <Tooltip title='Rules'>
-          <IconButton onClick={() => setShowRules(true)}>
-            <HelpOutlineRoundedIcon />
-          </IconButton>
-        </Tooltip>
+      </div>
+      <h1 className='header-title'>Stockle</h1>
+      <div className='right-header-icons'>
         <Tooltip title='Leaderboard'>
           <IconButton onClick={() => setShowLeaderboard(true)}>
             <LeaderboardRoundedIcon />

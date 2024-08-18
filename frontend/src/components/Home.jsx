@@ -31,7 +31,7 @@ const Home = () => {
             Stockle
           </Typography>
           <Typography variant='h5' sx={{ mb: 4 }}>
-            Get 6 chances to guess a stock.
+            Get 6 chances to guess a stock
           </Typography>
           <Box
             sx={{ display: 'flex', justifyContent: 'center', gap: 2, mb: 4 }}

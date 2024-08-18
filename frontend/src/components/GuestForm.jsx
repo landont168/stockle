@@ -9,7 +9,7 @@ const GuestForm = ({ handleClose }) => {
   useEffect(() => {
     dispatch(
       setNotification(
-        'Please log in or create an account to track your stats.',
+        'Please log in or create an account to access game features.',
         'warning'
       )
     )

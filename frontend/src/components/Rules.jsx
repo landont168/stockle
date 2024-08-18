@@ -16,7 +16,7 @@ const Rules = ({ handleClose }) => {
       </ul>
       <h3>Example</h3>
       <SampleBoard />
-      <h4>Guess Feedback:</h4>
+      <h4>Feedback:</h4>
       <span className='guess-cell'>
         <CheckIcon sx={{ color: 'green' }} />
         <em>Correct market characteristic</em>
