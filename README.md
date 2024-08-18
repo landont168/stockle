@@ -99,6 +99,7 @@ aug 17, 2024
 
 - update #1 (2 hours): refactored history route into stock route where frontend can retrieve a stock with its history directly using the populate method. the problem was that before i was storing all history in every stock which made the stock in the redux store giant. but i changed it so it only stores/fetches history for the actual solution stock (stored in react state instead). also made use of the jwt token to authenticate users when the game ends and i need to update user stats (extract user based on token).
 - update #2 (2 hours): ok i think i got the non-user game to work. used a boolean to flag an undetermined/guest/user. scuffed my way through it. gonna def need to go over the parts again and fix the modal sizing.
+- update #3 (2 hours): continued to clean up and adjust styling to be as responsive as possible. gotta be the most pointless thing lowk.
 
 ### challenges:
 

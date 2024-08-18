@@ -6,9 +6,8 @@ const Statistics = ({ handleClose }) => {
   const user = useSelector((state) => state.user)
 
   return (
-    <Modal handleClose={handleClose}>
-      <h1 className='modal-title'>Statistics</h1>
-      <div>
+    <Modal handleClose={handleClose} title='Statistics'>
+      <>
         <h4>STATISTICS</h4>
         <div className='modal-stats'>
           <div className='modal-stat'>
@@ -30,7 +29,7 @@ const Statistics = ({ handleClose }) => {
         </div>
         <h4>GUESS DISTRIBUTION</h4>
         <DistributionChart distribution={user.guessDistribution} />
-      </div>
+      </>
     </Modal>
   )
 }
