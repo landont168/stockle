@@ -102,6 +102,10 @@ aug 17, 2024 (8 hours)
 - update #3 (2 hours): continued to clean up and adjust styling to be as responsive as possible. gotta be the most pointless thing lowk.
 - update #4 (2 hours): finished frontend revamp/styling/refactoring/responsive chug. also fixed issue with backend where i was returning an incorrect user object on the stats update - which messed up the leaderboard feature that displayed (you). also redesigned leaderboard to refetch on render - was only fetching on initial render before. also fixed some guest logic stuff. wow did not expect to get the guest feature done in less than a day but here we are lol.
 
+aug 18, 2024
+
+- todo: redesign header to display "Logged in as...>"? rewrite python script to fetch all stocks? instructions/how to play popup? look into deploying with aws + buying domain.
+
 ### challenges:
 
 - trying to find free apis to use (pivoted from spotifle idea with artists to stocks since yfinance makes life easier)
@@ -112,9 +116,10 @@ aug 17, 2024 (8 hours)
 - adding small features has been really annoying bc i tend need to lift some state components up and pass a bunch of props or change the logic of how things worked (ex. account menu + notis)
 - improving responsivenes with css - switching to mui table as game board and fixing small issues (ex. width/height changes on rerender, styling issues)
 - refactoring frontend has taken so much time + energy - have to carefully think about app design (ex. what to abstract, props, reducers, hooks)
+- improving responsiveness with css + mui
+- reworking app to allow guests to play (preventing interactions with a user object like updating stats, displaying stats/leaderboard, etc)
 
 ### todo:
 
-- redesign app so non account players can still play (display signup modal when user clicks account/leaderboard icons + game end/stats screen)
 - update python script to fetch all stocks on us market?
 - dockerize app and deploy with aws? (run python script in venv, build frontend, etc)

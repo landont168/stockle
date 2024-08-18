@@ -19,7 +19,7 @@ const Notification = ({ notification }) => {
   }
 
   return (
-    <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+    <Snackbar open={open} autoHideDuration={10000} onClose={handleClose}>
       <Alert severity={type} sx={{ width: '100%' }}>
         {message}
       </Alert>

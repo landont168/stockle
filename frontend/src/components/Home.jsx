@@ -15,6 +15,13 @@ const Home = () => {
     dispatch(setIsGuest(false))
   }
 
+  const getDate = () => {
+    const now = new Date()
+    const options = { year: 'numeric', month: 'long', day: 'numeric' }
+    const formattedDate = now.toLocaleDateString('en-US', options)
+    return formattedDate
+  }
+
   return (
     user === null &&
     isGuest === null && (
@@ -44,6 +51,7 @@ const Home = () => {
               Log in
             </Button>
           </Box>
+          <Typography sx={{ fontWeight: 'bold' }}>{getDate()}</Typography>
           <Typography>Made by Landon Trinh</Typography>
         </Box>
       </div>
