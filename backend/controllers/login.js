@@ -23,7 +23,7 @@ loginRouter.post('/', async (request, response) => {
     username: user.username,
     id: user.id,
   }
-  const token = jwt.sign(userForToken, config.SECRET)
+  const token = jwt.sign(userForToken, config.SECRET, { expiresIn: 60 * 60 })
 
   // send user object with token
   const userObject = {
