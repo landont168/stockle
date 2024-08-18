@@ -104,8 +104,9 @@ aug 17, 2024 (8 hours)
 
 aug 18, 2024
 
-- todo: redesign header to display "Logged in as...>"? rewrite python script to fetch all stocks? instructions/how to play popup? look into deploying with aws + buying domain.
-- update #1 (2 hours): implemented rules modal + fixed noti timer to reset upon new noti. gonna re-design header + have a home button?
+- todo: redesign header? rewrite python script to fetch all stocks? instructions/how to play popup? look into deploying with aws + buying domain.
+- update #1 (2 hours): implemented rules modal + fixed noti timer to reset upon new noti + redesigned header/account menu. just need to implement home click on "stockle"
+- update #2 (1 hour): implemented return home on stockle click. 
 
 ### challenges:
 

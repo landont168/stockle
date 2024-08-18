@@ -29,7 +29,7 @@ export const setNotification = (message, type) => {
 
     timeout = setTimeout(() => {
       dispatch(removeNotification())
-    }, 10000)
+    }, 8000)
   }
 }
 

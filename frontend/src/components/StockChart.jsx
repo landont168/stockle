@@ -65,7 +65,7 @@ const StockChart = ({ data }) => {
         intersect: false,
         callbacks: {
           label: (context) => {
-            return `${context.dataset.label}: $${context.raw}`
+            return `${context.raw} USD`
           },
         },
       },
@@ -93,7 +93,7 @@ const StockChart = ({ data }) => {
         },
         title: {
           display: true,
-          text: 'Share Price ($)',
+          text: 'Share Price (USD)',
         },
       },
     },

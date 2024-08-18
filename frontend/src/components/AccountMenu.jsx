@@ -50,7 +50,9 @@ const AccountMenu = ({ resetGame }) => {
                 bgcolor: 'primary.main',
                 fontSize: 18,
               }}
-            />
+            >
+              {user ? user.username[0].toUpperCase() : null}
+            </Avatar>
           </IconButton>
         </Tooltip>
       </Box>

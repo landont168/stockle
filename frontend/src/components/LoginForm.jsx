@@ -8,11 +8,13 @@ import Container from '@mui/material/Container'
 import LoginRoundedIcon from '@mui/icons-material/LoginRounded'
 import SignupForm from './SignupForm'
 import { loginUser } from '../reducers/userReducer'
+import { setIsGuest } from '../reducers/guestReducer'
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 const LoginForm = () => {
   const dispatch = useDispatch()
+  const isGuest = useSelector((state) => state.isGuest)
   const [showSignupForm, setShowSignupForm] = useState(false)
 
   const handleSubmit = (e) => {
@@ -80,7 +82,25 @@ const LoginForm = () => {
               Log in
             </Button>
             <Grid container>
-              <Grid item xs></Grid>
+              <Grid item xs>
+                {isGuest === false && (
+                  <Button
+                    variant='text'
+                    onClick={() => dispatch(setIsGuest(true))}
+                    sx={{
+                      textTransform: 'none',
+                      padding: 0,
+                      color: 'primary',
+                      '&:hover': {
+                        textDecoration: 'underline',
+                        backgroundColor: 'transparent',
+                      },
+                    }}
+                  >
+                    {'Play as a guest'}
+                  </Button>
+                )}
+              </Grid>
               <Grid item>
                 <Button
                   variant='text'

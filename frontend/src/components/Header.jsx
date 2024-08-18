@@ -12,7 +12,9 @@ import Rules from './Rules'
 import AccountMenu from './AccountMenu'
 import GuestForm from './GuestForm'
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { resetIsGuest } from '../reducers/guestReducer'
+import { logoutUser } from '../reducers/userReducer'
 
 const Header = ({
   darkMode,
@@ -21,6 +23,7 @@ const Header = ({
   showStats,
   setShowStats,
 }) => {
+  const dispatch = useDispatch()
   const user = useSelector((state) => state.user)
 
   const [showLeaderboard, setShowLeaderboard] = useState(false)
@@ -29,6 +32,12 @@ const Header = ({
   const closeRules = () => setShowRules(false)
   const closeLeaderboard = () => setShowLeaderboard(false)
   const closeStats = () => setShowStats(false)
+
+  const returnHome = () => {
+    user ? dispatch(logoutUser()) : null
+    dispatch(resetIsGuest())
+    resetGame()
+  }
 
   return (
     <header className='header-container'>
@@ -49,7 +58,11 @@ const Header = ({
           </IconButton>
         </Tooltip>
       </div>
-      <h1 className='header-title'>Stockle</h1>
+
+      <h1 className='header-title' onClick={returnHome}>
+        Stockle
+      </h1>
+
       <div className='right-header-icons'>
         <Tooltip title='Leaderboard'>
           <IconButton onClick={() => setShowLeaderboard(true)}>
