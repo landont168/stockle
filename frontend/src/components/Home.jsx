@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from '@mui/material'
+import { Box, Button, Typography, Fade } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { setIsGuest } from '../reducers/guestReducer'
 
@@ -26,34 +26,36 @@ const Home = () => {
     user === null &&
     isGuest === null && (
       <div className='home-container'>
-        <Box>
-          <Typography variant='h2' sx={{ fontWeight: 'bold', mb: 2 }}>
-            Stockle
-          </Typography>
-          <Typography variant='h5' sx={{ mb: 4 }}>
-            Get 6 chances to guess a stock
-          </Typography>
-          <Box
-            sx={{ display: 'flex', justifyContent: 'center', gap: 2, mb: 4 }}
-          >
-            <Button
-              variant='contained'
-              sx={{ borderRadius: 2, width: 150 }}
-              onClick={handleGuestPlay}
+        <Fade in={true} timeout={1000}>
+          <Box>
+            <Typography variant='h2' sx={{ fontWeight: 'bold', mb: 2 }}>
+              Stockle 📈
+            </Typography>
+            <Typography variant='h5' sx={{ mb: 4 }}>
+              Get 6 chances to guess a stock
+            </Typography>
+            <Box
+              sx={{ display: 'flex', justifyContent: 'center', gap: 2, mb: 4 }}
             >
-              Play
-            </Button>
-            <Button
-              variant='contained'
-              sx={{ borderRadius: 2, width: 150 }}
-              onClick={handleUserPlay}
-            >
-              Log in
-            </Button>
+              <Button
+                variant='contained'
+                sx={{ borderRadius: 2, width: 150 }}
+                onClick={handleGuestPlay}
+              >
+                Play
+              </Button>
+              <Button
+                variant='contained'
+                sx={{ borderRadius: 2, width: 150 }}
+                onClick={handleUserPlay}
+              >
+                Log in
+              </Button>
+            </Box>
+            <Typography sx={{ fontWeight: 'bold' }}>{getDate()}</Typography>
+            <Typography>Made by: Landon Trinh 🫰</Typography>
           </Box>
-          <Typography sx={{ fontWeight: 'bold' }}>{getDate()}</Typography>
-          <Typography>Made by Landon Trinh</Typography>
-        </Box>
+        </Fade>
       </div>
     )
   )

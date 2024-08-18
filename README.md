@@ -106,7 +106,8 @@ aug 18, 2024
 
 - todo: redesign header? rewrite python script to fetch all stocks? instructions/how to play popup? look into deploying with aws + buying domain.
 - update #1 (2 hours): implemented rules modal + fixed noti timer to reset upon new noti + redesigned header/account menu. just need to implement home click on "stockle"
-- update #2 (1 hour): implemented return home on stockle click. 
+- update #2 (1 hour): implemented return home on stockle click + play as guest on login
+- update #3 (1 hour): added border for main login/signup, played around w some animations, getting logo ready
 
 ### challenges:
 

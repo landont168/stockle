@@ -39,6 +39,10 @@ const LoginForm = () => {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            boxShadow:
+              isGuest === false ? '0px 4px 10px rgba(0, 0, 0, 0.2)' : 'none',
+            padding: isGuest === false ? 3 : 0,
+            borderRadius: isGuest === false ? 2 : 0,
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
