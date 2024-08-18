@@ -33,7 +33,7 @@ const DistributionChart = ({ distribution }) => {
       x: {
         suggestedMax: maxValue + 1,
         ticks: {
-          stepSize: Math.ceil(maxValue / 6),
+          maxTicksLimit: 6,
         },
         grid: {
           display: false,

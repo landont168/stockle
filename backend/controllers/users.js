@@ -60,11 +60,17 @@ usersRouter.put('/:id', userExtractor, async (request, response) => {
   // update user stats in db
   const updatedUser = await User.findByIdAndUpdate(user.id, updatedFields, {
     new: true,
-  }).lean()
+  })
 
-  // include token in response
+  // format user object to send back to client
   const token = request.headers['authorization'].split(' ')[1]
-  const newUser = { ...updatedUser, token }
+  const newUser = {
+    token,
+    username: user.username,
+    name: user.name,
+    id: user.id,
+    ...updatedFields,
+  }
   response.json(newUser)
 })
 

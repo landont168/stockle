@@ -21,10 +21,10 @@ import Alert from './components/Alert'
 
 const App = () => {
   const dispatch = useDispatch()
+  const isGuest = useSelector((state) => state.isGuest)
   const user = useSelector((state) => state.user)
   const notification = useSelector((state) => state.notification)
 
-  const [isGuest, setIsGuest] = useState(null)
   const [showStats, setShowStats] = useState(false)
   const { solution, guess, setGuess, won, handleGuess, resetGame } = useGame()
   const { darkMode, theme, toggleTheme } = useDarkMode()
@@ -46,7 +46,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Home setIsGuest={setIsGuest} />
+      <Home />
       {isGuest === false && !user && <LoginForm />}
       {(isGuest || user) && (
         <>

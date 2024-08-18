@@ -8,6 +8,7 @@ import Tooltip from '@mui/material/Tooltip'
 import CreateAccount from './CreateAccount'
 import { useState, Fragment } from 'react'
 import { logoutUser } from '../reducers/userReducer'
+import { resetIsGuest } from '../reducers/guestReducer'
 import { useDispatch, useSelector } from 'react-redux'
 
 const AccountMenu = ({ resetGame }) => {
@@ -26,6 +27,7 @@ const AccountMenu = ({ resetGame }) => {
 
   const logoutGame = () => {
     dispatch(logoutUser())
+    dispatch(resetIsGuest())
     resetGame()
   }
 

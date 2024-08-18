@@ -1,21 +1,23 @@
 import { Box, Button, Typography } from '@mui/material'
-import { useState } from 'react'
+import { setIsGuest } from '../reducers/guestReducer'
+import { useDispatch, useSelector } from 'react-redux'
 
-const Home = ({ setIsGuest }) => {
-  const [showHome, setShowHome] = useState(true)
+const Home = () => {
+  const dispatch = useDispatch()
+  const user = useSelector((state) => state.user)
+  const isGuest = useSelector((state) => state.isGuest)
 
   const handleGuestPlay = () => {
-    setShowHome(false)
-    setIsGuest(true)
+    dispatch(setIsGuest(true))
   }
 
   const handleUserPlay = () => {
-    setShowHome(false)
-    setIsGuest(false)
+    dispatch(setIsGuest(false))
   }
 
   return (
-    showHome && (
+    user === null &&
+    isGuest === null && (
       <div className='home-container'>
         <Box>
           <Typography variant='h2' sx={{ fontWeight: 'bold', mb: 2 }}>
