@@ -1,18 +1,13 @@
-import { useSelector } from 'react-redux'
 import Modal from './Modal'
 import DistributionChart from './DistributionChart'
-// import CreateAccount from './CreateAccount'
+import { useSelector } from 'react-redux'
 
-const Statistics = ({ setShowStats, text }) => {
+const Statistics = ({ handleClose }) => {
   const user = useSelector((state) => state.user)
 
-  if (!user) {
-    return null
-  }
-
   return (
-    <Modal handleClose={() => setShowStats(false)}>
-      <h1 className='modal-title'>{text}</h1>
+    <Modal handleClose={handleClose}>
+      <h1 className='modal-title'>Statistics</h1>
       <div>
         <h4>STATISTICS</h4>
         <div className='modal-stats'>

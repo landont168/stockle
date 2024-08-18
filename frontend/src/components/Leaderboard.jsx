@@ -4,12 +4,12 @@ import { useState, useEffect } from 'react'
 import Modal from './Modal'
 
 const columns = [
-  { field: 'id', headerName: 'Rank', flex: 1 },
-  { field: 'username', headerName: 'Username', flex: 2 },
-  { field: 'score', headerName: 'Won', flex: 1 },
+  { field: 'id', headerName: 'Rank', width: 100 },
+  { field: 'username', headerName: 'Username', width: 150 },
+  { field: 'score', headerName: 'Won', width: 90 },
 ]
 
-const Leaderboard = ({ setShowLeaderboard }) => {
+const Leaderboard = ({ handleClose }) => {
   const user = useSelector((state) => state.user)
   const users = useSelector((state) => state.users)
   const [sortedUsers, setSortedUsers] = useState([])
@@ -31,7 +31,7 @@ const Leaderboard = ({ setShowLeaderboard }) => {
 
   // display leaderboard with mui datagrid
   return (
-    <Modal handleClose={() => setShowLeaderboard(false)}>
+    <Modal handleClose={handleClose}>
       <h1 className='modal-title'>Leaderboard</h1>
       <DataGrid
         rows={sortedUsers}

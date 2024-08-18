@@ -4,7 +4,6 @@ import guessReducer from './reducers/guessReducer'
 import userReducer from './reducers/userReducer'
 import usersReducer from './reducers/usersReducer'
 import notificationReducer from './reducers/notificationReducer'
-import guestReducer from './reducers/guestReducer'
 
 // set up redux store
 const store = configureStore({
@@ -14,7 +13,6 @@ const store = configureStore({
     user: userReducer,
     users: usersReducer,
     notification: notificationReducer,
-    isGuest: guestReducer,
   },
 })
 

@@ -1,9 +1,9 @@
 import Modal from './Modal'
 import LoginForm from './LoginForm'
 
-const CreateAccount = ({ setShow }) => {
+const CreateAccount = ({ handleClose }) => {
   return (
-    <Modal handleClose={() => setShow(false)}>
+    <Modal handleClose={handleClose}>
       <LoginForm />
     </Modal>
   )

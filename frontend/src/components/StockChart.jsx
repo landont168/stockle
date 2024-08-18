@@ -36,7 +36,6 @@ const StockChart = ({ data }) => {
   const backgroundColor =
     priceChange > 0 ? 'rgba(76, 175, 80, 0.2)' : 'rgba(239, 83, 80, 0.2)'
 
-  // chart.js data structure
   const chartData = {
     labels: dates,
     datasets: [
@@ -53,8 +52,6 @@ const StockChart = ({ data }) => {
       },
     ],
   }
-
-  // chart.js options
   const options = {
     type: 'line',
     responsive: true,

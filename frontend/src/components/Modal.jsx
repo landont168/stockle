@@ -14,8 +14,6 @@ const BasicModal = ({ children, handleClose }) => {
           padding: 2,
           borderRadius: 1,
           boxShadow: theme.shadows[5],
-          width: '30%',
-          height: 'fit-content',
         }}
       >
         <div className='modal-header'>

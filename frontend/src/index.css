@@ -13,14 +13,24 @@ body,
   height: 100vh;
 }
 
+/* home */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+}
+
 /* header */
 .header-container {
-  position: relative;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 1px solid #eee;
   padding: 6px;
+  border-bottom: 1px solid #eee;
 }
 
 .header-title {
@@ -29,10 +39,19 @@ body,
 }
 
 .header-icons {
+  display: flex;
   margin-left: auto;
   margin-right: 8px;
+  gap: 6px;
+}
+
+/* forms */
+.form-container {
   display: flex;
-  gap: 8px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 /* stock chart */
