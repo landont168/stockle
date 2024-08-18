@@ -107,11 +107,6 @@ body,
   flex: 1;
 }
 
-.rules-container {
-  display: flex;
-  flex-direction: column;
-}
-
 .sample-board {
   width: 100%;
   margin: 10px auto;
@@ -119,7 +114,7 @@ body,
 
 ul {
   padding-left: 1rem;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   list-style-position: outside;
 }
 

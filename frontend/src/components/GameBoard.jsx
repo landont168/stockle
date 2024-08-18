@@ -13,8 +13,9 @@ const GameBoard = ({ solution }) => {
   const {
     NameFeedback,
     SectorFeedback,
-    NumFeedback,
+    MarketCapFeedback,
     SharePriceFeedback,
+    RevenueFeedback,
     VolumeFeedback,
   } = Feedback(solution)
 
@@ -55,31 +56,19 @@ const GameBoard = ({ solution }) => {
                   {row && <NameFeedback guess={row} />}
                 </TableCell>
                 <TableCell sx={{ width: '150px', padding: '8px' }}>
-                  {row && <SectorFeedback guessStr={row.sector} />}
+                  {row && <SectorFeedback guess={row} />}
                 </TableCell>
                 <TableCell sx={{ width: '100px', padding: '8px' }}>
-                  {row && (
-                    <NumFeedback
-                      guessNum={row.marketCap}
-                      solNum={solution.marketCap}
-                    />
-                  )}
+                  {row && <MarketCapFeedback guess={row} />}
                 </TableCell>
                 <TableCell sx={{ width: '100px', padding: '8px' }}>
-                  {row && (
-                    <SharePriceFeedback guessSharePrice={row.sharePrice} />
-                  )}
+                  {row && <SharePriceFeedback guess={row} />}
                 </TableCell>
                 <TableCell sx={{ width: '100px', padding: '8px' }}>
-                  {row && (
-                    <NumFeedback
-                      guessNum={row.revenue}
-                      solNum={solution.revenue}
-                    />
-                  )}
+                  {row && <RevenueFeedback guess={row} />}
                 </TableCell>
                 <TableCell sx={{ width: '100px', padding: '8px' }}>
-                  {row && <VolumeFeedback guessVolume={row.volume} />}
+                  {row && <VolumeFeedback guess={row} />}
                 </TableCell>
               </TableRow>
             ))}

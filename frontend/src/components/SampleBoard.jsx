@@ -33,8 +33,9 @@ const SampleBoard = () => {
   const {
     NameFeedback,
     SectorFeedback,
-    NumFeedback,
+    MarketCapFeedback,
     SharePriceFeedback,
+    RevenueFeedback,
     VolumeFeedback,
   } = Feedback(sampleSolution)
 
@@ -73,33 +74,19 @@ const SampleBoard = () => {
                 {<NameFeedback guess={sampleGuess} />}
               </TableCell>
               <TableCell sx={{ width: '150px', padding: '8px' }}>
-                {<SectorFeedback guessStr={sampleGuess.sector} />}
+                {<SectorFeedback guess={sampleGuess} />}
               </TableCell>
               <TableCell sx={{ width: '100px', padding: '8px' }}>
-                {
-                  <NumFeedback
-                    guessNum={sampleGuess.marketCap}
-                    solNum={sampleSolution.marketCap}
-                  />
-                }
+                <MarketCapFeedback guess={sampleGuess} />
               </TableCell>
               <TableCell sx={{ width: '100px', padding: '8px' }}>
-                {
-                  <SharePriceFeedback
-                    guessSharePrice={sampleGuess.sharePrice}
-                  />
-                }
+                {<SharePriceFeedback guess={sampleGuess} />}
               </TableCell>
               <TableCell sx={{ width: '100px', padding: '8px' }}>
-                {
-                  <NumFeedback
-                    guessNum={sampleGuess.revenue}
-                    solNum={sampleSolution.revenue}
-                  />
-                }
+                {<RevenueFeedback guess={sampleGuess} />}
               </TableCell>
               <TableCell sx={{ width: '100px', padding: '8px' }}>
-                {<VolumeFeedback guessVolume={sampleGuess.volume} />}
+                {<VolumeFeedback guess={sampleGuess} />}
               </TableCell>
             </TableRow>
           </TableBody>

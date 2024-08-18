@@ -9,77 +9,106 @@ const Feedback = (solution) => {
     return numeral(num).format('0.0a')
   }
 
+  const Correct = () => {
+    return <CheckIcon sx={{ color: 'green' }} />
+  }
+
+  const Incorrect = () => {
+    return <ClearIcon sx={{ color: 'red' }} />
+  }
+
+  const Higher = () => {
+    return <ArrowCircleUpIcon sx={{ color: 'green' }} />
+  }
+
+  const Lower = () => {
+    return <ArrowCircleDownIcon sx={{ color: 'red' }} />
+  }
+
   const NameFeedback = ({ guess }) => {
     return (
       <span className='guess-cell'>
-        {guess.id === solution.id ? (
-          <CheckIcon sx={{ color: 'green' }} />
-        ) : (
-          <ClearIcon sx={{ color: 'red' }} />
-        )}
+        {guess.id === solution.id ? <Correct /> : <Incorrect />}
         {`${guess.name} (${guess.ticker})`}
       </span>
     )
   }
 
-  const SectorFeedback = ({ guessStr }) => {
-    const solStr = solution.sector
+  const SectorFeedback = ({ guess }) => {
     return (
       <span className='guess-cell'>
-        {guessStr === solStr ? (
-          <CheckIcon sx={{ color: 'green' }} />
-        ) : (
-          <ClearIcon sx={{ color: 'red' }} />
-        )}
-        {guessStr}
+        {guess.sector === solution.sector ? <Correct /> : <Incorrect />}
+        {guess.sector}
       </span>
     )
   }
 
-  const NumFeedback = ({ guessNum, solNum }) => {
+  const MarketCapFeedback = ({ guess }) => {
+    const guessNum = guess.marketCap
+    const solNum = solution.marketCap
     const formattedNum = formatNum(guessNum)
     return (
       <span className='guess-cell'>
         {guessNum > solNum ? (
-          <ArrowCircleDownIcon sx={{ color: 'red' }} />
+          <Lower />
         ) : guessNum < solNum ? (
-          <ArrowCircleUpIcon sx={{ color: 'green' }} />
+          <Higher />
         ) : (
-          <CheckIcon sx={{ color: 'green' }} />
+          <Correct />
         )}
         ${formattedNum}
       </span>
     )
   }
 
-  const SharePriceFeedback = ({ guessSharePrice }) => {
-    const solSharePrice = solution.sharePrice
-    const formattedNumber = numeral(guessSharePrice).format('0.00')
+  const SharePriceFeedback = ({ guess }) => {
+    const guessNum = guess.sharePrice
+    const solNum = solution.sharePrice
+    const formattedNumber = numeral(guessNum).format('0.00')
     return (
       <span className='guess-cell'>
-        {guessSharePrice < solSharePrice ? (
-          <ArrowCircleUpIcon sx={{ color: 'green' }} />
-        ) : guessSharePrice > solSharePrice ? (
-          <ArrowCircleDownIcon sx={{ color: 'red' }} />
+        {guessNum > solNum ? (
+          <Lower />
+        ) : guessNum < solNum ? (
+          <Higher />
         ) : (
-          <CheckIcon sx={{ color: 'green' }} />
+          <Correct />
         )}
         ${formattedNumber}
       </span>
     )
   }
 
-  const VolumeFeedback = ({ guessVolume }) => {
-    const formattedNumber = formatNum(guessVolume)
-    const solVolume = solution.volume
+  const RevenueFeedback = ({ guess }) => {
+    const guessNum = guess.revenue
+    const solNum = solution.revenue
+    const formattedNum = formatNum(guessNum)
     return (
       <span className='guess-cell'>
-        {guessVolume > solVolume ? (
-          <ArrowCircleDownIcon sx={{ color: 'red' }} />
-        ) : guessVolume < solVolume ? (
-          <ArrowCircleUpIcon sx={{ color: 'green' }} />
+        {guessNum > solNum ? (
+          <Lower />
+        ) : guessNum < solNum ? (
+          <Higher />
         ) : (
-          <CheckIcon sx={{ color: 'green' }} />
+          <Correct />
+        )}
+        ${formattedNum}
+      </span>
+    )
+  }
+
+  const VolumeFeedback = ({ guess }) => {
+    const guessNum = guess.volume
+    const solNum = solution.volume
+    const formattedNumber = formatNum(guessNum)
+    return (
+      <span className='guess-cell'>
+        {guessNum > solNum ? (
+          <Lower />
+        ) : guessNum < solNum ? (
+          <Higher />
+        ) : (
+          <Correct />
         )}
         {formattedNumber}
       </span>
@@ -89,8 +118,9 @@ const Feedback = (solution) => {
   return {
     NameFeedback,
     SectorFeedback,
-    NumFeedback,
+    MarketCapFeedback,
     SharePriceFeedback,
+    RevenueFeedback,
     VolumeFeedback,
   }
 }
