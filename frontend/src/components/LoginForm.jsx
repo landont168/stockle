@@ -7,9 +7,9 @@ import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import LoginRoundedIcon from '@mui/icons-material/LoginRounded'
 import SignupForm from './SignupForm'
+import { loginUser } from '../reducers/userReducer'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { loginUser } from '../reducers/userReducer'
 
 const LoginForm = () => {
   const dispatch = useDispatch()

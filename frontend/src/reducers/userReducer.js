@@ -79,7 +79,7 @@ export const updateUser = (id, gameInfo) => {
       dispatch(setUser(updatedUser))
     } catch {
       dispatch(
-        setNotification('Your session has expired. Please log in.', 'error')
+        setNotification('Your session has expired. Please re-log in.', 'error')
       )
     }
   }

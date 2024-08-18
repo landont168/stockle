@@ -106,3 +106,23 @@ body,
   flex-direction: column;
   flex: 1;
 }
+
+.rules-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.sample-board {
+  width: 100%;
+  margin: 10px auto;
+}
+
+ul {
+  padding-left: 1rem;
+  margin-bottom: 8px;
+  list-style-position: outside;
+}
+
+li {
+  text-align: left;
+}

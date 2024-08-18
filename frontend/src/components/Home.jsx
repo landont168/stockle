@@ -1,6 +1,6 @@
 import { Box, Button, Typography } from '@mui/material'
-import { setIsGuest } from '../reducers/guestReducer'
 import { useDispatch, useSelector } from 'react-redux'
+import { setIsGuest } from '../reducers/guestReducer'
 
 const Home = () => {
   const dispatch = useDispatch()

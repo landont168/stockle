@@ -1,6 +1,5 @@
 import Snackbar from '@mui/material/Snackbar'
 import Alert from '@mui/material/Alert'
-
 import { useState } from 'react'
 import { removeNotification } from '../reducers/notificationReducer'
 import { useDispatch } from 'react-redux'
