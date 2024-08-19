@@ -1,11 +1,13 @@
 import yfinance as yf
-import requests
 import pandas as pd
 import pymongo
 import os
 from dotenv import load_dotenv
 
+# constants
 MARKET_CAP_THRESHOLD = 2000000000
+START_DATE = "2024-01-01"
+TICKERS_FILE = 'tickers.csv'
 
 # connect to database
 load_dotenv()
@@ -13,34 +15,57 @@ MONGODB_URI = os.getenv('MONGODB_URI')
 CLIENT = pymongo.MongoClient(MONGODB_URI)
 STOCKS_DB = CLIENT['stockle']['stocks']
 HISTORY_DB = CLIENT['stockle']['histories']
-STOCKS_DB.drop()
-HISTORY_DB.drop()
 
 def get_tickers():
-  # get tickers from nasdaq and nyse
   nasdaq_df = pd.read_csv('nasdaq-list.csv')['Symbol']
   nyse_df = pd.read_csv('nyse-list.csv')['Symbol']
   master_df = pd.concat([nasdaq_df, nyse_df])
   
-  # filter tickers
+  # filter tickers to remove indicies/etfs
   all_tickers = [str(ticker) for ticker in master_df.tolist()]
-  filtered_tickers = [ticker for ticker in all_tickers if '^' not in ticker and '/' not in ticker]
+  filtered_tickers = [ticker for ticker in all_tickers 
+                      if '^' not in ticker and '/' not in ticker]
   return filtered_tickers
 
-# filter out small cap stocks
+# filter small cap/cross listed stocks
 def filter_tickers(tickers):
   filtered_tickers = []
+  existing_names = []
+
   for ticker in tickers:
     try:
       info = yf.Ticker(ticker).info
+
+      # filter out small cap stocks
       if info['marketCap'] < MARKET_CAP_THRESHOLD:
         raise Exception('small cap stock')
+      
+      # ensure fields are accessible
+      stock_info = {
+        'name': info['longName'],
+        'ticker': info['symbol'],
+        'sector': info['sector'],
+        'marketCap': info['marketCap'],
+        'sharePrice': info['currentPrice'],
+        'revenue': info['totalRevenue'],
+        'volume': info['averageVolume'],
+      }
+
+      # filter out cross listed stocks
+      if stock_info['name'] in existing_names:
+        raise Exception('cross listed stock')
+
+      # save successful stocks
+      existing_names.append(stock_info['name'])
       filtered_tickers.append(ticker)
+
     except Exception as e:
       print(f"Error: {e} ({ticker})")
+  
+  # sort and save tickers to file
   sorted_tickers = sorted(filtered_tickers)
   filtered_df = pd.DataFrame(sorted_tickers, columns=['tickers'])
-  filtered_df.to_csv('tickers.csv', index=False)
+  filtered_df.to_csv(TICKERS_FILE, index=False)
   return sorted_tickers
   
 # fetch stock data from yfinance
@@ -62,8 +87,10 @@ def get_stock_data(tickers):
         'volume': info['averageVolume'],
       }
 
-      hist = ticker_obj.history(start="2024-01-01")
-      stock_hist = [{'date': date.strftime('%Y-%m-%d'), 'price': round(float(data['Close']), 2)} for date, data in hist.iterrows()]
+      hist = ticker_obj.history(start=START_DATE)
+      stock_hist = [{'date': date.strftime('%Y-%m-%d'), 
+                     'price': round(float(data['Close']), 2)} 
+                    for date, data in hist.iterrows()]
       history_id = HISTORY_DB.insert_one({'stockHistory': stock_hist}).inserted_id
       stock_info['history'] = history_id
       stock_data.append(stock_info)
@@ -75,14 +102,21 @@ def get_stock_data(tickers):
 
 def main():
   filtered_tickers = []
-  if not os.path.exists('tickers.csv'):
+
+  # refetch tickers if tickers file does not exist
+  if not os.path.exists(TICKERS_FILE):
+    STOCKS_DB.drop()
+    HISTORY_DB.drop()
     tickers = get_tickers()
     filtered_tickers = filter_tickers(tickers)
+
+  # read existing tickers file
   else:
-    filtered_tickers = pd.read_csv('tickers.csv')['tickers'].tolist()
+    filtered_tickers = pd.read_csv(TICKERS_FILE)['tickers'].tolist()
+  
+  # refetch stock data history
   stock_data = get_stock_data(filtered_tickers)
   STOCKS_DB.insert_many(stock_data)
-
 
 if __name__ == "__main__":
   main()
