@@ -65,7 +65,8 @@ const StockChart = ({ data }) => {
         intersect: false,
         callbacks: {
           label: (context) => {
-            return `${context.raw} USD`
+            const price = context.raw.toFixed(2)
+            return `${price} USD`
           },
         },
       },

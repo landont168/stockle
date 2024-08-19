@@ -9,12 +9,15 @@ MARKET_CAP_THRESHOLD = 2000000000
 START_DATE = "2024-01-01"
 TICKERS_FILE = 'tickers.csv'
 
-# connect to database
+# connect to and clear database
 load_dotenv()
 MONGODB_URI = os.getenv('MONGODB_URI')
 CLIENT = pymongo.MongoClient(MONGODB_URI)
 STOCKS_DB = CLIENT['stockle']['stocks']
-HISTORY_DB = CLIENT['stockle']['histories']
+STOCKS_DB.drop()
+
+# HISTORY_DB = CLIENT['stockle']['histories']
+# HISTORY_DB.drop()
 
 def get_tickers():
   nasdaq_df = pd.read_csv('nasdaq-list.csv')['Symbol']
@@ -73,15 +76,15 @@ def filter_tickers(tickers):
   ticker_list = [stock['ticker'] for stock in sorted_stocks]
   return ticker_list
   
+
 # fetch stock data from yfinance
 def get_stock_data(tickers):
   stock_data = []
 
   for ticker in tickers:
-    ticker_obj = yf.Ticker(ticker)
-    info = ticker_obj.info
-
     try:
+      ticker_obj = yf.Ticker(ticker)
+      info = ticker_obj.info
       stock_info = {
         'name': info['longName'],
         'ticker': info['symbol'],
@@ -91,14 +94,15 @@ def get_stock_data(tickers):
         'revenue': info['totalRevenue'],
         'volume': info['averageVolume'],
       }
-
+      
       hist = ticker_obj.history(start=START_DATE)
       stock_hist = [{'date': date.strftime('%Y-%m-%d'), 
                      'price': round(float(data['Close']), 2)} 
                     for date, data in hist.iterrows()]
-      history_id = HISTORY_DB.insert_one({'stockHistory': stock_hist}).inserted_id
-      stock_info['history'] = history_id
+      stock_info['history'] = stock_hist
       stock_data.append(stock_info)
+      # history_id = HISTORY_DB.insert_one({'stockHistory': stock_hist}).inserted_id
+      # stock_info['history'] = history_id
     except Exception as e:
       print(f"Error: {e} {info['symbol']}")
 
@@ -110,8 +114,6 @@ def main():
 
   # refetch tickers if csv does not exist
   if not os.path.exists(TICKERS_FILE):
-    STOCKS_DB.drop()
-    HISTORY_DB.drop()
     tickers = get_tickers()
     filtered_tickers = filter_tickers(tickers)
   else:

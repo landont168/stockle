@@ -1,18 +1,14 @@
 const stocksRouter = require('express').Router()
 const Stock = require('../models/stock')
-const History = require('../models/history')
 
 stocksRouter.get('/', async (request, response) => {
-  const stocks = await Stock.find({})
+  // deselect history to prevent conserve redux store
+  const stocks = await Stock.find({}).select('-history')
   response.json(stocks)
 })
 
 stocksRouter.get('/:id', async (request, response) => {
-  const stock = await Stock.findById(request.params.id).populate({
-    path: 'history',
-    select: 'stockHistory',
-    transform: (doc) => doc.stockHistory,
-  })
+  const stock = await Stock.findById(request.params.id)
   response.json(stock)
 })
 

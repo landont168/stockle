@@ -112,6 +112,8 @@ aug 18, 2024 (6 hours)
 aug 19, 2024
 
 - todo: fix main login/signup page to use modal (allow returning to home on home login/signup)
+- update #1 (1 hour): modified login/signup components into modal + rewrote python script + redesigned backend for stocks
+- 
 
 ### challenges:
 
