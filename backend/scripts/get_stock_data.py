@@ -29,8 +29,7 @@ def get_tickers():
 
 # filter small cap/cross listed stocks
 def filter_tickers(tickers):
-  filtered_tickers = []
-  existing_names = []
+  filtered_stocks = []
 
   for ticker in tickers:
     try:
@@ -51,22 +50,28 @@ def filter_tickers(tickers):
         'volume': info['averageVolume'],
       }
 
-      # filter out cross listed stocks
-      if stock_info['name'] in existing_names:
+      # filter cross listed stocks by name
+      stock_name = stock_info['name']
+      name_exists = any(stock['name'] == stock_name for stock in filtered_stocks)
+      if name_exists:
         raise Exception('cross listed stock')
 
-      # save successful stocks
-      existing_names.append(stock_info['name'])
-      filtered_tickers.append(ticker)
+      # save filtered ticker
+      filtered_stock = {
+        'name': stock_name,
+        'ticker': stock_info['ticker'],
+      }
+      filtered_stocks.append(filtered_stock)
 
     except Exception as e:
       print(f"Error: {e} ({ticker})")
   
   # sort and save tickers to file
-  sorted_tickers = sorted(filtered_tickers)
-  filtered_df = pd.DataFrame(sorted_tickers, columns=['tickers'])
-  filtered_df.to_csv(TICKERS_FILE, index=False)
-  return sorted_tickers
+  sorted_stocks = sorted(filtered_stocks, key=lambda x: x['ticker'])
+  stocks_df = pd.DataFrame(sorted_stocks)
+  stocks_df.to_csv(TICKERS_FILE, index=False)
+  ticker_list = [stock['ticker'] for stock in sorted_stocks]
+  return ticker_list
   
 # fetch stock data from yfinance
 def get_stock_data(tickers):
@@ -105,18 +110,18 @@ def main():
 
   # refetch tickers if tickers file does not exist
   if not os.path.exists(TICKERS_FILE):
-    STOCKS_DB.drop()
-    HISTORY_DB.drop()
+    # STOCKS_DB.drop()
+    # HISTORY_DB.drop()
     tickers = get_tickers()
     filtered_tickers = filter_tickers(tickers)
 
   # read existing tickers file
   else:
-    filtered_tickers = pd.read_csv(TICKERS_FILE)['tickers'].tolist()
+    filtered_tickers = pd.read_csv(TICKERS_FILE)['ticker'].tolist()
   
   # refetch stock data history
-  stock_data = get_stock_data(filtered_tickers)
-  STOCKS_DB.insert_many(stock_data)
+  # stock_data = get_stock_data(filtered_tickers)
+  # STOCKS_DB.insert_many(stock_data)
 
 if __name__ == "__main__":
   main()
