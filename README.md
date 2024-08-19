@@ -102,12 +102,16 @@ aug 17, 2024 (8 hours)
 - update #3 (2 hours): continued to clean up and adjust styling to be as responsive as possible. gotta be the most pointless thing lowk.
 - update #4 (2 hours): finished frontend revamp/styling/refactoring/responsive chug. also fixed issue with backend where i was returning an incorrect user object on the stats update - which messed up the leaderboard feature that displayed (you). also redesigned leaderboard to refetch on render - was only fetching on initial render before. also fixed some guest logic stuff. wow did not expect to get the guest feature done in less than a day but here we are lol.
 
-aug 18, 2024
+aug 18, 2024 (6 hours)
 
 - todo: redesign header? rewrite python script to fetch all stocks? instructions/how to play popup? look into deploying with aws + buying domain.
 - update #1 (2 hours): implemented rules modal + fixed noti timer to reset upon new noti + redesigned header/account menu. just need to implement home click on "stockle"
 - update #2 (1 hour): implemented return home on stockle click + play as guest on login + added border for main login/signup, played around w some animations + getting logo ready. wow
 - update #3 (3 hour): just spent like an hour trying to search up ways to fetch us stock tickers. insane how theres no easy way. im just gonna download nasdaq + nyse stock tickers csv and filter it out to take care of cross-listed tickers/dirty data stocks... ok after quite a bit (had to test and let script run), new data fetching looks good - starts with a total of 6760 tickers from the nasdaq/nyse - and filters out indicies/etfs/cross listed/small cap/uncomplete stocks to 1880 tickers - all history stored in mongodb now too
+
+aug 19, 2024
+
+- todo: fix main login/signup page to use modal (allow returning to home on home login/signup)
 
 ### challenges:
 
@@ -124,5 +128,4 @@ aug 18, 2024
 
 ### todo:
 
-- update python script to fetch all stocks on us market?
 - dockerize app and deploy with aws? (run python script in venv, build frontend, etc)

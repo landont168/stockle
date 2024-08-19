@@ -5,7 +5,7 @@ import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Tooltip from '@mui/material/Tooltip'
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
-import GuestForm from './GuestForm'
+import LoginForm from './LoginForm'
 import { useState, Fragment } from 'react'
 import { logoutUser } from '../reducers/userReducer'
 import { resetIsGuest } from '../reducers/guestReducer'
@@ -74,7 +74,7 @@ const AccountMenu = ({ resetGame }) => {
           </MenuItem>
         </Menu>
       )}
-      {!user && open && <GuestForm handleClose={handleClose} />}
+      {!user && open && <LoginForm handleClose={handleClose} />}
     </Fragment>
   )
 }

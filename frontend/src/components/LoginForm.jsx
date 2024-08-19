@@ -7,15 +7,27 @@ import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import LoginRoundedIcon from '@mui/icons-material/LoginRounded'
 import SignupForm from './SignupForm'
-import { loginUser } from '../reducers/userReducer'
-import { setIsGuest } from '../reducers/guestReducer'
-import { useState } from 'react'
+import Modal from './Modal'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { loginUser } from '../reducers/userReducer'
+import { setIsGuest, resetIsGuest } from '../reducers/guestReducer'
+import { setNotification } from '../reducers/notificationReducer'
 
-const LoginForm = () => {
+const LoginForm = ({ handleClose }) => {
   const dispatch = useDispatch()
   const isGuest = useSelector((state) => state.isGuest)
   const [showSignupForm, setShowSignupForm] = useState(false)
+  const closeForm = isGuest ? handleClose : () => dispatch(resetIsGuest())
+
+  useEffect(() => {
+    dispatch(
+      setNotification(
+        'Please log in or create an account to access game features.',
+        'info'
+      )
+    )
+  }, [dispatch])
 
   const handleSubmit = (e) => {
     const data = new FormData(e.currentTarget)
@@ -28,69 +40,88 @@ const LoginForm = () => {
   }
 
   if (showSignupForm) {
-    return <SignupForm showLoginForm={() => setShowSignupForm(false)} />
+    return (
+      <Modal handleClose={closeForm}>
+        <SignupForm showLoginForm={() => setShowSignupForm(false)} />
+      </Modal>
+    )
   }
 
   return (
-    <div className='form-container'>
-      <Container component='main' maxWidth='xs'>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            boxShadow:
-              isGuest === false ? '0px 4px 10px rgba(0, 0, 0, 0.2)' : 'none',
-            padding: isGuest === false ? 3 : 0,
-            borderRadius: isGuest === false ? 2 : 0,
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
-            <LoginRoundedIcon />
-          </Avatar>
-          <Typography component='h1' variant='h5' sx={{ fontWeight: 'bold' }}>
-            Log in to Stockle
-          </Typography>
+    <Modal handleClose={closeForm}>
+      <div className='form-container'>
+        <Container component='main' maxWidth='xs'>
           <Box
-            component='form'
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
           >
-            <TextField
-              margin='normal'
-              required
-              fullWidth
-              id='username'
-              label='Username'
-              name='username'
-              autoComplete='username'
-              autoFocus
-            />
-            <TextField
-              margin='normal'
-              required
-              fullWidth
-              name='password'
-              label='Password'
-              type='password'
-              id='password'
-              autoComplete='current-password'
-            />
-            <Button
-              type='submit'
-              fullWidth
-              variant='contained'
-              sx={{ mt: 3, mb: 2 }}
+            <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
+              <LoginRoundedIcon />
+            </Avatar>
+            <Typography component='h1' variant='h5' sx={{ fontWeight: 'bold' }}>
+              Log in to Stockle
+            </Typography>
+            <Box
+              component='form'
+              onSubmit={handleSubmit}
+              noValidate
+              sx={{ mt: 1 }}
             >
-              Log in
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                {isGuest === false && (
+              <TextField
+                margin='normal'
+                required
+                fullWidth
+                id='username'
+                label='Username'
+                name='username'
+                autoComplete='username'
+                autoFocus
+              />
+              <TextField
+                margin='normal'
+                required
+                fullWidth
+                name='password'
+                label='Password'
+                type='password'
+                id='password'
+                autoComplete='current-password'
+              />
+              <Button
+                type='submit'
+                fullWidth
+                variant='contained'
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Log in
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  {isGuest === false && (
+                    <Button
+                      variant='text'
+                      onClick={() => dispatch(setIsGuest(true))}
+                      sx={{
+                        textTransform: 'none',
+                        padding: 0,
+                        color: 'primary',
+                        '&:hover': {
+                          textDecoration: 'underline',
+                          backgroundColor: 'transparent',
+                        },
+                      }}
+                    >
+                      {'Play as a guest'}
+                    </Button>
+                  )}
+                </Grid>
+                <Grid item>
                   <Button
                     variant='text'
-                    onClick={() => dispatch(setIsGuest(true))}
+                    onClick={() => setShowSignupForm(true)}
                     sx={{
                       textTransform: 'none',
                       padding: 0,
@@ -101,32 +132,15 @@ const LoginForm = () => {
                       },
                     }}
                   >
-                    {'Play as a guest'}
+                    {"Don't have an account? Sign up"}
                   </Button>
-                )}
+                </Grid>
               </Grid>
-              <Grid item>
-                <Button
-                  variant='text'
-                  onClick={() => setShowSignupForm(true)}
-                  sx={{
-                    textTransform: 'none',
-                    padding: 0,
-                    color: 'primary',
-                    '&:hover': {
-                      textDecoration: 'underline',
-                      backgroundColor: 'transparent',
-                    },
-                  }}
-                >
-                  {"Don't have an account? Sign up"}
-                </Button>
-              </Grid>
-            </Grid>
+            </Box>
           </Box>
-        </Box>
-      </Container>
-    </div>
+        </Container>
+      </div>
+    </Modal>
   )
 }
 

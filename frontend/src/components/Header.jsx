@@ -10,7 +10,7 @@ import Leaderboard from './Leaderboard'
 import Statistics from './Statistics'
 import Rules from './Rules'
 import AccountMenu from './AccountMenu'
-import GuestForm from './GuestForm'
+import LoginForm from './LoginForm'
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { resetIsGuest } from '../reducers/guestReducer'
@@ -81,9 +81,9 @@ const Header = ({
       {user && showLeaderboard && (
         <Leaderboard handleClose={closeLeaderboard} />
       )}
-      {!user && showLeaderboard && <GuestForm handleClose={closeLeaderboard} />}
+      {!user && showLeaderboard && <LoginForm handleClose={closeLeaderboard} />}
       {user && showStats && <Statistics handleClose={closeStats} />}
-      {!user && showStats && <GuestForm handleClose={closeStats} />}
+      {!user && showStats && <LoginForm handleClose={closeStats} />}
     </header>
   )
 }
