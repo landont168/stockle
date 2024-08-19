@@ -1,38 +1,59 @@
 import yfinance as yf
+import requests
 import pandas as pd
 import pymongo
 import os
 from dotenv import load_dotenv
 
-# connect to databases
+MARKET_CAP_THRESHOLD = 2000000000
+
+# connect to database
 load_dotenv()
 MONGODB_URI = os.getenv('MONGODB_URI')
-client = pymongo.MongoClient(MONGODB_URI)
+CLIENT = pymongo.MongoClient(MONGODB_URI)
+STOCKS_DB = CLIENT['stockle']['stocks']
+HISTORY_DB = CLIENT['stockle']['histories']
+STOCKS_DB.drop()
+HISTORY_DB.drop()
 
-# clear existing collections
-stocks_db = client['stockle']['stocks']
-history_db = client['stockle']['histories']
-stocks_db.drop()
-history_db.drop()
-
-# web scrape sp500 tickers from wikipedia
 def get_tickers():
-  wiki_url = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
-  df = pd.read_html(wiki_url, header=0)[0][['Symbol', 'Security']]
-  return df
+  # get tickers from nasdaq and nyse
+  nasdaq_df = pd.read_csv('nasdaq-list.csv')['Symbol']
+  nyse_df = pd.read_csv('nyse-list.csv')['Symbol']
+  master_df = pd.concat([nasdaq_df, nyse_df])
+  
+  # filter tickers
+  all_tickers = [str(ticker) for ticker in master_df.tolist()]
+  filtered_tickers = [ticker for ticker in all_tickers if '^' not in ticker and '/' not in ticker]
+  return filtered_tickers
 
+# filter out small cap stocks
+def filter_tickers(tickers):
+  filtered_tickers = []
+  for ticker in tickers:
+    try:
+      info = yf.Ticker(ticker).info
+      if info['marketCap'] < MARKET_CAP_THRESHOLD:
+        raise Exception('small cap stock')
+      filtered_tickers.append(ticker)
+    except Exception as e:
+      print(f"Error: {e} ({ticker})")
+  sorted_tickers = sorted(filtered_tickers)
+  filtered_df = pd.DataFrame(sorted_tickers, columns=['tickers'])
+  filtered_df.to_csv('tickers.csv', index=False)
+  return sorted_tickers
+  
 # fetch stock data from yfinance
-def get_stock_data(df):
+def get_stock_data(tickers):
   stock_data = []
 
-  for _, row in df.iterrows():
-    ticker = row['Symbol']
+  for ticker in tickers:
     ticker_obj = yf.Ticker(ticker)
     info = ticker_obj.info
 
     try:
       stock_info = {
-        'name': row['Security'],
+        'name': info['longName'],
         'ticker': info['symbol'],
         'sector': info['sector'],
         'marketCap': info['marketCap'],
@@ -43,19 +64,24 @@ def get_stock_data(df):
 
       hist = ticker_obj.history(start="2024-01-01")
       stock_hist = [{'date': date.strftime('%Y-%m-%d'), 'price': round(float(data['Close']), 2)} for date, data in hist.iterrows()]
-      history_id = history_db.insert_one({'stockHistory': stock_hist}).inserted_id
+      history_id = HISTORY_DB.insert_one({'stockHistory': stock_hist}).inserted_id
       stock_info['history'] = history_id
       stock_data.append(stock_info)
     except Exception as e:
-      print(f"Error: {e}")
+      print(f"Error: {e} {info['symbol']}")
 
   return stock_data
 
 
 def main():
-  tickers = get_tickers()
-  stock_data = get_stock_data(tickers)
-  stocks_db.insert_many(stock_data)
+  filtered_tickers = []
+  if not os.path.exists('tickers.csv'):
+    tickers = get_tickers()
+    filtered_tickers = filter_tickers(tickers)
+  else:
+    filtered_tickers = pd.read_csv('tickers.csv')['tickers'].tolist()
+  stock_data = get_stock_data(filtered_tickers)
+  STOCKS_DB.insert_many(stock_data)
 
 
 if __name__ == "__main__":
