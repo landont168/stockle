@@ -29,102 +29,95 @@ const SignupForm = ({ showLoginForm }) => {
   }
 
   return (
-    <div className='form-container'>
-      <Container component='main' maxWidth='xs'>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component='h1' variant='h5' sx={{ fontWeight: 'bold' }}>
-            Sign up to Stockle
-          </Typography>
-          <Box
-            component='form'
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
+    <Container component='main' maxWidth='xs'>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component='h1' variant='h5' sx={{ fontWeight: 'bold' }}>
+          Sign up to Stockle
+        </Typography>
+        <Box component='form' noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                autoComplete='given-name'
+                name='firstName'
+                required
+                fullWidth
+                id='firstName'
+                label='First Name'
+                autoFocus
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                fullWidth
+                id='lastName'
+                label='Last Name'
+                name='lastName'
+                autoComplete='family-name'
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                id='username'
+                label='Username'
+                name='username'
+                autoComplete='username'
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                name='password'
+                label='Password'
+                type='password'
+                id='password'
+                autoComplete='new-password'
+              />
+            </Grid>
+          </Grid>
+          <Button
+            type='submit'
+            fullWidth
+            variant='contained'
+            sx={{ mt: 3, mb: 2 }}
           >
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete='given-name'
-                  name='firstName'
-                  required
-                  fullWidth
-                  id='firstName'
-                  label='First Name'
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id='lastName'
-                  label='Last Name'
-                  name='lastName'
-                  autoComplete='family-name'
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id='username'
-                  label='Username'
-                  name='username'
-                  autoComplete='username'
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name='password'
-                  label='Password'
-                  type='password'
-                  id='password'
-                  autoComplete='new-password'
-                />
-              </Grid>
+            Sign Up
+          </Button>
+          <Grid container justifyContent='flex-end'>
+            <Grid item>
+              <Button
+                onClick={showLoginForm}
+                variant='text'
+                sx={{
+                  textTransform: 'none',
+                  padding: 0,
+                  color: 'primary',
+                  '&:hover': {
+                    textDecoration: 'underline',
+                    backgroundColor: 'transparent',
+                  },
+                }}
+              >
+                {'Already have an account? Log in'}
+              </Button>
             </Grid>
-            <Button
-              type='submit'
-              fullWidth
-              variant='contained'
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign Up
-            </Button>
-            <Grid container justifyContent='flex-end'>
-              <Grid item>
-                <Button
-                  onClick={showLoginForm}
-                  variant='text'
-                  sx={{
-                    textTransform: 'none',
-                    padding: 0,
-                    color: 'primary',
-                    '&:hover': {
-                      textDecoration: 'underline',
-                      backgroundColor: 'transparent',
-                    },
-                  }}
-                >
-                  {'Already have an account? Log in'}
-                </Button>
-              </Grid>
-            </Grid>
-          </Box>
+          </Grid>
         </Box>
-      </Container>
-    </div>
+      </Box>
+    </Container>
   )
 }
 
