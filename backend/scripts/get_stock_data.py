@@ -35,7 +35,7 @@ def filter_tickers(tickers):
     try:
       info = yf.Ticker(ticker).info
 
-      # filter out small cap stocks
+      # filter small cap stocks
       if info['marketCap'] < MARKET_CAP_THRESHOLD:
         raise Exception('small cap stock')
       
@@ -66,7 +66,7 @@ def filter_tickers(tickers):
     except Exception as e:
       print(f"Error: {e} ({ticker})")
   
-  # sort and save tickers to file
+  # sort and save tickers to csv
   sorted_stocks = sorted(filtered_stocks, key=lambda x: x['ticker'])
   stocks_df = pd.DataFrame(sorted_stocks)
   stocks_df.to_csv(TICKERS_FILE, index=False)
@@ -108,20 +108,18 @@ def get_stock_data(tickers):
 def main():
   filtered_tickers = []
 
-  # refetch tickers if tickers file does not exist
+  # refetch tickers if csv does not exist
   if not os.path.exists(TICKERS_FILE):
-    # STOCKS_DB.drop()
-    # HISTORY_DB.drop()
+    STOCKS_DB.drop()
+    HISTORY_DB.drop()
     tickers = get_tickers()
     filtered_tickers = filter_tickers(tickers)
-
-  # read existing tickers file
   else:
     filtered_tickers = pd.read_csv(TICKERS_FILE)['ticker'].tolist()
   
   # refetch stock data history
-  # stock_data = get_stock_data(filtered_tickers)
-  # STOCKS_DB.insert_many(stock_data)
+  stock_data = get_stock_data(filtered_tickers)
+  STOCKS_DB.insert_many(stock_data)
 
 if __name__ == "__main__":
   main()
