@@ -1,28 +1,18 @@
 import Snackbar from '@mui/material/Snackbar'
 import Alert from '@mui/material/Alert'
-import { useState } from 'react'
-import { removeNotification } from '../reducers/notificationReducer'
-import { useDispatch } from 'react-redux'
+import Fade from '@mui/material/Fade'
 
 const Notification = ({ notification }) => {
-  const dispatch = useDispatch()
   const { message, type } = notification
-  const [open, setOpen] = useState(true)
-
-  const handleClose = (e, reason) => {
-    if (reason === 'clickaway') {
-      return
-    }
-    dispatch(removeNotification())
-    setOpen(false)
-  }
 
   return (
-    <Snackbar open={open} onClose={handleClose}>
-      <Alert severity={type} sx={{ width: '100%' }}>
-        {message}
-      </Alert>
-    </Snackbar>
+    <Fade in={true} timeout={500}>
+      <Snackbar open={true}>
+        <Alert severity={type} sx={{ width: '100%' }}>
+          {message}
+        </Alert>
+      </Snackbar>
+    </Fade>
   )
 }
 
