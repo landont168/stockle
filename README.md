@@ -113,7 +113,7 @@ aug 19, 2024
 
 - todo: fix main login/signup page to use modal (allow returning to home on home login/signup)
 - update #1 (1 hour): modified login/signup components into modal + rewrote python script + redesigned backend for stocks
-- 
+- update #2 (2 hours): been looking into how to deploy for a fat minute. seems like docker compose integration with aws is retired so ggs. trying to look in ecs/ec2/ecr stuff - hard trying to find up to update resources?
 
 ### challenges:
 
@@ -130,4 +130,4 @@ aug 19, 2024
 
 ### todo:
 
-- dockerize app and deploy with aws? (run python script in venv, build frontend, etc)
+- deploy with aws

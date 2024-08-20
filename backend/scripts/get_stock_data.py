@@ -14,10 +14,6 @@ load_dotenv()
 MONGODB_URI = os.getenv('MONGODB_URI')
 CLIENT = pymongo.MongoClient(MONGODB_URI)
 STOCKS_DB = CLIENT['stockle']['stocks']
-STOCKS_DB.drop()
-
-# HISTORY_DB = CLIENT['stockle']['histories']
-# HISTORY_DB.drop()
 
 def get_tickers():
   nasdaq_df = pd.read_csv('nasdaq-list.csv')['Symbol']
@@ -101,8 +97,6 @@ def get_stock_data(tickers):
                     for date, data in hist.iterrows()]
       stock_info['history'] = stock_hist
       stock_data.append(stock_info)
-      # history_id = HISTORY_DB.insert_one({'stockHistory': stock_hist}).inserted_id
-      # stock_info['history'] = history_id
     except Exception as e:
       print(f"Error: {e} {info['symbol']}")
 
