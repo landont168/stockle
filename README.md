@@ -128,6 +128,8 @@ aug 19, 2024
 - improving responsiveness with css + mui
 - reworking app to allow guests to play (preventing interactions with a user object like updating stats, displaying stats/leaderboard, etc)
 
+aug 21, 2024
+- after some help, plan is to deploy frontend with vercel and backend with aws ecs.
 ### todo:
 
-- deploy with aws
+- deploy frontend with vercel + backend with aws
