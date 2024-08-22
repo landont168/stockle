@@ -44,7 +44,6 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <h1>testing vercel deployment...</h1>
       <Home />
       {isGuest === false && !user && <LoginForm />}
       {(isGuest || user) && (
