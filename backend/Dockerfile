@@ -1,5 +1,5 @@
 # use official node image as the base
-FROM node:18-alpine
+FROM node:20-alpine
 
 # set up working directory inside container for subsequent commands
 WORKDIR /app
@@ -13,8 +13,8 @@ RUN npm install
 # copy source code into container
 COPY . .
 
-# expose port 
+# expose port
 EXPOSE 4000
 
 # run backend server
-CMD ["npm", "run", "dev"]
+CMD ["npm", "start"]

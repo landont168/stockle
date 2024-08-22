@@ -109,11 +109,18 @@ aug 18, 2024 (6 hours)
 - update #2 (1 hour): implemented return home on stockle click + play as guest on login + added border for main login/signup, played around w some animations + getting logo ready. wow
 - update #3 (3 hour): just spent like an hour trying to search up ways to fetch us stock tickers. insane how theres no easy way. im just gonna download nasdaq + nyse stock tickers csv and filter it out to take care of cross-listed tickers/dirty data stocks... ok after quite a bit (had to test and let script run), new data fetching looks good - starts with a total of 6760 tickers from the nasdaq/nyse - and filters out indicies/etfs/cross listed/small cap/uncomplete stocks to 1880 tickers - all history stored in mongodb now too
 
-aug 19, 2024
+aug 19, 2024 (3 hours)
 
 - todo: fix main login/signup page to use modal (allow returning to home on home login/signup)
 - update #1 (1 hour): modified login/signup components into modal + rewrote python script + redesigned backend for stocks
 - update #2 (2 hours): been looking into how to deploy for a fat minute. seems like docker compose integration with aws is retired so ggs. trying to look in ecs/ec2/ecr stuff - hard trying to find up to update resources?
+
+aug 21, 2024
+
+- after some help, plan is to deploy frontend with vercel and backend with aws ecs.
+- update #1 (2 hours): lmao spent like 2 hours trying to deploy react app to vercel just to realize i had an issue with the local/github not syncing - had issue with SignUpForm.jsx vs.SignupForm.jsx (https://stackoverflow.com/questions/62378045/how-to-fix-next-js-vercel-deployment-module-not-found-error)
+- update #2 (2 hours): read into aws ecs and set up aws account with budget cap (gotta make sure we dont go broke from this idk). but essentially how it should work is we push a docker image to ECR (image hoster) and pull that image from an ECS cluster (resources) - boom - next steps tbd
+- useful resource for ecs vs ec2: https://stackoverflow.com/questions/40575584/what-is-the-difference-between-amazon-ecs-and-amazon-ec2
 
 ### challenges:
 
@@ -128,8 +135,6 @@ aug 19, 2024
 - improving responsiveness with css + mui
 - reworking app to allow guests to play (preventing interactions with a user object like updating stats, displaying stats/leaderboard, etc)
 
-aug 21, 2024
-- after some help, plan is to deploy frontend with vercel and backend with aws ecs.
 ### todo:
 
 - deploy frontend with vercel + backend with aws
