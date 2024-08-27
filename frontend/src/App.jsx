@@ -18,9 +18,6 @@ import SearchBar from './components/SearchBar'
 import Notification from './components/Notification'
 import Alert from './components/Alert'
 
-// log env variable to consolg
-console.log(import.meta.env.VITE_API_URL)
-
 const App = () => {
   const dispatch = useDispatch()
   const isGuest = useSelector((state) => state.isGuest)
