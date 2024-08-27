@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "${VITE_API_URL}/api/:path*"
+      "destination": "http://ecs-lb-1832096966.us-east-1.elb.amazonaws.com/api/:path*"
     }
   ]
 }
