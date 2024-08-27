@@ -43,7 +43,6 @@ const AccountMenu = ({ resetGame }) => {
             aria-expanded={open ? 'true' : undefined}
           >
             <Avatar
-              src='/broken-image.jpg'
               sx={{
                 width: 30,
                 height: 30,
