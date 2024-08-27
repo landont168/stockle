@@ -122,6 +122,23 @@ aug 21, 2024
 - update #2 (2 hours): read into aws ecs and set up aws account with budget cap (gotta make sure we dont go broke from this idk). but essentially how it should work is we push a docker image to ECR (image hoster) and pull that image from an ECS cluster (resources) - boom - next steps tbd
 - useful resource for ecs vs ec2: https://stackoverflow.com/questions/40575584/what-is-the-difference-between-amazon-ecs-and-amazon-ec2
 
+aug 22, 2024 (2 hours)
+
+- after spending some time studying the infra of aws ecs/ecr/ec2. ive gotten my node image pushed to ECR. shoutout to this guy for goated tutorial: https://www.youtube.com/watch?v=8XnqgiQaIkU
+- need to make sure i create ecs clusters and launch ec2 instances properly next
+
+aug 23, 2024 (3 hours)
+- update #1 (3 hours): raged for 3 hours trying to set up with aws ecs - idk whats going wrong - i created cluster + task definition. idk
+
+aug 26, 2024 (2 hours)
+- update: wowwww after a week of learning about aws and then struggling with deploying my node server with aws ecs/ec2. i finally got it work after using this random tutorial which used a load balancer/security group configs. (https://www.youtube.com/watch?v=gEo-w6Z3m0I&t=106s). lets gooo. just need to deploy it and make sure it works and register domain
+
+aws notes
+- ecr: docker container registry
+- ecs: container orchestration service
+- fargate: serverless engine that works with ecs - run containers without managing underlying infra
+
+
 ### challenges:
 
 - trying to find free apis to use (pivoted from spotifle idea with artists to stocks since yfinance makes life easier)

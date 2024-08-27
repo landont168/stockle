@@ -25,6 +25,10 @@ app.use(cors())
 app.use(express.json())
 app.use(middleware.requestLogger)
 
+app.get('/', (req, res) => {
+  res.send('Testing backend deployment...')
+})
+
 // routes
 app.use('/api/stocks', stocksRouter)
 app.use('/api/users', usersRouter)
