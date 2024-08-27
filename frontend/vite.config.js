@@ -16,7 +16,7 @@ export default defineConfig(({ mode }) => {
       port: 5173,
       proxy: {
         '/api': {
-          target: 'http://ecs-lb-1832096966.us-east-1.elb.amazonaws.com/',
+          target: API_TARGET_URL,
           changeOrigin: true,
         },
       },
