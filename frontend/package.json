@@ -5,8 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build:config": "node generate-vercel-config.js",
-    "build": "npm run build:config && vite build",
+    "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
