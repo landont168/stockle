@@ -1,3 +1,7 @@
+# Docker Compose configuration for Stockle app.
+# This file sets up the backend and frontend services, defines volumes for code synchronization,
+# and configures a shared network for inter-service communication.
+
 name: stockle
 
 services:
