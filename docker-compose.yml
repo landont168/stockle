@@ -1,10 +1,5 @@
 name: stockle
 
-# build - specifies how to build docker image for backend/frontend
-# volumes - mounts directories from local machine into container (code changes reflected inside container)
-# ports - maps port number on local machine to port number inside container
-# networks - defines custom network that allows containers to communicate with each other
-
 services:
   backend:
     build:
@@ -14,8 +9,6 @@ services:
     volumes:
       - ./backend:/app
       - /app/node_modules
-    environment:
-      - PORT=4000
     ports:
       - 4000:4000
     networks:
@@ -29,8 +22,6 @@ services:
     volumes:
       - ./frontend:/app
       - /app/node_modules
-    environment:
-      - VITE_API_URL=http://backend:4000
     ports:
       - 5173:5173
     depends_on:
