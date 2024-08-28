@@ -18,7 +18,6 @@ const createUser = async (newUser) => {
 }
 
 const updateUser = async (id, gameInfo) => {
-  // set up jwt token for authorization
   const config = {
     headers: { Authorization: token },
   }

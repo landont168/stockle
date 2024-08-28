@@ -53,7 +53,7 @@ const Home = () => {
               </Button>
             </Box>
             <Typography sx={{ fontWeight: 'bold' }}>{getDate()}</Typography>
-            <Typography>Made by: Landon Trinh 🫰</Typography>
+            <Typography>Made by Landon Trinh 🙂</Typography>
           </Box>
         </Fade>
       </div>
