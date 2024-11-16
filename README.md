@@ -2,7 +2,8 @@
 
 [Stockle.ca](https://www.stockle.ca/) is a stock market-themed spinoff of the classic [Wordle](https://www.nytimes.com/games/wordle/index.html) game. In Stockle, players are challenged to guess a randomly chosen stock from a curated list. Players have 6 attempts to identify the correct stock based on clues provided after each incorrect guess. The clues include information about the stock's sector, share price, market cap, etc. Test your market knowledge and strategic thinking—can you crack the code and guess the stock in 6 tries?
 
-<video controls src="assets/stockle-demo.mov" title="stockle-demo"></video>
+https://github.com/user-attachments/assets/0b1065cd-d81d-41dd-9a1c-15b00512ab1c
+
 
 ## System Architecture 🥞
 
