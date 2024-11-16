@@ -2,16 +2,23 @@
 
 [Stockle.ca](https://www.stockle.ca/) is a stock market-themed spinoff of the classic [Wordle](https://www.nytimes.com/games/wordle/index.html) game. In Stockle, players are challenged to guess a randomly chosen stock from a curated list. Players have 6 attempts to identify the correct stock based on clues provided after each incorrect guess. The clues include information about the stock's sector, share price, market cap, etc. Test your market knowledge and strategic thinking—can you crack the code and guess the stock in 6 tries?
 
-## Tech Stack 🥞
+<video controls src="assets/stockle-demo.mov" title="stockle-demo"></video>
+
+## System Architecture 🥞
 
 - **Frontend**: React, Redux, Chart.js, Material UI
 - **Backend/Database**: Node.js, Express.js, MongoDB, Python
 - **Deployment**: Docker, AWS, Vercel
 
+![alt text](assets/stockle-architecture.png)
+
+
 ## Deployment ☁️
 
 - **Backend**: A Dockerized Node.js application is pushed to AWS Elastic Container Registry (ECR) and deployed using AWS Elastic Container Service (ECS). The setup utilizes an EC2 instance and a load balancer to efficiently manage and scale the backend API service.
 - **Frontend**: The React frontend is deployed on Vercel and a custom domain is configured with Porkbun.
+
+- **Update as of Nov 16, 2024**: Currently down for further improvements!
 
 ## Development 🏗️
 
