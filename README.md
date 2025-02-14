@@ -1,4 +1,4 @@
-# Stockle
+# Stockle 📈
 
 [Stockle.ca](https://www.stockle.ca/) is a stock market-themed spinoff of the classic [Wordle](https://www.nytimes.com/games/wordle/index.html) game. In Stockle, players are challenged to guess a randomly chosen stock from a curated list. Players have 6 attempts to identify the correct stock based on clues provided after each incorrect guess. The clues include information about the stock's sector, share price, market cap, etc. Test your market knowledge and strategic thinking—can you crack the code and guess the stock in 6 tries?
 
@@ -32,13 +32,13 @@ https://github.com/user-attachments/assets/0b1065cd-d81d-41dd-9a1c-15b00512ab1c
 
 ## Development 🏗️
 
-- Built a robust backend with Node.js, Express.js, and MongoDB, with endpoints for stock data and user administration
-- Wrote a Python script to process CSV files of NASDAQ and NYSE tickers, filtering out indices, ETFs, small-cap stocks, and cross-listed stocks; fetches historical data using yfinance and stores it in MongoDB with pymongo
-- Implemented a secure token-based user authentication with JWT and bcrypt, with login, signup, and guest play options
-- Developed a responsive and modular single page app with React and MUI, featuring interative stock and bar charts with Chart.js
-- Refactored React state components to adopt a Flux architecture with Redux, along with custom hooks for game logic and state management
-- Utilized Docker and Docker Compose for streamlined development and deployment
-- Deployed React app with Vercel and pushed a Node-based Docker image to AWS ECR to pull and deploy on AWS ECS/EC2
+- Built a robust backend with `Node.js`, `Express.js`, and `MongoDB`, with endpoints for stock data and user administration
+- Wrote a `Python` script to process CSV files of NASDAQ and NYSE tickers, filtering out indices, ETFs, small-cap stocks, and cross-listed stocks; fetches historical data using `yfinance` and stores it in `MongoDB` with `pymongo`
+- Implemented a secure token-based user authentication with `JWT` and `bcrypt`, with login, signup, and guest play options
+- Developed a responsive and modular single page app with `React` and `MUI`, featuring interative stock and bar charts with `Chart.js`
+- Refactored `React` state components to adopt a Flux architecture with `Redux`, along with custom hooks for game logic and state management
+- Utilized `Docker` and `Docker Compose` for streamlined development and deployment
+- Deployed `React` app with `Vercel` and pushed a `Node`-based `Docker` image to `AWS ECR` to pull and deploy on `AWS ECS`, which uses a single `AWS EC2` instance and load balancer
 
 ## Installation 🖥️
 
