@@ -4,7 +4,7 @@
 
 https://github.com/user-attachments/assets/0b1065cd-d81d-41dd-9a1c-15b00512ab1c
 
-## System Architecture 🥞
+## Tech Stack 🥞
 
 ### Frontend
 
@@ -25,6 +25,8 @@ https://github.com/user-attachments/assets/0b1065cd-d81d-41dd-9a1c-15b00512ab1c
 ![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazonwebservices&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+
+### System Architecture
 
 ![alt text](assets/stockle-architecture.png)
 
