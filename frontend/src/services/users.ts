@@ -1,9 +1,10 @@
 import axios from 'axios'
+import { User, UserRegister } from 'types'
 const baseUrl = '/api/users'
 
-let token = null
+let token: string | null = null
 
-const setToken = (newToken) => {
+const setToken = (newToken: string) => {
   token = `Bearer ${newToken}`
 }
 
@@ -12,12 +13,12 @@ const getUsers = async () => {
   return response.data
 }
 
-const createUser = async (newUser) => {
+const createUser = async (newUser: UserRegister) => {
   const response = await axios.post(baseUrl, newUser)
   return response.data
 }
 
-const updateUser = async (id, gameInfo) => {
+const updateUser = async (id: number, gameInfo: User) => {
   const config = {
     headers: { Authorization: token },
   }
