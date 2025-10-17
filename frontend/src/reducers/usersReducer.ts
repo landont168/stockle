@@ -5,14 +5,14 @@ const usersSlice = createSlice({
   name: 'users',
   initialState: [],
   reducers: {
-    setUsers(state, action) {
+    setUsers(_, action) {
       return action.payload
     },
   },
 })
 
 export const initializeUsers = () => {
-  return async (dispatch) => {
+  return async (dispatch: any) => {
     const users = await usersService.getUsers()
     dispatch(setUsers(users))
   }

@@ -5,7 +5,7 @@ const stockSlice = createSlice({
   name: 'stocks',
   initialState: [],
   reducers: {
-    setStocks(state, action) {
+    setStocks(_, action) {
       return action.payload
     },
   },
@@ -14,7 +14,7 @@ const stockSlice = createSlice({
 export const { setStocks } = stockSlice.actions
 
 export const initializeStocks = () => {
-  return async (dispatch) => {
+  return async (dispatch: any) => {
     const stocks = await stockService.getAll()
     dispatch(setStocks(stocks))
   }

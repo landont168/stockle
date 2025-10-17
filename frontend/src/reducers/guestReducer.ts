@@ -6,7 +6,7 @@ const guestSlice = createSlice({
   name: 'isGuest',
   initialState,
   reducers: {
-    setIsGuest(state, action) {
+    setIsGuest(_, action) {
       return action.payload
     },
     resetIsGuest() {

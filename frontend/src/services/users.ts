@@ -1,10 +1,11 @@
 import axios from 'axios'
-import { User, UserRegister } from 'types'
+import { User, UserRegister, Token } from 'types'
 const baseUrl = '/api/users'
 
-let token: string | null = null
 
-const setToken = (newToken: string) => {
+let token: Token = null
+
+const setToken = (newToken: Token) => {
   token = `Bearer ${newToken}`
 }
 

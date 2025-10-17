@@ -35,3 +35,5 @@ export interface UserRegister {
     username: string,
     password: string
 }
+
+export type Token = string | null

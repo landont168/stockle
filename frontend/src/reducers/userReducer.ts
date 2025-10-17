@@ -2,12 +2,13 @@ import { createSlice } from '@reduxjs/toolkit'
 import loginService from '../services/login'
 import userService from '../services/users'
 import { setNotification } from './notificationReducer'
+import { User, UserCredentials, UserRegister } from 'types'
 
 const userSlice = createSlice({
   name: 'user',
   initialState: null,
   reducers: {
-    setUser(state, action) {
+    setUser(_, action) {
       return action.payload
     },
   },
@@ -16,7 +17,7 @@ const userSlice = createSlice({
 export const { setUser } = userSlice.actions
 
 export const initializeUser = () => {
-  return async (dispatch) => {
+  return async (dispatch: any) => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
@@ -26,8 +27,8 @@ export const initializeUser = () => {
   }
 }
 
-export const loginUser = (credentials) => {
-  return async (dispatch) => {
+export const loginUser = (credentials: UserCredentials) => {
+  return async (dispatch: any) => {
     try {
       const user = await loginService.login(credentials)
       window.localStorage.setItem('loggedUser', JSON.stringify(user))
@@ -46,7 +47,7 @@ export const loginUser = (credentials) => {
 }
 
 export const logoutUser = () => {
-  return async (dispatch) => {
+  return async (dispatch: any) => {
     window.localStorage.removeItem('loggedUser')
     dispatch(setUser(null))
     userService.setToken(null)
@@ -54,8 +55,8 @@ export const logoutUser = () => {
   }
 }
 
-export const signupUser = (newUser) => {
-  return async (dispatch) => {
+export const signupUser = (newUser: UserRegister) => {
+  return async (dispatch: any) => {
     try {
       await userService.createUser(newUser)
       dispatch(setNotification('Account created successfully!', 'success'))
@@ -71,8 +72,8 @@ export const signupUser = (newUser) => {
   }
 }
 
-export const updateUser = (id, gameInfo) => {
-  return async (dispatch) => {
+export const updateUser = (id: number, gameInfo: User) => {
+  return async (dispatch: any) => {
     try {
       const updatedUser = await userService.updateUser(id, gameInfo)
       window.localStorage.setItem('loggedUser', JSON.stringify(updatedUser))
