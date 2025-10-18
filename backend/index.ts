@@ -1,5 +1,5 @@
-const app = require('./app')
-const config = require('./utils/config')
+import app from './app'
+import config from './utils/config'
 
 // listen to requests from port
 app.listen(config.PORT, () => {

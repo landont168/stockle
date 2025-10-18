@@ -1,6 +1,7 @@
-const mongoose = require('mongoose')
+import mongoose, { Schema } from 'mongoose'
+import { User } from '../types'
 
-const userSchema = new mongoose.Schema({
+const userSchema: Schema<User> = new mongoose.Schema({
   username: {
     type: String,
     unique: true,
@@ -36,13 +37,13 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   guessDistribution: {
-    type: Array,
+    type: [Number],
     required: true,
   },
 })
 
 userSchema.set('toJSON', {
-  transform: (document, returnedObject) => {
+  transform: (_, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
     delete returnedObject.__v
@@ -50,4 +51,4 @@ userSchema.set('toJSON', {
   },
 })
 
-module.exports = mongoose.model('User', userSchema)
+export default mongoose.model<User>('User', userSchema)

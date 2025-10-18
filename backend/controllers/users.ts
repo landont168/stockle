@@ -1,14 +1,21 @@
+import { Request, Response } from 'express'
+import { User as UserType, UserRegister, ErrorResponse, UserLogin } from '../types'
+
 const bcrypt = require('bcrypt')
 const usersRouter = require('express').Router()
 const User = require('../models/user')
 const userExtractor = require('../utils/middleware').userExtractor
 
-usersRouter.get('/', async (request, response) => {
+interface UserPutRequest extends Request<{ id: string }, {}, { won: boolean, attempts: number }> {
+  user: UserType
+}
+
+usersRouter.get('/', async (_: Request, response: Response<UserType[]>) => {
   const users = await User.find({})
   response.json(users)
 })
 
-usersRouter.post('/', async (request, response) => {
+usersRouter.post('/', async (request: Request<{}, {}, UserRegister>, response: Response<UserType | ErrorResponse>) => {
   const { username, name, password } = request.body
 
   // validate password
@@ -38,7 +45,7 @@ usersRouter.post('/', async (request, response) => {
   response.status(201).json(savedUser)
 })
 
-usersRouter.put('/:id', userExtractor, async (request, response) => {
+usersRouter.put('/:id', userExtractor, async (request: UserPutRequest, response: Response<UserLogin | ErrorResponse>) => {
   const user = request.user
   const { won, attempts } = request.body
 
@@ -51,19 +58,14 @@ usersRouter.put('/:id', userExtractor, async (request, response) => {
     maxStreak: Math.max(user.maxStreak, newCurrentStreak),
     wonLastGame: won,
     guessDistribution: won
-      ? user.guessDistribution.map((freq, index) => {
-          return index + 1 === attempts ? freq + 1 : freq
-        })
+      ? user.guessDistribution.map((freq: number, index: number) => {
+        return index + 1 === attempts ? freq + 1 : freq
+      })
       : user.guessDistribution,
   }
 
-  // update user stats in db
-  const updatedUser = await User.findByIdAndUpdate(user.id, updatedFields, {
-    new: true,
-  })
-
   // format user object to send back to client
-  const token = request.headers['authorization'].split(' ')[1]
+  const token = request.headers['authorization']?.split(' ')[1] || ''
   const newUser = {
     token,
     username: user.username,
@@ -74,9 +76,9 @@ usersRouter.put('/:id', userExtractor, async (request, response) => {
   response.json(newUser)
 })
 
-usersRouter.delete('/', async (request, response) => {
+usersRouter.delete('/', async (_: Request, response: Response<unknown>) => {
   await User.deleteMany({})
   response.status(204).end()
 })
 
-module.exports = usersRouter
+export default usersRouter

@@ -1,10 +1,14 @@
+import { Request, Response } from 'express'
+import { ErrorResponse, UserCredentials, UserLogin } from '../types'
+
 const config = require('../utils/config')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const loginRouter = require('express').Router()
 const User = require('../models/user')
 
-loginRouter.post('/', async (request, response) => {
+
+loginRouter.post('/', async (request: Request<{}, {}, UserCredentials>, response: Response<UserLogin | ErrorResponse>) => {
   const { username, password } = request.body
 
   // verify password for user
@@ -41,4 +45,4 @@ loginRouter.post('/', async (request, response) => {
   response.status(200).send(userObject)
 })
 
-module.exports = loginRouter
+export default loginRouter

@@ -1,12 +1,12 @@
-const mongoose = require('mongoose')
+import mongoose, { Schema } from 'mongoose'
+import { Stock, StockHistory } from '../types'
 
-const stockHistorySchema = new mongoose.Schema({
-  _id: false,
+const stockHistorySchema: Schema<StockHistory> = new mongoose.Schema({
   date: { type: String, required: true },
-  price: { type: Number, required: true },
-})
+  price: { type: Number, required: true, min: 0 },
+}, { _id: false })
 
-const stockSchema = new mongoose.Schema({
+const stockSchema: Schema<Stock> = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -42,11 +42,11 @@ const stockSchema = new mongoose.Schema({
 })
 
 stockSchema.set('toJSON', {
-  transform: (document, returnedObject) => {
+  transform: (_, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
     delete returnedObject.__v
   },
 })
 
-module.exports = mongoose.model('Stock', stockSchema)
+export default mongoose.model<Stock>('Stock', stockSchema)
