@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useAppSelector, useAppDispatch } from './reduxHooks'
 import { addGuess, resetGuesses } from '../reducers/guessReducer'
 import { updateUser } from '../reducers/userReducer'
 import {
@@ -7,16 +7,17 @@ import {
   removeNotification,
 } from '../reducers/notificationReducer'
 import stockService from '../services/stocks'
+import { Stock, User } from 'types'
 
 const useGame = () => {
-  const dispatch = useDispatch()
-  const user = useSelector((state) => state.user)
-  const stocks = useSelector((state) => state.stocks)
-  const guesses = useSelector((state) => state.guesses)
-  const [solution, setSolution] = useState(null)
+  const dispatch = useAppDispatch()
+  const user = useAppSelector<User | null>((state) => state.user)
+  const stocks = useAppSelector((state) => state.stocks)
+  const guesses = useAppSelector((state) => state.guesses)
+  const [solution, setSolution] = useState<Stock | null>(null)
   const [attempts, setAttempts] = useState(0)
-  const [guess, setGuess] = useState(null)
-  const [won, setWon] = useState(null)
+  const [guess, setGuess] = useState<Stock | null>(null)
+  const [won, setWon] = useState<boolean | null>(null)
 
   // fetch solution and history
   const getSolution = useCallback(async () => {
@@ -34,7 +35,7 @@ const useGame = () => {
   }, [getSolution])
 
   // validate guess input
-  const handleGuess = (e) => {
+  const handleGuess = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setGuess(null)
     dispatch(removeNotification())
@@ -56,6 +57,9 @@ const useGame = () => {
   // process valid guess and updates stats on game end
   const addNewGuess = () => {
     const currentAttempt = attempts + 1
+
+    if (!solution || !guess) return
+
     if (solution.id === guess.id) {
       setWon(true)
       user

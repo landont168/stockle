@@ -2,11 +2,13 @@ import { createSlice } from '@reduxjs/toolkit'
 import loginService from '../services/login'
 import userService from '../services/users'
 import { setNotification } from './notificationReducer'
-import { User, UserCredentials, UserRegister } from 'types'
+import { User, UserCredentials, UserRegister, GameResult } from 'types'
+
+const initialState: User | null = null;
 
 const userSlice = createSlice({
   name: 'user',
-  initialState: null,
+  initialState,
   reducers: {
     setUser(_, action) {
       return action.payload
@@ -72,7 +74,7 @@ export const signupUser = (newUser: UserRegister) => {
   }
 }
 
-export const updateUser = (id: number, gameInfo: User) => {
+export const updateUser = (id: string, gameInfo: GameResult) => {
   return async (dispatch: any) => {
     try {
       const updatedUser = await userService.updateUser(id, gameInfo)

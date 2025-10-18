@@ -1,9 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 import stockService from '../services/stocks'
+import { Stock } from 'types'
+
+const initialState: Stock[] = []
 
 const stockSlice = createSlice({
   name: 'stocks',
-  initialState: [],
+  initialState,
   reducers: {
     setStocks(_, action) {
       return action.payload

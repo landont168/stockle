@@ -4,6 +4,7 @@ export interface StockHistory {
 }
 
 export interface Stock {
+    id: string,
     name: string,
     ticker: string,
     sector: string,
@@ -15,6 +16,7 @@ export interface Stock {
 }
 
 export interface User {
+    id: string,
     username: string,
     name: string,
     passwordHash: string,
@@ -34,6 +36,15 @@ export interface UserRegister {
     name: string
     username: string,
     password: string
+}
+
+export interface GameResult {
+    won: boolean,
+    attempts: number
+}
+
+export interface Guess {
+
 }
 
 export type Token = string | null

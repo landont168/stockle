@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { User, UserRegister, Token } from 'types'
+import { UserRegister, GameResult, Token } from 'types'
 const baseUrl = '/api/users'
 
 
@@ -19,7 +19,7 @@ const createUser = async (newUser: UserRegister) => {
   return response.data
 }
 
-const updateUser = async (id: number, gameInfo: User) => {
+const updateUser = async (id: string, gameInfo: GameResult) => {
   const config = {
     headers: { Authorization: token },
   }

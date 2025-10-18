@@ -25,7 +25,7 @@ const useDarkMode = () => {
 
   const toggleTheme = () => {
     setDarkMode(!darkMode)
-    window.localStorage.setItem('darkMode', !darkMode)
+    window.localStorage.setItem('darkMode', JSON.stringify(!darkMode))
   }
 
   return { darkMode, theme, toggleTheme }
