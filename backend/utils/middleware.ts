@@ -3,8 +3,8 @@ import { User as UserType } from '../types'
 import jwt from 'jsonwebtoken'
 import User from '../models/user'
 
-interface RequestWithUser extends Request {
-  user?: UserType
+export interface RequestWithUser extends Request {
+  user: UserType
 }
 
 const requestLogger = (request: Request, _: Response, next: NextFunction) => {
@@ -51,7 +51,7 @@ const getTokenFrom = (request: Request) => {
 }
 
 // extract user based on token
-const userExtractor = async (request: RequestWithUser, response: Response, next: NextFunction) => {
+const userExtractor = async (request: Request, response: Response, next: NextFunction) => {
   const token = getTokenFrom(request)
 
   if (!token) {
@@ -76,7 +76,7 @@ const userExtractor = async (request: RequestWithUser, response: Response, next:
     return response.status(401).json({ error: 'user not found' })
   }
 
-  request.user = user as UserType
+  (request as RequestWithUser).user = user
   next()
 }
 

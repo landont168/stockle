@@ -1,7 +1,11 @@
-import mongoose, { Schema } from 'mongoose'
+import mongoose, { Schema, Document } from 'mongoose'
 import { User } from '../types'
 
-const userSchema: Schema<User> = new mongoose.Schema({
+interface UserDocument extends User, Document {
+  id: string
+}
+
+const userSchema: Schema<UserDocument> = new Schema({
   username: {
     type: String,
     unique: true,
@@ -43,7 +47,7 @@ const userSchema: Schema<User> = new mongoose.Schema({
 })
 
 userSchema.set('toJSON', {
-  transform: (_, returnedObject) => {
+  transform: (_, returnedObject: any) => {
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
     delete returnedObject.__v
@@ -51,4 +55,4 @@ userSchema.set('toJSON', {
   },
 })
 
-export default mongoose.model<User>('User', userSchema)
+export default mongoose.model<UserDocument>('User', userSchema)

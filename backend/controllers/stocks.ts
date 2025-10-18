@@ -1,7 +1,8 @@
-import { Request, Response } from 'express'
-const stocksRouter = require('express').Router()
+import { Request, Response, Router } from 'express'
 import Stock from '../models/stock'
 import { Stock as StockType } from '../types'
+
+const stocksRouter = Router()
 
 stocksRouter.get('/', async (_: Request, response: Response<StockType[]>) => {
   const stocks = await Stock.find({}).select('-history')

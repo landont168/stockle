@@ -42,7 +42,7 @@ const stockSchema: Schema<Stock> = new mongoose.Schema({
 })
 
 stockSchema.set('toJSON', {
-  transform: (_, returnedObject) => {
+  transform: (_, returnedObject: any) => {
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
     delete returnedObject.__v

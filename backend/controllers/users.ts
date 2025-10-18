@@ -1,14 +1,10 @@
-import { Request, Response } from 'express'
+import { Request, Response, Router } from 'express'
 import { User as UserType, UserRegister, ErrorResponse, UserLogin } from '../types'
+import bcrypt from 'bcrypt'
+import User from '../models/user'
+import { userExtractor, RequestWithUser } from '../utils/middleware'
 
-const bcrypt = require('bcrypt')
-const usersRouter = require('express').Router()
-const User = require('../models/user')
-const userExtractor = require('../utils/middleware').userExtractor
-
-interface UserPutRequest extends Request<{ id: string }, {}, { won: boolean, attempts: number }> {
-  user: UserType
-}
+const usersRouter = Router()
 
 usersRouter.get('/', async (_: Request, response: Response<UserType[]>) => {
   const users = await User.find({})
@@ -45,8 +41,13 @@ usersRouter.post('/', async (request: Request<{}, {}, UserRegister>, response: R
   response.status(201).json(savedUser)
 })
 
-usersRouter.put('/:id', userExtractor, async (request: UserPutRequest, response: Response<UserLogin | ErrorResponse>) => {
-  const user = request.user
+usersRouter.put('/:id', userExtractor, async (request: Request, response: Response<UserLogin | ErrorResponse>) => {
+  const user = (request as RequestWithUser).user
+
+  if (!user) {
+    return response.status(404).json({ error: 'user not found' })
+  }
+
   const { won, attempts } = request.body
 
   // get user and update stats
@@ -63,9 +64,14 @@ usersRouter.put('/:id', userExtractor, async (request: UserPutRequest, response:
       })
       : user.guessDistribution,
   }
+  // update user stats in db
+  await User.findByIdAndUpdate(user.id, updatedFields, {
+    new: true,
+  })
 
   // format user object to send back to client
   const token = request.headers['authorization']?.split(' ')[1] || ''
+
   const newUser = {
     token,
     username: user.username,

@@ -1,12 +1,11 @@
-import { Request, Response } from 'express'
+import { Request, Response, Router } from 'express'
 import { ErrorResponse, UserCredentials, UserLogin } from '../types'
+import config from '../utils/config'
+import jwt from 'jsonwebtoken'
+import bcrypt from 'bcrypt'
+import User from '../models/user'
 
-const config = require('../utils/config')
-const jwt = require('jsonwebtoken')
-const bcrypt = require('bcrypt')
-const loginRouter = require('express').Router()
-const User = require('../models/user')
-
+const loginRouter = Router()
 
 loginRouter.post('/', async (request: Request<{}, {}, UserCredentials>, response: Response<UserLogin | ErrorResponse>) => {
   const { username, password } = request.body
