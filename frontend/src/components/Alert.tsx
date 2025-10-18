@@ -4,7 +4,7 @@ import Grow from '@mui/material/Grow'
 import { Stock } from '../types'
 
 interface BasicAlertProps {
-  solution: Stock
+  solution: Stock | null
 }
 
 interface GrowTransitionProps {
@@ -18,6 +18,8 @@ const GrowTransition = (props: GrowTransitionProps) => {
 }
 
 const BasicAlert = ({ solution }: BasicAlertProps) => {
+  if (!solution) return null
+
   return (
     <Snackbar
       open={true}

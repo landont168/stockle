@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Stock } from 'types'
+import { StockGuess } from 'types'
 
 interface Guess {
-  guess: Stock,
+  guess: StockGuess,
   attempts: number
 }
 
-const initialState: Stock[] = [...Array(6)]
+const initialState: StockGuess[] = [...Array(6)]
 
 const guessSlice = createSlice({
   name: 'guesses',

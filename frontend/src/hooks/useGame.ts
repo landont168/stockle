@@ -7,7 +7,7 @@ import {
   removeNotification,
 } from '../reducers/notificationReducer'
 import stockService from '../services/stocks'
-import { Stock, User } from 'types'
+import { Stock, StockGuess, User } from 'types'
 
 const useGame = () => {
   const dispatch = useAppDispatch()
@@ -16,7 +16,7 @@ const useGame = () => {
   const guesses = useAppSelector((state) => state.guesses)
   const [solution, setSolution] = useState<Stock | null>(null)
   const [attempts, setAttempts] = useState(0)
-  const [guess, setGuess] = useState<Stock | null>(null)
+  const [guess, setGuess] = useState<StockGuess | null>(null)
   const [won, setWon] = useState<boolean | null>(null)
 
   // fetch solution and history
@@ -69,8 +69,8 @@ const useGame = () => {
       setWon(false)
       user
         ? dispatch(
-            updateUser(user.id, { won: false, attempts: currentAttempt })
-          )
+          updateUser(user.id, { won: false, attempts: currentAttempt })
+        )
         : null
     }
     dispatch(addGuess({ guess, attempts }))

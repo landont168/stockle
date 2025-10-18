@@ -1,7 +1,6 @@
 import CssBaseline from '@mui/material/CssBaseline'
 import { ThemeProvider } from '@mui/material/styles'
 import { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import { initializeStocks } from './reducers/stockReducer'
 import { initializeUser } from './reducers/userReducer'
 import useDarkMode from './hooks/useDarkMode'
@@ -17,12 +16,14 @@ import GameBoard from './components/GameBoard'
 import SearchBar from './components/SearchBar'
 import Notification from './components/Notification'
 import Alert from './components/Alert'
+import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks'
+import { User, NotificationInfo } from 'types'
 
 const App = () => {
-  const dispatch = useDispatch()
-  const isGuest = useSelector((state) => state.isGuest)
-  const user = useSelector((state) => state.user)
-  const notification = useSelector((state) => state.notification)
+  const dispatch = useAppDispatch()
+  const isGuest = useAppSelector<boolean | null>((state) => state.isGuest)
+  const user = useAppSelector<User | null>((state) => state.user)
+  const notification = useAppSelector<NotificationInfo | null>((state) => state.notification)
 
   const [showStats, setShowStats] = useState(false)
   const { solution, guess, setGuess, won, handleGuess, resetGame } = useGame()
@@ -45,7 +46,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Home />
-      {isGuest === false && !user && <LoginForm />}
+      {isGuest === false && !user && <LoginForm handleClose={() => { }} />}
       {(isGuest || user) && (
         <>
           <Header
@@ -58,10 +59,9 @@ const App = () => {
           {solution ? <StockChart data={solution.history} /> : <Progress />}
           <GameBoard solution={solution} />
           <SearchBar
-            solution={solution}
-            won={won}
             guess={guess}
             setGuess={setGuess}
+            won={won}
             handleGuess={handleGuess}
           />
           {won !== null && <Alert solution={solution} />}

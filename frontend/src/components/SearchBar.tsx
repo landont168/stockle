@@ -8,7 +8,7 @@ import { useAppSelector } from 'hooks/reduxHooks'
 interface SearchBarProps {
   guess: StockGuess
   setGuess: (guess: StockGuess) => void
-  won: boolean
+  won: boolean | null
   handleGuess: (e: React.FormEvent<HTMLFormElement>) => void
 }
 
