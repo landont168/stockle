@@ -1,8 +1,12 @@
 import Snackbar from '@mui/material/Snackbar'
 import Alert from '@mui/material/Alert'
 import Fade from '@mui/material/Fade'
+import { NotificationInfo } from '../types'
 
-const Notification = ({ notification }) => {
+interface NotificationProps {
+  notification: NotificationInfo
+}
+const Notification = ({ notification }: NotificationProps) => {
   const { message, type } = notification
 
   return (

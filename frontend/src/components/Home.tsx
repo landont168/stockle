@@ -1,11 +1,12 @@
 import { Box, Button, Typography, Fade } from '@mui/material'
-import { useDispatch, useSelector } from 'react-redux'
 import { setIsGuest } from '../reducers/guestReducer'
+import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks'
+import { User } from 'types'
 
 const Home = () => {
-  const dispatch = useDispatch()
-  const user = useSelector((state) => state.user)
-  const isGuest = useSelector((state) => state.isGuest)
+  const dispatch = useAppDispatch()
+  const user = useAppSelector<User | null>((state) => state.user)
+  const isGuest = useAppSelector<boolean | null>((state) => state.isGuest)
 
   const handleGuestPlay = () => {
     dispatch(setIsGuest(true))
@@ -17,7 +18,7 @@ const Home = () => {
 
   const getDate = () => {
     const now = new Date()
-    const options = { year: 'numeric', month: 'long', day: 'numeric' }
+    const options = { year: 'numeric' as const, month: 'long' as const, day: 'numeric' as const }
     const formattedDate = now.toLocaleDateString('en-US', options)
     return formattedDate
   }

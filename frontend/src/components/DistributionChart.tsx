@@ -11,7 +11,11 @@ import {
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
-const DistributionChart = ({ distribution }) => {
+interface DistributionChartProps {
+  distribution: number[]
+}
+
+const DistributionChart = ({ distribution }: DistributionChartProps) => {
   const data = {
     labels: ['1', '2', '3', '4', '5', '6'],
     datasets: [
@@ -27,7 +31,7 @@ const DistributionChart = ({ distribution }) => {
 
   // format horizontal bar chart
   const maxValue = Math.max(...distribution)
-  const options = {
+  const options: any = {
     indexAxis: 'y',
     scales: {
       x: {
@@ -35,7 +39,7 @@ const DistributionChart = ({ distribution }) => {
         ticks: {
           maxTicksLimit: 6,
           stepSize: 1,
-          callback: function (value) {
+          callback: function (value: number) {
             return Number.isInteger(value) ? value : ''
           },
         },

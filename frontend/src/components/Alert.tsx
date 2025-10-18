@@ -1,12 +1,23 @@
 import Snackbar from '@mui/material/Snackbar'
 import Alert from '@mui/material/Alert'
 import Grow from '@mui/material/Grow'
+import { Stock } from '../types'
 
-const GrowTransition = (props) => {
+interface BasicAlertProps {
+  solution: Stock
+}
+
+interface GrowTransitionProps {
+  in?: boolean;
+  children: React.ReactElement;
+  timeout?: number | { enter?: number; exit?: number };
+}
+
+const GrowTransition = (props: GrowTransitionProps) => {
   return <Grow {...props} />
 }
 
-const BasicAlert = ({ solution }) => {
+const BasicAlert = ({ solution }: BasicAlertProps) => {
   return (
     <Snackbar
       open={true}

@@ -3,9 +3,14 @@ import CheckIcon from '@mui/icons-material/Check'
 import ClearIcon from '@mui/icons-material/Clear'
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown'
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp'
+import { Stock, StockGuess } from '../types'
 
-const Feedback = (solution) => {
-  const formatNum = (num) => {
+interface FeedbackProps {
+  guess: StockGuess
+}
+
+const Feedback = (solution: StockGuess) => {
+  const formatNum = (num: number) => {
     return numeral(num).format('0.0a')
   }
 
@@ -25,7 +30,7 @@ const Feedback = (solution) => {
     return <ArrowCircleDownIcon sx={{ color: 'red' }} />
   }
 
-  const NameFeedback = ({ guess }) => {
+  const NameFeedback = ({ guess }: FeedbackProps) => {
     return (
       <span className='guess-cell'>
         {guess.id === solution.id ? <Correct /> : <Incorrect />}
@@ -34,7 +39,7 @@ const Feedback = (solution) => {
     )
   }
 
-  const SectorFeedback = ({ guess }) => {
+  const SectorFeedback = ({ guess }: FeedbackProps) => {
     return (
       <span className='guess-cell'>
         {guess.sector === solution.sector ? <Correct /> : <Incorrect />}
@@ -43,7 +48,7 @@ const Feedback = (solution) => {
     )
   }
 
-  const MarketCapFeedback = ({ guess }) => {
+  const MarketCapFeedback = ({ guess }: FeedbackProps) => {
     const guessNum = guess.marketCap
     const solNum = solution.marketCap
     const formattedNum = formatNum(guessNum)
@@ -61,7 +66,7 @@ const Feedback = (solution) => {
     )
   }
 
-  const SharePriceFeedback = ({ guess }) => {
+  const SharePriceFeedback = ({ guess }: FeedbackProps) => {
     const guessNum = guess.sharePrice
     const solNum = solution.sharePrice
     const formattedNumber = numeral(guessNum).format('0.00')
@@ -79,7 +84,7 @@ const Feedback = (solution) => {
     )
   }
 
-  const RevenueFeedback = ({ guess }) => {
+  const RevenueFeedback = ({ guess }: FeedbackProps) => {
     const guessNum = guess.revenue
     const solNum = solution.revenue
     const formattedNum = formatNum(guessNum)
@@ -97,7 +102,7 @@ const Feedback = (solution) => {
     )
   }
 
-  const VolumeFeedback = ({ guess }) => {
+  const VolumeFeedback = ({ guess }: FeedbackProps) => {
     const guessNum = guess.volume
     const solNum = solution.volume
     const formattedNumber = formatNum(guessNum)

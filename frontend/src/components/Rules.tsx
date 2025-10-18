@@ -6,7 +6,11 @@ import ClearIcon from '@mui/icons-material/Clear'
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown'
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp'
 
-const Rules = ({ handleClose }) => {
+interface RulesProps {
+  handleClose: () => void
+}
+
+const Rules = ({ handleClose }: RulesProps) => {
   return (
     <Modal handleClose={handleClose} title='Rules'>
       <h3>Guess the stock in 6 tries</h3>

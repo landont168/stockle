@@ -1,8 +1,13 @@
 import { DataGrid } from '@mui/x-data-grid'
-import { useSelector, useDispatch } from 'react-redux'
 import { useState, useEffect } from 'react'
+import { useAppDispatch, useAppSelector } from '../hooks/reduxHooks'
 import { initializeUsers } from '../reducers/usersReducer'
 import Modal from './Modal'
+import { User, UserLeaderboard } from '../types'
+
+interface LeaderboardProps {
+  handleClose: () => void
+}
 
 const columns = [
   { field: 'id', headerName: 'Rank', flex: 1 },
@@ -10,11 +15,13 @@ const columns = [
   { field: 'score', headerName: 'Won', flex: 1 },
 ]
 
-const Leaderboard = ({ handleClose }) => {
-  const dispatch = useDispatch()
-  const user = useSelector((state) => state.user)
-  const users = useSelector((state) => state.users)
-  const [sortedUsers, setSortedUsers] = useState([])
+const Leaderboard = ({ handleClose }: LeaderboardProps) => {
+  const dispatch = useAppDispatch()
+  const user = useAppSelector<User | null>((state) => state.user)
+  const users = useAppSelector<User[]>((state) => state.users)
+  const [sortedUsers, setSortedUsers] = useState<UserLeaderboard[]>([])
+
+  if (!user || !users) return null
 
   // refetch users
   useEffect(() => {

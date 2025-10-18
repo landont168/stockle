@@ -3,8 +3,15 @@ import { Modal, Box } from '@mui/material'
 import { useTheme } from '@mui/system'
 import CloseIcon from '@mui/icons-material/Close'
 
-const BasicModal = ({ children, handleClose, title }) => {
+interface BasicModalProps {
+  children: React.ReactNode
+  handleClose: () => void
+  title: string
+}
+
+const BasicModal = ({ children, handleClose, title }: BasicModalProps) => {
   const theme = useTheme()
+
   return (
     <Modal
       open
@@ -21,7 +28,6 @@ const BasicModal = ({ children, handleClose, title }) => {
           color: theme.palette.text.primary,
           padding: 2,
           borderRadius: 1,
-          boxShadow: theme.shadows[5],
         }}
       >
         <div className='modal-header'>

@@ -15,6 +15,8 @@ export interface Stock {
     history: StockHistory[],
 }
 
+export type StockGuess = Omit<Stock, 'history'>
+
 export interface User {
     id: string,
     username: string,
@@ -23,6 +25,7 @@ export interface User {
     gamesPlayed: number,
     gamesWon: number,
     currentStreak: number,
+    maxStreak: number,
     wonLastGame: boolean,
     guessDistribution: number[]
 }
@@ -38,13 +41,21 @@ export interface UserRegister {
     password: string
 }
 
+export interface UserLeaderboard {
+    id: number,
+    username: string,
+    score: number,
+    isCurrentUser: boolean
+}
+
 export interface GameResult {
     won: boolean,
     attempts: number
 }
 
-export interface Guess {
-
+export interface NotificationInfo {
+    message: string,
+    type?: 'success' | 'error' | 'info'
 }
 
 export type Token = string | null
