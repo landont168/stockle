@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    /* === Output === */
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+
+    /* === Strict type checking === */
+    "strict": true,                   // enables ALL strict type-checking options below
+    "noImplicitAny": true,            // disallow implicit `any`
+    "strictNullChecks": true,         // null & undefined must be handled
+    "strictBindCallApply": true,      // checks .bind, .call, .apply
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+
+    /* === Helpful developer checks === */
+    "noUnusedLocals": true,           // catch unused variables
+    "noUnusedParameters": true,       // catch unused function params
+    "noImplicitReturns": true,        // every code path must return a value
+    "noFallthroughCasesInSwitch": true, // prevent unintentional case fallthrough
+
+    /* === Module resolution === */
+    "esModuleInterop": true,          // smooth interop with CommonJS
+    "allowSyntheticDefaultImports": true,
+
+    /* === Paths / includes === */
+    "baseUrl": "src",                 // helps with absolute imports
+    "resolveJsonModule": true,        // allows importing .json files
+    "isolatedModules": true,          // ensures each file is safe for transpilers like Babel
+    "skipLibCheck": true,             // skip type-checking of node_modules
+
+    /* === Emit === */
+    "outDir": "dist",
+    "sourceMap": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}

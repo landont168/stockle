@@ -1,0 +1,86 @@
+import { IconButton } from '@mui/material'
+import Box from '@mui/material/Box'
+import Avatar from '@mui/material/Avatar'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import Tooltip from '@mui/material/Tooltip'
+import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
+import LoginForm from './LoginForm'
+import { useState, Fragment } from 'react'
+import { logoutUser } from '../reducers/userReducer'
+import { resetIsGuest } from '../reducers/guestReducer'
+import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks'
+import { User } from 'types'
+
+interface AccountMenuProps {
+  resetGame: () => void
+}
+
+const AccountMenu = ({ resetGame }: AccountMenuProps) => {
+  const dispatch = useAppDispatch()
+  const user = useAppSelector<User | null>((state) => state.user)
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+  const open = Boolean(anchorEl)
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+
+  const logoutGame = () => {
+    dispatch(logoutUser())
+    dispatch(resetIsGuest())
+    resetGame()
+  }
+
+  return (
+    <Fragment>
+      <Box>
+        <Tooltip title='Account'>
+          <IconButton
+            onClick={handleClick}
+            size='small'
+            aria-controls={open ? 'account-menu' : undefined}
+            aria-haspopup='true'
+            aria-expanded={open ? 'true' : undefined}
+          >
+            <Avatar
+              sx={{
+                width: 30,
+                height: 30,
+                bgcolor: 'primary.main',
+                fontSize: 18,
+              }}
+            >
+              {user ? user.username[0].toUpperCase() : null}
+            </Avatar>
+          </IconButton>
+        </Tooltip>
+      </Box>
+
+      {user && open && (
+        <Menu
+          anchorEl={anchorEl}
+          id='account-menu'
+          open={open}
+          onClose={handleClose}
+          onClick={handleClose}
+          transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+          sx={{ mt: 0.5 }}
+        >
+          <MenuItem onClick={() => logoutGame()}>
+            <LogoutRoundedIcon sx={{ mr: 1 }} />
+            Logout
+          </MenuItem>
+        </Menu>
+      )}
+      {!user && open && <LoginForm handleClose={handleClose} />}
+    </Fragment>
+  )
+}
+
+export default AccountMenu
