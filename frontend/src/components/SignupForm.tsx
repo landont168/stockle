@@ -6,19 +6,23 @@ import Box from '@mui/material/Box'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
-import { useDispatch } from 'react-redux'
 import { signupUser } from '../reducers/userReducer'
+import { useAppDispatch } from 'hooks/reduxHooks'
 
-const SignupForm = ({ showLoginForm }) => {
-  const dispatch = useDispatch()
+interface SignupFormProps {
+  showLoginForm: () => void
+}
 
-  const handleSubmit = async (e) => {
+const SignupForm = ({ showLoginForm }: SignupFormProps) => {
+  const dispatch = useAppDispatch()
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const data = new FormData(e.currentTarget)
     const userObject = {
-      name: `${data.get('firstName')} ${data.get('lastName')}`,
-      username: data.get('username'),
-      password: data.get('password'),
+      name: `${data.get('firstName') as string} ${data.get('lastName') as string}`,
+      username: data.get('username') as string,
+      password: data.get('password') as string,
     }
     try {
       await dispatch(signupUser(userObject))

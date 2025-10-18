@@ -9,15 +9,20 @@ import LoginForm from './LoginForm'
 import { useState, Fragment } from 'react'
 import { logoutUser } from '../reducers/userReducer'
 import { resetIsGuest } from '../reducers/guestReducer'
-import { useDispatch, useSelector } from 'react-redux'
+import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks'
+import { User } from 'types'
 
-const AccountMenu = ({ resetGame }) => {
-  const dispatch = useDispatch()
-  const user = useSelector((state) => state.user)
-  const [anchorEl, setAnchorEl] = useState(null)
+interface AccountMenuProps {
+  resetGame: () => void
+}
+
+const AccountMenu = ({ resetGame }: AccountMenuProps) => {
+  const dispatch = useAppDispatch()
+  const user = useAppSelector<User | null>((state) => state.user)
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
 
-  const handleClick = (event) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
   }
 

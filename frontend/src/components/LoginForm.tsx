@@ -9,14 +9,18 @@ import LoginRoundedIcon from '@mui/icons-material/LoginRounded'
 import SignupForm from './SignupForm'
 import Modal from './Modal'
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { loginUser } from '../reducers/userReducer'
 import { setIsGuest, resetIsGuest } from '../reducers/guestReducer'
 import { setNotification } from '../reducers/notificationReducer'
+import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks'
 
-const LoginForm = ({ handleClose }) => {
-  const dispatch = useDispatch()
-  const isGuest = useSelector((state) => state.isGuest)
+interface LoginFormProps {
+  handleClose: () => void
+}
+
+const LoginForm = ({ handleClose }: LoginFormProps) => {
+  const dispatch = useAppDispatch()
+  const isGuest = useAppSelector<boolean | null>((state) => state.isGuest)
   const [showSignupForm, setShowSignupForm] = useState(false)
   const closeForm = isGuest ? handleClose : () => dispatch(resetIsGuest())
 
@@ -29,12 +33,12 @@ const LoginForm = ({ handleClose }) => {
     )
   }, [dispatch])
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     const data = new FormData(e.currentTarget)
     e.preventDefault()
     const userObject = {
-      username: data.get('username'),
-      password: data.get('password'),
+      username: data.get('username') as string,
+      password: data.get('password') as string,
     }
     dispatch(loginUser(userObject))
   }

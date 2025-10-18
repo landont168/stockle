@@ -6,10 +6,16 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import Feedback from './Feedback'
-import { useSelector } from 'react-redux'
+import { useAppSelector } from '../hooks/reduxHooks'
+import { StockGuess } from 'types'
 
-const GameBoard = ({ solution }) => {
-  const guesses = useSelector((state) => state.guesses)
+interface GameBoardProps {
+  solution: StockGuess
+}
+
+const GameBoard = ({ solution }: GameBoardProps) => {
+  const guesses = useAppSelector<StockGuess[]>((state) => state.guesses)
+
   const {
     NameFeedback,
     SectorFeedback,

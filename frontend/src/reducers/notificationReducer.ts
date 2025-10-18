@@ -18,7 +18,7 @@ const notificationSlice = createSlice({
 
 export const { addNotification, removeNotification } = notificationSlice.actions
 
-export const setNotification = (message: string, type: string) => {
+export const setNotification = (message: string, type?: string) => {
   return async (dispatch: any) => {
     // cancel previous timeout
     if (timeout) {

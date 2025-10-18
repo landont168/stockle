@@ -15,7 +15,7 @@ export interface Stock {
     history: StockHistory[],
 }
 
-export type StockGuess = Omit<Stock, 'history'>
+export type StockGuess = Omit<Stock, 'history'> | null
 
 export interface User {
     id: string,

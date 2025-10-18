@@ -2,10 +2,18 @@ import TextField from '@mui/material/TextField'
 import Autocomplete from '@mui/material/Autocomplete'
 import Button from '@mui/material/Button'
 import SendIcon from '@mui/icons-material/Send'
-import { useSelector } from 'react-redux'
+import { Stock, StockGuess } from 'types'
+import { useAppSelector } from 'hooks/reduxHooks'
 
-const SearchBar = ({ guess, setGuess, won, handleGuess }) => {
-  const stocks = useSelector((state) => state.stocks)
+interface SearchBarProps {
+  guess: StockGuess
+  setGuess: (guess: StockGuess) => void
+  won: boolean
+  handleGuess: (e: React.FormEvent<HTMLFormElement>) => void
+}
+
+const SearchBar = ({ guess, setGuess, won, handleGuess }: SearchBarProps) => {
+  const stocks = useAppSelector<Stock[]>((state) => state.stocks)
 
   return (
     <form className='search-container' onSubmit={handleGuess}>
@@ -16,7 +24,7 @@ const SearchBar = ({ guess, setGuess, won, handleGuess }) => {
         getOptionLabel={(option) => `${option.name} (${option.ticker})`}
         sx={{ width: 350, marginRight: '5px' }}
         value={guess}
-        onChange={(e, newValue) => setGuess(newValue)}
+        onChange={(_, newValue) => setGuess(newValue)}
         renderInput={(params) => <TextField {...params} label='Stock' />}
         disabled={won !== null}
       />

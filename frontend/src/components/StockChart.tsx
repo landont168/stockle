@@ -10,6 +10,7 @@ import {
   Legend,
   Filler,
 } from 'chart.js'
+import { StockHistory } from 'types'
 
 ChartJS.register(
   CategoryScale,
@@ -21,7 +22,13 @@ ChartJS.register(
   Filler
 )
 
-const StockChart = ({ data }) => {
+interface StockChartProps {
+  data: StockHistory[]
+}
+
+const StockChart = ({ data }: StockChartProps) => {
+  if (!data) return null
+
   // extract dates and prices from data
   const [dates, setDates] = useState(data.map((item) => item.date))
   const [prices, setPrices] = useState(data.map((item) => item.price))
@@ -52,7 +59,7 @@ const StockChart = ({ data }) => {
       },
     ],
   }
-  const options = {
+  const options: any = {
     type: 'line',
     responsive: true,
     maintainAspectRatio: false,
@@ -64,7 +71,7 @@ const StockChart = ({ data }) => {
         mode: 'index',
         intersect: false,
         callbacks: {
-          label: (context) => {
+          label: (context: any) => {
             const price = context.raw.toFixed(2)
             return `${price} USD`
           },

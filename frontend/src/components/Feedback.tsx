@@ -3,13 +3,33 @@ import CheckIcon from '@mui/icons-material/Check'
 import ClearIcon from '@mui/icons-material/Clear'
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown'
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp'
-import { Stock, StockGuess } from '../types'
+import { StockGuess } from '../types'
 
 interface FeedbackProps {
   guess: StockGuess
 }
 
-const Feedback = (solution: StockGuess) => {
+interface FeedbackComponents {
+  NameFeedback: React.FC<FeedbackProps>
+  SectorFeedback: React.FC<FeedbackProps>
+  MarketCapFeedback: React.FC<FeedbackProps>
+  SharePriceFeedback: React.FC<FeedbackProps>
+  RevenueFeedback: React.FC<FeedbackProps>
+  VolumeFeedback: React.FC<FeedbackProps>
+}
+
+const Feedback = (solution: StockGuess): FeedbackComponents => {
+  if (!solution) {
+    return {
+      NameFeedback: () => null,
+      SectorFeedback: () => null,
+      MarketCapFeedback: () => null,
+      SharePriceFeedback: () => null,
+      RevenueFeedback: () => null,
+      VolumeFeedback: () => null,
+    }
+  }
+
   const formatNum = (num: number) => {
     return numeral(num).format('0.0a')
   }
@@ -31,6 +51,7 @@ const Feedback = (solution: StockGuess) => {
   }
 
   const NameFeedback = ({ guess }: FeedbackProps) => {
+    if (!guess) return null
     return (
       <span className='guess-cell'>
         {guess.id === solution.id ? <Correct /> : <Incorrect />}
@@ -40,6 +61,7 @@ const Feedback = (solution: StockGuess) => {
   }
 
   const SectorFeedback = ({ guess }: FeedbackProps) => {
+    if (!guess) return null
     return (
       <span className='guess-cell'>
         {guess.sector === solution.sector ? <Correct /> : <Incorrect />}
@@ -49,6 +71,7 @@ const Feedback = (solution: StockGuess) => {
   }
 
   const MarketCapFeedback = ({ guess }: FeedbackProps) => {
+    if (!guess) return null
     const guessNum = guess.marketCap
     const solNum = solution.marketCap
     const formattedNum = formatNum(guessNum)
@@ -67,6 +90,7 @@ const Feedback = (solution: StockGuess) => {
   }
 
   const SharePriceFeedback = ({ guess }: FeedbackProps) => {
+    if (!guess) return null
     const guessNum = guess.sharePrice
     const solNum = solution.sharePrice
     const formattedNumber = numeral(guessNum).format('0.00')
@@ -85,6 +109,7 @@ const Feedback = (solution: StockGuess) => {
   }
 
   const RevenueFeedback = ({ guess }: FeedbackProps) => {
+    if (!guess) return null
     const guessNum = guess.revenue
     const solNum = solution.revenue
     const formattedNum = formatNum(guessNum)
@@ -103,6 +128,7 @@ const Feedback = (solution: StockGuess) => {
   }
 
   const VolumeFeedback = ({ guess }: FeedbackProps) => {
+    if (!guess) return null
     const guessNum = guess.volume
     const solNum = solution.volume
     const formattedNumber = formatNum(guessNum)

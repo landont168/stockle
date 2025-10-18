@@ -12,9 +12,18 @@ import Rules from './Rules'
 import AccountMenu from './AccountMenu'
 import LoginForm from './LoginForm'
 import { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks'
 import { resetIsGuest } from '../reducers/guestReducer'
 import { logoutUser } from '../reducers/userReducer'
+import { User } from 'types'
+
+interface HeaderProps {
+  darkMode: boolean
+  toggleTheme: () => void
+  resetGame: () => void
+  showStats: boolean
+  setShowStats: (show: boolean) => void
+}
 
 const Header = ({
   darkMode,
@@ -22,9 +31,9 @@ const Header = ({
   resetGame,
   showStats,
   setShowStats,
-}) => {
-  const dispatch = useDispatch()
-  const user = useSelector((state) => state.user)
+}: HeaderProps) => {
+  const dispatch = useAppDispatch()
+  const user = useAppSelector<User | null>((state) => state.user)
 
   const [showLeaderboard, setShowLeaderboard] = useState(false)
   const [showRules, setShowRules] = useState(false)

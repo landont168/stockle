@@ -6,7 +6,7 @@ import CloseIcon from '@mui/icons-material/Close'
 interface BasicModalProps {
   children: React.ReactNode
   handleClose: () => void
-  title: string
+  title?: string
 }
 
 const BasicModal = ({ children, handleClose, title }: BasicModalProps) => {
