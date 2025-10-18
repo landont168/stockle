@@ -4,7 +4,6 @@ export interface StockHistory {
 }
 
 export interface Stock {
-    id: string
     name: string
     ticker: string
     sector: string
@@ -14,8 +13,6 @@ export interface Stock {
     volume: number
     history: StockHistory[]
 }
-
-export type StockGuess = Omit<Stock, 'history'> | null
 
 export interface User {
     id: string
@@ -40,22 +37,3 @@ export interface UserRegister {
     username: string
     password: string
 }
-
-export interface UserLeaderboard {
-    id: number
-    username: string
-    score: number
-    isCurrentUser: boolean
-}
-
-export interface GameResult {
-    won: boolean
-    attempts: number
-}
-
-export interface NotificationInfo {
-    message: string
-    type?: 'success' | 'error' | 'info'
-}
-
-export type Token = string | null
