@@ -47,11 +47,12 @@ const userSchema: Schema<UserDocument> = new Schema({
 })
 
 userSchema.set('toJSON', {
-  transform: (_, returnedObject: any) => {
-    returnedObject.id = returnedObject._id.toString()
-    delete returnedObject._id
-    delete returnedObject.__v
-    delete returnedObject.passwordHash
+  transform: (_, ret) => {
+    const obj = ret as unknown as Record<string, unknown>
+    obj.id = String(ret._id)
+    delete obj._id
+    delete obj.__v
+    delete obj.passwordHash
   },
 })
 

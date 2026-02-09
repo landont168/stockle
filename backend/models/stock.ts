@@ -42,10 +42,11 @@ const stockSchema: Schema<Stock> = new mongoose.Schema({
 })
 
 stockSchema.set('toJSON', {
-  transform: (_, returnedObject: any) => {
-    returnedObject.id = returnedObject._id.toString()
-    delete returnedObject._id
-    delete returnedObject.__v
+  transform: (_, ret) => {
+    const obj = ret as unknown as Record<string, unknown>
+    obj.id = ret._id.toString()
+    delete obj._id
+    delete obj.__v
   },
 })
 

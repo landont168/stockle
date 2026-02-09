@@ -1,5 +1,5 @@
 import { Request, Response, Router } from 'express'
-import { User as UserType, UserRegister, ErrorResponse, UserLogin } from '../types'
+import { User as UserType, UserRegister, ErrorResponse, UserLogin, GameResult } from '../types'
 import bcrypt from 'bcrypt'
 import User from '../models/user'
 import { userExtractor, RequestWithUser } from '../utils/middleware'
@@ -11,7 +11,7 @@ usersRouter.get('/', async (_: Request, response: Response<UserType[]>) => {
   response.json(users)
 })
 
-usersRouter.post('/', async (request: Request<{}, {}, UserRegister>, response: Response<UserType | ErrorResponse>) => {
+usersRouter.post('/', async (request: Request<object, object, UserRegister>, response: Response<UserType | ErrorResponse>) => {
   const { username, name, password } = request.body
 
   // validate password
@@ -41,14 +41,18 @@ usersRouter.post('/', async (request: Request<{}, {}, UserRegister>, response: R
   response.status(201).json(savedUser)
 })
 
-usersRouter.put('/:id', userExtractor, async (request: Request, response: Response<UserLogin | ErrorResponse>) => {
-  const user = (request as RequestWithUser).user
+usersRouter.put('/:id', userExtractor, async (request: Request<{ id: string }, object, GameResult>, response: Response<UserLogin | ErrorResponse>) => {
+  const user = (request as unknown as RequestWithUser).user
 
   if (!user) {
     return response.status(404).json({ error: 'user not found' })
   }
 
   const { won, attempts } = request.body
+
+  if (typeof won !== 'boolean' || typeof attempts !== 'number' || attempts < 1 || attempts > 6) {
+    return response.status(400).json({ error: 'invalid game result' })
+  }
 
   // get user and update stats
   const newCurrentStreak = won ? user.currentStreak + 1 : 0
@@ -80,11 +84,6 @@ usersRouter.put('/:id', userExtractor, async (request: Request, response: Respon
     ...updatedFields,
   }
   response.json(newUser)
-})
-
-usersRouter.delete('/', async (_: Request, response: Response<unknown>) => {
-  await User.deleteMany({})
-  response.status(204).end()
 })
 
 export default usersRouter

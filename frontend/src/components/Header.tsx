@@ -15,7 +15,6 @@ import { useState } from 'react'
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks'
 import { resetIsGuest } from '../reducers/guestReducer'
 import { logoutUser } from '../reducers/userReducer'
-import { User } from 'types'
 
 interface HeaderProps {
   darkMode: boolean
@@ -33,7 +32,7 @@ const Header = ({
   setShowStats,
 }: HeaderProps) => {
   const dispatch = useAppDispatch()
-  const user = useAppSelector<User | null>((state) => state.user)
+  const user = useAppSelector((state) => state.user)
 
   const [showLeaderboard, setShowLeaderboard] = useState(false)
   const [showRules, setShowRules] = useState(false)
@@ -43,7 +42,9 @@ const Header = ({
   const closeStats = () => setShowStats(false)
 
   const returnHome = () => {
-    user ? dispatch(logoutUser()) : null
+    if (user) {
+      dispatch(logoutUser())
+    }
     dispatch(resetIsGuest())
     resetGame()
   }

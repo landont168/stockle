@@ -1,6 +1,7 @@
 import { Bar } from 'react-chartjs-2'
 import {
   Chart as ChartJS,
+  ChartOptions,
   CategoryScale,
   LinearScale,
   BarElement,
@@ -29,9 +30,8 @@ const DistributionChart = ({ distribution }: DistributionChartProps) => {
     ],
   }
 
-  // format horizontal bar chart
   const maxValue = Math.max(...distribution)
-  const options: any = {
+  const options: ChartOptions<'bar'> = {
     indexAxis: 'y',
     scales: {
       x: {
@@ -39,7 +39,7 @@ const DistributionChart = ({ distribution }: DistributionChartProps) => {
         ticks: {
           maxTicksLimit: 6,
           stepSize: 1,
-          callback: function (value: number) {
+          callback: function (value) {
             return Number.isInteger(value) ? value : ''
           },
         },

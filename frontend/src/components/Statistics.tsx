@@ -1,14 +1,13 @@
 import Modal from './Modal'
 import DistributionChart from './DistributionChart'
 import { useAppSelector } from '../hooks/reduxHooks'
-import { User } from '../types'
 
 interface StatisticsProps {
   handleClose: () => void
 }
 
 const Statistics = ({ handleClose }: StatisticsProps) => {
-  const user = useAppSelector<User | null>((state) => state.user)
+  const user = useAppSelector((state) => state.user)
 
   if (!user) return null
 

@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express'
 import Stock from '../models/stock'
-import { Stock as StockType } from '../types'
+import { Stock as StockType, ErrorResponse } from '../types'
 
 const stocksRouter = Router()
 
@@ -9,14 +9,12 @@ stocksRouter.get('/', async (_: Request, response: Response<StockType[]>) => {
   response.json(stocks)
 })
 
-stocksRouter.get('/:id', async (request: Request<{ id: string }>, response: Response<StockType | null>) => {
+stocksRouter.get('/:id', async (request: Request<{ id: string }>, response: Response<StockType | ErrorResponse>) => {
   const stock = await Stock.findById(request.params.id)
+  if (!stock) {
+    return response.status(404).json({ error: 'stock not found' })
+  }
   response.json(stock)
-})
-
-stocksRouter.delete('/', async (_: Request, response: Response<unknown>) => {
-  await Stock.deleteMany({})
-  response.status(204).send()
 })
 
 export default stocksRouter

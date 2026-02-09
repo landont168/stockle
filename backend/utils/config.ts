@@ -1,9 +1,13 @@
 import { Config } from '../types'
 import 'dotenv/config'
 
-const PORT = process.env.PORT as string
-const MONGODB_URI = process.env.MONGODB_URI as string
-const SECRET = process.env.SECRET as string
+const PORT = process.env.PORT
+const MONGODB_URI = process.env.MONGODB_URI
+const SECRET = process.env.SECRET
+
+if (!PORT || !MONGODB_URI || !SECRET) {
+  throw new Error('Missing required environment variables: PORT, MONGODB_URI, SECRET')
+}
 
 const config: Config = {
   MONGODB_URI,

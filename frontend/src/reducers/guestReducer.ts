@@ -1,12 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-const initialState = null
+const initialState = null as boolean | null
 
 const guestSlice = createSlice({
   name: 'isGuest',
   initialState,
   reducers: {
-    setIsGuest(_, action) {
+    setIsGuest(_, action: PayloadAction<boolean>) {
       return action.payload
     },
     resetIsGuest() {

@@ -20,7 +20,7 @@ interface LoginFormProps {
 
 const LoginForm = ({ handleClose }: LoginFormProps) => {
   const dispatch = useAppDispatch()
-  const isGuest = useAppSelector<boolean | null>((state) => state.isGuest)
+  const isGuest = useAppSelector((state) => state.isGuest)
   const [showSignupForm, setShowSignupForm] = useState(false)
   const closeForm = isGuest ? handleClose : () => dispatch(resetIsGuest())
 
@@ -37,8 +37,8 @@ const LoginForm = ({ handleClose }: LoginFormProps) => {
     const data = new FormData(e.currentTarget)
     e.preventDefault()
     const userObject = {
-      username: data.get('username') as string,
-      password: data.get('password') as string,
+      username: (data.get('username') ?? '') as string,
+      password: (data.get('password') ?? '') as string,
     }
     dispatch(loginUser(userObject))
   }

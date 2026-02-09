@@ -1,12 +1,11 @@
 import { Box, Button, Typography, Fade } from '@mui/material'
 import { setIsGuest } from '../reducers/guestReducer'
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks'
-import { User } from 'types'
 
 const Home = () => {
   const dispatch = useAppDispatch()
-  const user = useAppSelector<User | null>((state) => state.user)
-  const isGuest = useAppSelector<boolean | null>((state) => state.isGuest)
+  const user = useAppSelector((state) => state.user)
+  const isGuest = useAppSelector((state) => state.isGuest)
 
   const handleGuestPlay = () => {
     dispatch(setIsGuest(true))
