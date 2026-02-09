@@ -25,6 +25,7 @@ const useGame = () => {
 
     const randomSolution = stocks[Math.floor(Math.random() * stocks.length)]
     const solutionHistory = await stockService.getStock(randomSolution.id)
+    console.log(solutionHistory)
     setSolution(solutionHistory)
   }, [stocks])
 

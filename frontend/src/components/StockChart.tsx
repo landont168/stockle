@@ -31,10 +31,10 @@ interface StockChartProps {
 }
 
 const StockChart = ({ data }: StockChartProps) => {
-  if (!data) return null
+  const dates = useMemo(() => data?.map((item) => item.date) ?? [], [data])
+  const prices = useMemo(() => data?.map((item) => item.price) ?? [], [data])
 
-  const dates = useMemo(() => data.map((item) => item.date), [data])
-  const prices = useMemo(() => data.map((item) => item.price), [data])
+  if (!data) return null
 
   const priceChange = prices[prices.length - 1] - prices[0]
   const borderColor = priceChange > 0 ? '#4CAF50' : '#EF5350'
