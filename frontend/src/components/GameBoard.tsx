@@ -14,7 +14,7 @@ interface GameBoardProps {
 }
 
 const GameBoard = ({ solution }: GameBoardProps) => {
-  const guesses = useAppSelector<StockGuess[]>((state) => state.guesses)
+  const guesses = useAppSelector((state) => state.guesses)
 
   const {
     NameFeedback,

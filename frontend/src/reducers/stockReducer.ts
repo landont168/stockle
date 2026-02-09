@@ -1,6 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import stockService from '../services/stocks'
 import { Stock } from 'types'
+import { AppDispatch } from '../store'
 
 const initialState: Stock[] = []
 
@@ -8,7 +9,7 @@ const stockSlice = createSlice({
   name: 'stocks',
   initialState,
   reducers: {
-    setStocks(_, action) {
+    setStocks(_, action: PayloadAction<Stock[]>) {
       return action.payload
     },
   },
@@ -17,7 +18,7 @@ const stockSlice = createSlice({
 export const { setStocks } = stockSlice.actions
 
 export const initializeStocks = () => {
-  return async (dispatch: any) => {
+  return async (dispatch: AppDispatch) => {
     const stocks = await stockService.getAll()
     dispatch(setStocks(stocks))
   }

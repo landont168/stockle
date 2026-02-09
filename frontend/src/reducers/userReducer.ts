@@ -1,16 +1,17 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import loginService from '../services/login'
 import userService from '../services/users'
 import { setNotification } from './notificationReducer'
 import { User, UserCredentials, UserRegister, GameResult } from 'types'
+import { AppDispatch } from '../store'
 
-const initialState: User | null = null;
+const initialState = null as User | null;
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUser(_, action) {
+    setUser(_, action: PayloadAction<User | null>) {
       return action.payload
     },
   },
@@ -19,18 +20,22 @@ const userSlice = createSlice({
 export const { setUser } = userSlice.actions
 
 export const initializeUser = () => {
-  return async (dispatch: any) => {
+  return async (dispatch: AppDispatch) => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser')
     if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON)
-      dispatch(setUser(user))
-      userService.setToken(user.token)
+      try {
+        const user = JSON.parse(loggedUserJSON) as User & { token: string }
+        dispatch(setUser(user))
+        userService.setToken(user.token)
+      } catch {
+        window.localStorage.removeItem('loggedUser')
+      }
     }
   }
 }
 
 export const loginUser = (credentials: UserCredentials) => {
-  return async (dispatch: any) => {
+  return async (dispatch: AppDispatch) => {
     try {
       const user = await loginService.login(credentials)
       window.localStorage.setItem('loggedUser', JSON.stringify(user))
@@ -49,7 +54,7 @@ export const loginUser = (credentials: UserCredentials) => {
 }
 
 export const logoutUser = () => {
-  return async (dispatch: any) => {
+  return async (dispatch: AppDispatch) => {
     window.localStorage.removeItem('loggedUser')
     dispatch(setUser(null))
     userService.setToken(null)
@@ -58,7 +63,7 @@ export const logoutUser = () => {
 }
 
 export const signupUser = (newUser: UserRegister) => {
-  return async (dispatch: any) => {
+  return async (dispatch: AppDispatch) => {
     try {
       await userService.createUser(newUser)
       dispatch(setNotification('Account created successfully!', 'success'))
@@ -75,7 +80,7 @@ export const signupUser = (newUser: UserRegister) => {
 }
 
 export const updateUser = (id: string, gameInfo: GameResult) => {
-  return async (dispatch: any) => {
+  return async (dispatch: AppDispatch) => {
     try {
       const updatedUser = await userService.updateUser(id, gameInfo)
       window.localStorage.setItem('loggedUser', JSON.stringify(updatedUser))

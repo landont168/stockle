@@ -21,7 +21,6 @@ export interface User {
     id: string
     username: string
     name: string
-    passwordHash: string
     gamesPlayed: number
     gamesWon: number
     currentStreak: number
@@ -55,7 +54,7 @@ export interface GameResult {
 
 export interface NotificationInfo {
     message: string
-    type?: 'success' | 'error' | 'info'
+    type?: 'success' | 'error' | 'warning' | 'info'
 }
 
 export type Token = string | null

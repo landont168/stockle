@@ -46,6 +46,11 @@ export interface ErrorResponse {
     error: string
 }
 
+export interface GameResult {
+    won: boolean
+    attempts: number
+}
+
 export interface Config {
     MONGODB_URI: string
     PORT: string

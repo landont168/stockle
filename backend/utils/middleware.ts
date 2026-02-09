@@ -55,7 +55,7 @@ const userExtractor = async (request: Request, response: Response, next: NextFun
   const token = getTokenFrom(request)
 
   if (!token) {
-    return response.status(401).json({ error: 'token missimg' })
+    return response.status(401).json({ error: 'token missing' })
   }
 
   const secret = process.env.SECRET

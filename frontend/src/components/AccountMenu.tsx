@@ -10,7 +10,6 @@ import { useState, Fragment } from 'react'
 import { logoutUser } from '../reducers/userReducer'
 import { resetIsGuest } from '../reducers/guestReducer'
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks'
-import { User } from 'types'
 
 interface AccountMenuProps {
   resetGame: () => void
@@ -18,7 +17,7 @@ interface AccountMenuProps {
 
 const AccountMenu = ({ resetGame }: AccountMenuProps) => {
   const dispatch = useAppDispatch()
-  const user = useAppSelector<User | null>((state) => state.user)
+  const user = useAppSelector((state) => state.user)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
 

@@ -7,11 +7,11 @@ import {
   removeNotification,
 } from '../reducers/notificationReducer'
 import stockService from '../services/stocks'
-import { Stock, StockGuess, User } from 'types'
+import { Stock, StockGuess } from 'types'
 
 const useGame = () => {
   const dispatch = useAppDispatch()
-  const user = useAppSelector<User | null>((state) => state.user)
+  const user = useAppSelector((state) => state.user)
   const stocks = useAppSelector((state) => state.stocks)
   const guesses = useAppSelector((state) => state.guesses)
   const [solution, setSolution] = useState<Stock | null>(null)
@@ -25,7 +25,6 @@ const useGame = () => {
 
     const randomSolution = stocks[Math.floor(Math.random() * stocks.length)]
     const solutionHistory = await stockService.getStock(randomSolution.id)
-    console.log('Solution:', solutionHistory)
     setSolution(solutionHistory)
   }, [stocks])
 
@@ -62,16 +61,14 @@ const useGame = () => {
 
     if (solution.id === guess.id) {
       setWon(true)
-      user
-        ? dispatch(updateUser(user.id, { won: true, attempts: currentAttempt }))
-        : null
+      if (user) {
+        dispatch(updateUser(user.id, { won: true, attempts: currentAttempt }))
+      }
     } else if (currentAttempt === 6) {
       setWon(false)
-      user
-        ? dispatch(
-          updateUser(user.id, { won: false, attempts: currentAttempt })
-        )
-        : null
+      if (user) {
+        dispatch(updateUser(user.id, { won: false, attempts: currentAttempt }))
+      }
     }
     dispatch(addGuess({ guess, attempts }))
     setAttempts(currentAttempt)

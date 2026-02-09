@@ -2,7 +2,7 @@ import TextField from '@mui/material/TextField'
 import Autocomplete from '@mui/material/Autocomplete'
 import Button from '@mui/material/Button'
 import SendIcon from '@mui/icons-material/Send'
-import { Stock, StockGuess } from 'types'
+import { StockGuess } from 'types'
 import { useAppSelector } from 'hooks/reduxHooks'
 
 interface SearchBarProps {
@@ -13,7 +13,7 @@ interface SearchBarProps {
 }
 
 const SearchBar = ({ guess, setGuess, won, handleGuess }: SearchBarProps) => {
-  const stocks = useAppSelector<Stock[]>((state) => state.stocks)
+  const stocks = useAppSelector((state) => state.stocks)
 
   return (
     <form className='search-container' onSubmit={handleGuess}>

@@ -20,9 +20,9 @@ const SignupForm = ({ showLoginForm }: SignupFormProps) => {
     e.preventDefault()
     const data = new FormData(e.currentTarget)
     const userObject = {
-      name: `${data.get('firstName') as string} ${data.get('lastName') as string}`,
-      username: data.get('username') as string,
-      password: data.get('password') as string,
+      name: `${(data.get('firstName') ?? '') as string} ${(data.get('lastName') ?? '') as string}`,
+      username: (data.get('username') ?? '') as string,
+      password: (data.get('password') ?? '') as string,
     }
     try {
       await dispatch(signupUser(userObject))

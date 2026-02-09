@@ -1,12 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useMemo } from 'react'
 import { Line } from 'react-chartjs-2'
 import {
   Chart as ChartJS,
+  ChartOptions,
+  TooltipItem,
   CategoryScale,
   LinearScale,
   LineElement,
   PointElement,
   Title,
+  Tooltip,
   Legend,
   Filler,
 } from 'chart.js'
@@ -18,6 +21,7 @@ ChartJS.register(
   LineElement,
   PointElement,
   Title,
+  Tooltip,
   Legend,
   Filler
 )
@@ -29,15 +33,9 @@ interface StockChartProps {
 const StockChart = ({ data }: StockChartProps) => {
   if (!data) return null
 
-  // extract dates and prices from data
-  const [dates, setDates] = useState(data.map((item) => item.date))
-  const [prices, setPrices] = useState(data.map((item) => item.price))
-  useEffect(() => {
-    setDates(data.map((item) => item.date))
-    setPrices(data.map((item) => item.price))
-  }, [data])
+  const dates = useMemo(() => data.map((item) => item.date), [data])
+  const prices = useMemo(() => data.map((item) => item.price), [data])
 
-  // set chart color based on price change
   const priceChange = prices[prices.length - 1] - prices[0]
   const borderColor = priceChange > 0 ? '#4CAF50' : '#EF5350'
   const backgroundColor =
@@ -59,8 +57,7 @@ const StockChart = ({ data }: StockChartProps) => {
       },
     ],
   }
-  const options: any = {
-    type: 'line',
+  const options: ChartOptions<'line'> = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
@@ -71,8 +68,8 @@ const StockChart = ({ data }: StockChartProps) => {
         mode: 'index',
         intersect: false,
         callbacks: {
-          label: (context: any) => {
-            const price = context.raw.toFixed(2)
+          label: (context: TooltipItem<'line'>) => {
+            const price = (context.raw as number).toFixed(2)
             return `${price} USD`
           },
         },
