@@ -1,0 +1,6 @@
+# Copy this to terraform.tfvars and fill in your values.
+# terraform.tfvars is gitignored — never commit it.
+
+aws_region = "us-east-1"
+mongodb_uri = "mongodb+srv://user:password@cluster.mongodb.net/stockle"
+jwt_secret  = "your-jwt-secret-here"
