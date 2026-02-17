@@ -1,0 +1,8 @@
+# Terraform state (use remote backend instead)
+*.tfstate
+*.tfstate.backup
+.terraform/
+.terraform.lock.hcl
+
+# Secrets
+terraform.tfvars
