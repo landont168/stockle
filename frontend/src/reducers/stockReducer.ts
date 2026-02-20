@@ -5,6 +5,9 @@ import { AppDispatch } from '../store'
 
 const initialState: Stock[] = []
 
+const BILLION = 1000000000
+const MARKET_CAP_THRESHOLD = 25 * BILLION // $25B
+
 const stockSlice = createSlice({
   name: 'stocks',
   initialState,
@@ -20,7 +23,8 @@ export const { setStocks } = stockSlice.actions
 export const initializeStocks = () => {
   return async (dispatch: AppDispatch) => {
     const stocks = await stockService.getAll()
-    dispatch(setStocks(stocks))
+    const filteredStocks = stocks.filter((stock: Stock) => stock.marketCap > MARKET_CAP_THRESHOLD)
+    dispatch(setStocks(filteredStocks))
   }
 }
 
