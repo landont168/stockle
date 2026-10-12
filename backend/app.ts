@@ -24,6 +24,7 @@ mongoose
 
 // middleware
 app.use(cors())
+app.use(requestLogger)
 app.use(express.json())
 
 app.get('/health/live', (_request, response) => {
@@ -37,8 +38,6 @@ app.get('/health/ready', (_request, response) => {
 
   return response.status(503).json({ status: 'not ready' })
 })
-
-app.use(requestLogger)
 
 app.get('/', (req, res) => {
   res.send('Testing backend deployment...')
