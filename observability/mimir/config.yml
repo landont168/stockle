@@ -1,0 +1,41 @@
+# Single-process, local-filesystem configuration for the course only.
+target: all
+multitenancy_enabled: false
+
+server:
+  http_listen_port: 9009
+  log_level: warn
+
+common:
+  storage:
+    backend: filesystem
+    filesystem:
+      dir: /data/mimir/storage
+
+blocks_storage:
+  storage_prefix: blocks
+  tsdb:
+    dir: /data/mimir/tsdb
+  bucket_store:
+    sync_dir: /data/mimir/tsdb-sync
+
+compactor:
+  data_dir: /data/mimir/compactor
+
+ingester:
+  ring:
+    replication_factor: 1
+
+store_gateway:
+  sharding_ring:
+    replication_factor: 1
+
+ruler:
+  rule_path: /data/mimir/ruler
+
+limits:
+  compactor_blocks_retention_period: 72h
+  max_global_exemplars_per_user: 1000
+
+usage_stats:
+  enabled: false

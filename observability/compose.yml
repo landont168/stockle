@@ -1,0 +1,150 @@
+services:
+  backend:
+    environment:
+      NODE_ENV: development
+      LOG_LEVEL: info
+      OBSERVABILITY_DEMO_ENABLED: "true"
+      OTEL_SERVICE_NAME: stockle-backend
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://alloy:4318
+      OTEL_TRACES_SAMPLER: always_on
+      OTEL_SDK_DISABLED: "false"
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - fetch('http://localhost:4000/health/ready').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    depends_on:
+      alloy:
+        condition: service_healthy
+
+  grafana:
+    image: grafana/grafana:13.1.6
+    restart: unless-stopped
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_ANALYTICS_REPORTING_ENABLED: "false"
+      GF_ANALYTICS_CHECK_FOR_UPDATES: "false"
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./observability/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources:ro
+    ports:
+      - "127.0.0.1:3000:3000"
+    networks:
+      - stockle-app
+    depends_on:
+      loki:
+        condition: service_healthy
+      tempo:
+        condition: service_healthy
+      mimir:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:3000/api/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+
+  loki:
+    image: grafana/loki:3.7.8
+    restart: unless-stopped
+    command: -config.file=/etc/loki/config.yml
+    volumes:
+      - loki-data:/loki
+      - ./observability/loki/config.yml:/etc/loki/config.yml:ro
+    ports:
+      - "127.0.0.1:3100:3100"
+    networks:
+      - stockle-app
+    healthcheck:
+      # Loki's image is distroless, so the host-side health script checks /ready.
+      test: ["CMD", "/usr/bin/loki", "-version"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
+
+  tempo:
+    image: grafana/tempo:3.1.0
+    restart: unless-stopped
+    command: -config.file=/etc/tempo/config.yml
+    volumes:
+      - tempo-data:/var/tempo
+      - ./observability/tempo/config.yml:/etc/tempo/config.yml:ro
+    ports:
+      - "127.0.0.1:3200:3200"
+    networks:
+      - stockle-app
+    healthcheck:
+      # Tempo's image is distroless, so the host-side health script checks /ready.
+      test: ["CMD", "/tempo", "-version"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
+
+  mimir:
+    image: grafana/mimir:3.2.1
+    restart: unless-stopped
+    command: -config.file=/etc/mimir/config.yml
+    volumes:
+      - mimir-data:/data/mimir
+      - ./observability/mimir/config.yml:/etc/mimir/config.yml:ro
+    ports:
+      - "127.0.0.1:9009:9009"
+    networks:
+      - stockle-app
+    healthcheck:
+      # Mimir's image is distroless, so the host-side health script checks /ready.
+      test: ["CMD", "/bin/mimir", "-version"]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+      start_period: 30s
+
+  alloy:
+    image: grafana/alloy:v1.20.1
+    restart: unless-stopped
+    command:
+      - run
+      - --server.http.listen-addr=0.0.0.0:12345
+      - --storage.path=/var/lib/alloy/data
+      - /etc/alloy/config.alloy
+    volumes:
+      - alloy-data:/var/lib/alloy/data
+      - ./observability/alloy/config.alloy:/etc/alloy/config.alloy:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - "127.0.0.1:12345:12345"
+      - "127.0.0.1:4317:4317"
+      - "127.0.0.1:4318:4318"
+    networks:
+      - stockle-app
+    depends_on:
+      loki:
+        condition: service_healthy
+      tempo:
+        condition: service_healthy
+      mimir:
+        condition: service_healthy
+    healthcheck:
+      # Alloy's image is distroless, so the host-side health script checks /-/ready.
+      test: ["CMD", "/bin/alloy", "--version"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
+
+volumes:
+  grafana-data:
+  loki-data:
+  tempo-data:
+  mimir-data:
+  alloy-data:

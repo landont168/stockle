@@ -8,10 +8,9 @@ export interface RequestWithUser extends Request {
 }
 
 const requestLogger = (request: Request, _: Response, next: NextFunction) => {
-  console.log('Method:', request.method)
-  console.log('Path:  ', request.path)
-  console.log('Body:  ', request.body)
-  console.log('---')
+  // Deliberately plain for the logging lab. Never log bodies or headers here:
+  // login and signup requests contain passwords and authorization tokens.
+  console.log(`${request.method} ${request.path}`)
   next()
 }
 
@@ -20,6 +19,8 @@ const unknownEndpoint = (_: Request, response: Response) => {
 }
 
 const errorHandler = (error: Error, _: Request, response: Response, next: NextFunction) => {
+  console.error(`Request failed: ${error.name}`)
+
   if (error.name === 'CastError') {
     return response.status(400).send({ error: 'malformatted id' })
   } else if (error.name === 'ValidationError') {
@@ -37,6 +38,8 @@ const errorHandler = (error: Error, _: Request, response: Response, next: NextFu
     return response.status(401).json({
       error: 'token expired',
     })
+  } else if (error.name === 'DiagnosticError') {
+    return response.status(500).json({ error: 'intentional diagnostic failure' })
   }
   next(error)
 }
