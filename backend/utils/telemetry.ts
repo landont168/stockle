@@ -1,5 +1,9 @@
-import { metrics } from '@opentelemetry/api'
+import { metrics, SpanStatusCode, trace } from '@opentelemetry/api'
 import { OTLPMetricExporter } from '@opentelemetry/exporter-metrics-otlp-http'
+import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http'
+import { ExpressInstrumentation } from '@opentelemetry/instrumentation-express'
+import { HttpInstrumentation } from '@opentelemetry/instrumentation-http'
+import { MongoDBInstrumentation } from '@opentelemetry/instrumentation-mongodb'
 import { resourceFromAttributes } from '@opentelemetry/resources'
 import { NodeSDK } from '@opentelemetry/sdk-node'
 import { AggregationType, PeriodicExportingMetricReader } from '@opentelemetry/sdk-metrics'
@@ -14,6 +18,10 @@ const metricExporter = new OTLPMetricExporter({
   url: `${otlpEndpoint}/v1/metrics`,
 })
 
+const traceExporter = new OTLPTraceExporter({
+  url: `${otlpEndpoint}/v1/traces`,
+})
+
 // OTLP metrics are exported every 5 seconds
 const metricReader = new PeriodicExportingMetricReader({
   exporter: metricExporter,
@@ -26,6 +34,13 @@ const sdk = new NodeSDK({
     [ATTR_SERVICE_NAME]: serviceName,
   }),
   metricReaders: [metricReader],
+  traceExporter,
+  instrumentations: [
+    new HttpInstrumentation(),
+    new ExpressInstrumentation(),
+    // Query values are intentionally excluded to avoid collecting user data.
+    new MongoDBInstrumentation({ enhancedDatabaseReporting: false }),
+  ],
   views: [
     {
       instrumentName: 'stockle.http.request.duration.seconds',
@@ -45,6 +60,7 @@ if (telemetryEnabled) {
 }
 
 const meter = metrics.getMeter(serviceName)
+const tracer = trace.getTracer(serviceName)
 
 // Mimir 3.2 keeps incoming OTLP names verbatim apart from replacing dots.
 // Include Prometheus suffixes explicitly so the query contract stays stable.
@@ -89,6 +105,38 @@ export const recordHttpRequest = ({
 export const recordCompletedGame = (won: boolean) => {
   gamesCompleted.add(1, { outcome: won ? 'win' : 'loss' })
 }
+
+export const traceGameResultUpdate = async <T>(
+  won: boolean,
+  update: () => Promise<T>,
+): Promise<T> => tracer.startActiveSpan(
+  'stockle.game_result.update',
+  {
+    attributes: {
+      'stockle.game.outcome': won ? 'win' : 'loss',
+    },
+  },
+  async (span) => {
+    try {
+      const result = await update()
+      span.setStatus({ code: SpanStatusCode.OK })
+      return result
+    } catch (error) {
+      span.setStatus({
+        code: SpanStatusCode.ERROR,
+        message: error instanceof Error ? error.message : 'Game result update failed',
+      })
+
+      if (error instanceof Error) {
+        span.recordException(error)
+      }
+
+      throw error
+    } finally {
+      span.end()
+    }
+  },
+)
 
 export const shutdownTelemetry = async () => {
   if (telemetryEnabled) {
