@@ -4,12 +4,27 @@ import { randomUUID } from 'crypto'
 import jwt from 'jsonwebtoken'
 import User from '../models/user'
 import logger from './logger'
+import { recordHttpRequest } from './telemetry'
 
 export interface RequestWithUser extends Request {
   user: UserType
 }
 
 const REQUEST_ID_PATTERN = /^[A-Za-z0-9._:-]{1,128}$/
+
+const normalizedRoute = (request: Request) => {
+  const routePath = request.route?.path
+
+  if (typeof routePath !== 'string') {
+    return 'unmatched'
+  }
+
+  if (routePath === '/') {
+    return request.baseUrl || '/'
+  }
+
+  return `${request.baseUrl}${routePath}`
+}
 
 const requestLogger = (request: Request, response: Response, next: NextFunction) => {
   // incoming request validation
@@ -31,6 +46,7 @@ const requestLogger = (request: Request, response: Response, next: NextFunction)
   // log request upon completion event
   response.once('finish', () => {
     const durationMs = Number(process.hrtime.bigint() - startedAt) / 1_000_000
+    const route = normalizedRoute(request)
 
     requestLog.info({
       method: request.method,
@@ -38,6 +54,20 @@ const requestLogger = (request: Request, response: Response, next: NextFunction)
       status: response.statusCode,
       duration_ms: Number(durationMs.toFixed(3)),
     }, 'request completed')
+
+    // record request metrics
+    try {
+      recordHttpRequest({
+        method: request.method,
+        route,
+        statusCode: response.statusCode,
+        durationSeconds: durationMs / 1_000,
+      })
+    } catch (error) {
+      requestLog.warn({
+        error_type: error instanceof Error ? error.name : 'UnknownError',
+      }, 'failed to record request metrics')
+    }
   })
 
   next()
