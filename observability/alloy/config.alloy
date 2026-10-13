@@ -1,0 +1,91 @@
+logging {
+	level  = "info"
+	format = "logfmt"
+}
+
+livedebugging {
+	enabled = true
+}
+
+// The application will begin sending OTLP data during the metrics and traces labs.
+otelcol.receiver.otlp "stockle" {
+	grpc {
+		endpoint = "0.0.0.0:4317"
+	}
+
+	http {
+		endpoint = "0.0.0.0:4318"
+	}
+
+	output {
+		metrics = [otelcol.processor.batch.stockle.input]
+		traces  = [otelcol.processor.batch.stockle.input]
+	}
+}
+
+otelcol.processor.batch "stockle" {
+	output {
+		metrics = [otelcol.exporter.otlphttp.mimir.input]
+		traces  = [otelcol.exporter.otlphttp.tempo.input]
+	}
+}
+
+otelcol.exporter.otlphttp "mimir" {
+	client {
+		endpoint = "http://mimir:9009/otlp"
+	}
+}
+
+otelcol.exporter.otlphttp "tempo" {
+	client {
+		endpoint = "http://tempo:4318"
+	}
+}
+
+// Baseline logs are intentionally plain text. Lab 2 changes the application to JSON.
+discovery.docker "stockle" {
+	host             = "unix:///var/run/docker.sock"
+	refresh_interval = "5s"
+
+	filter {
+		name   = "label"
+		values = ["com.docker.compose.project=stockle"]
+	}
+
+	filter {
+		name   = "label"
+		values = ["com.docker.compose.service=backend"]
+	}
+}
+
+discovery.relabel "stockle" {
+	targets = discovery.docker.stockle.targets
+
+	rule {
+		target_label = "service_name"
+		replacement  = "stockle-backend"
+	}
+
+	rule {
+		target_label = "environment"
+		replacement  = "development"
+	}
+
+	rule {
+		source_labels = ["__meta_docker_container_name"]
+		regex         = "/(.*)"
+		target_label  = "container"
+	}
+}
+
+loki.source.docker "stockle" {
+	host       = "unix:///var/run/docker.sock"
+	targets    = discovery.relabel.stockle.output
+	forward_to = [loki.write.stockle.receiver]
+}
+
+loki.write "stockle" {
+	endpoint {
+		url = "http://loki:3100/loki/api/v1/push"
+	}
+}

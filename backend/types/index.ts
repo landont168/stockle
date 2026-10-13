@@ -55,4 +55,6 @@ export interface Config {
     MONGODB_URI: string
     PORT: string
     SECRET: string
+    NODE_ENV: string
+    OBSERVABILITY_DEMO_ENABLED: boolean
 }

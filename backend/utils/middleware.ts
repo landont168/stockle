@@ -1,17 +1,75 @@
 import { Request, Response, NextFunction } from 'express'
 import { User as UserType } from '../types'
+import { randomUUID } from 'crypto'
 import jwt from 'jsonwebtoken'
 import User from '../models/user'
+import logger from './logger'
+import { recordHttpRequest } from './telemetry'
 
 export interface RequestWithUser extends Request {
   user: UserType
 }
 
-const requestLogger = (request: Request, _: Response, next: NextFunction) => {
-  console.log('Method:', request.method)
-  console.log('Path:  ', request.path)
-  console.log('Body:  ', request.body)
-  console.log('---')
+const REQUEST_ID_PATTERN = /^[A-Za-z0-9._:-]{1,128}$/
+
+const normalizedRoute = (request: Request) => {
+  const routePath = request.route?.path
+
+  if (typeof routePath !== 'string') {
+    return 'unmatched'
+  }
+
+  if (routePath === '/') {
+    return request.baseUrl || '/'
+  }
+
+  return `${request.baseUrl}${routePath}`
+}
+
+const requestLogger = (request: Request, response: Response, next: NextFunction) => {
+  // incoming request validation
+  const incomingRequestId = request.get('x-request-id')
+  const requestId = incomingRequestId && REQUEST_ID_PATTERN.test(incomingRequestId)
+    ? incomingRequestId
+    : randomUUID()
+  
+  // create middleware request context
+  const requestPath = request.path
+  const startedAt = process.hrtime.bigint()
+  const requestLog = logger.child({ request_id: requestId })
+
+  // attach request context to response
+  response.setHeader('x-request-id', requestId)
+  response.locals.requestId = requestId
+  response.locals.log = requestLog
+
+  // log request upon completion event
+  response.once('finish', () => {
+    const durationMs = Number(process.hrtime.bigint() - startedAt) / 1_000_000
+    const route = normalizedRoute(request)
+
+    requestLog.info({
+      method: request.method,
+      path: requestPath,
+      status: response.statusCode,
+      duration_ms: Number(durationMs.toFixed(3)),
+    }, 'request completed')
+
+    // record request metrics
+    try {
+      recordHttpRequest({
+        method: request.method,
+        route,
+        statusCode: response.statusCode,
+        durationSeconds: durationMs / 1_000,
+      })
+    } catch (error) {
+      requestLog.warn({
+        error_type: error instanceof Error ? error.name : 'UnknownError',
+      }, 'failed to record request metrics')
+    }
+  })
+
   next()
 }
 
@@ -20,6 +78,12 @@ const unknownEndpoint = (_: Request, response: Response) => {
 }
 
 const errorHandler = (error: Error, _: Request, response: Response, next: NextFunction) => {
+  const requestLog = response.locals.log ?? logger.child({
+    request_id: response.locals.requestId ?? 'unknown',
+  })
+
+  requestLog.error({ error_type: error.name }, 'request failed')
+
   if (error.name === 'CastError') {
     return response.status(400).send({ error: 'malformatted id' })
   } else if (error.name === 'ValidationError') {
@@ -37,6 +101,8 @@ const errorHandler = (error: Error, _: Request, response: Response, next: NextFu
     return response.status(401).json({
       error: 'token expired',
     })
+  } else if (error.name === 'DiagnosticError') {
+    return response.status(500).json({ error: 'intentional diagnostic failure' })
   }
   next(error)
 }

@@ -23,6 +23,8 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     restart: unless-stopped
+    environment:
+      API_PROXY_TARGET: http://backend:4000
     volumes:
       - ./frontend:/app
       - /app/node_modules

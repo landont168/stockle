@@ -3,6 +3,7 @@ import { User as UserType, UserRegister, ErrorResponse, UserLogin, GameResult } 
 import bcrypt from 'bcrypt'
 import User from '../models/user'
 import { userExtractor, RequestWithUser } from '../utils/middleware'
+import { recordCompletedGame, traceGameResultUpdate } from '../utils/telemetry'
 
 const usersRouter = Router()
 
@@ -69,9 +70,10 @@ usersRouter.put('/:id', userExtractor, async (request: Request<{ id: string }, o
       : user.guessDistribution,
   }
   // update user stats in db
-  await User.findByIdAndUpdate(user.id, updatedFields, {
+  await traceGameResultUpdate(won, () => User.findByIdAndUpdate(user.id, updatedFields, {
     new: true,
-  })
+  }).exec())
+  recordCompletedGame(won)
 
   // format user object to send back to client
   const token = request.headers['authorization']?.split(' ')[1] || ''
